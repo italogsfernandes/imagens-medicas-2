@@ -62,12 +62,11 @@ function [outputImage] = idealLowPass(inputImage, radius, plotResult)
         subplot (2,2,2);
         imshow (log(1+abs(DFTC)) , [3, 10]); 
         title 'Input Image FFT'
-        im2 = subplot (2,2,3);
+        subplot (2,2,3);
         imshow (outputImage); 
         title 'Output Image'
         subplot (2,2,4);
         imshow (log(1+abs(GC)) , [3, 10]); 
         title 'Output Image FFT'
-        linkaxes([im1,im2],'xy')
     end
 end
