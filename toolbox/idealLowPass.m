@@ -8,7 +8,7 @@
 %   Ideal low pass filter. Takes a image and the mask radius and
 %   oupts the filtered image in same type
 %
-%   [outputImage] = idealLowPass(inputImage, radius, verbose) 
+%   [outputImage] = idealLowPass(inputImage, radius, plotResult) 
 %   
 %   Parameters
 %       inputImage: input image (any type)

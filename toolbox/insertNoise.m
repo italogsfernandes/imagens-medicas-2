@@ -8,7 +8,7 @@
 %   Ideal high pass filter. Takes a image and the mask radius and
 %   oupts the filtered image in same type
 % 
-%   [outputImage] = idealHighPass(inputImage, radius, verbose) 
+%   [outputImage] = idealHighPass(inputImage, radius, plotResult) 
 %   
 %   Parameters
 %       inputImage: Input image (any type)
