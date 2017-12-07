@@ -3,42 +3,38 @@
 %   December 2017
 %   Use it as you please. If we meet some day, and you think
 %   this stuff was helpful, you can buy me a beer
-%   Shout out to professor Ana Claudia, for the inspiring code
 %
-%   Ideal low pass filter. Takes a image and the mask radius and
+%   Butterworth filter. Takes an image and the mask radius and
 %   oupts the filtered image in same type
 %
-%   [outputImage] = idealLowPass(inputImage, radius, verbose) 
+%   [outputImage] = butterworhtFilter(inputImage,type,radius,order,plotResult) 
 %   
 %   Parameters
-%       inputImage: input image (any type)
-%       radius: radius of ideal filter
-%       plotResult: 'yes' or 'no'. Plot input and output images with
+%       inputImage------: input image (any type)
+%       type------------: 'low' for low-pass or 'high' for high-pass
+%       radius----------: filter radius
+%       order-----------: radius of ideal filter
+%       plotResult------: 'yes' or 'no'. Plot input and output images with
 %       respective frequency spectrogram
 % 
 %   Outputs
-%       outputImage: output image (same type as inputImage)
+%       outputImage------: output image (same type as inputImage)
 %
 
-function [outputImage] = idealLowPass(inputImage, radius, plotResult)    
+function [outputImage] = butterworthFilter(inputImage,type, radius,...
+                                            order,plotResult)
     [rows, cols] = size (inputImage);
     if radius > min(rows,cols)
         radius = min(rows,cols);
-    end      
-    mask = zeros(rows,cols);
-    %'Drawing' a circle
-    radius = radius^2;  
-    centerX = rows/2;
-    centerY = cols/2;
-    for i = 1 : rows
-        for j = 1 : cols
-            dx = i - centerX;
-            dx = dx^2;
-            dy = j - centerY;
-            dy = dy^2;
-            mask(i, j) = dx + dy <= radius;
-        end;
-    end;    
+    end
+    [x,y] = meshgrid(-floor(cols/2):floor(cols-1)/2, ...
+                     -floor(rows/2):floor(rows-1)/2);
+	%Butterworth transfer function
+    if strcmp(type,'high')
+        mask = 1./(1.+((radius./(x.^2+y.^2).^0.5).^(2*order)));
+    elseif strcmp(type,'low')
+        mask = 1./(1.+(((x.^2+y.^2).^0.5./radius).^(2*order)));
+    end
 
     DFT  = fft2(inputImage);
     DFTC = fftshift(DFT);    
@@ -46,7 +42,7 @@ function [outputImage] = idealLowPass(inputImage, radius, plotResult)
     G = ifftshift(GC);
     outputImage = real(ifft2(G));
     %Same type guaranteed
-    outputImage = cast(outputImage,class(inputImage));
+    outputImage = cast(outputImage,class(inputImage));    
     
     if ~exist('plotResult','var')
         plotResult = 'no';
@@ -62,11 +58,13 @@ function [outputImage] = idealLowPass(inputImage, radius, plotResult)
         subplot (2,2,2);
         imshow (log(1+abs(DFTC)) , [3, 10]); 
         title 'Input Image FFT'
-        subplot (2,2,3);
+        im2 = subplot (2,2,3);
         imshow (outputImage); 
         title 'Output Image'
         subplot (2,2,4);
         imshow (log(1+abs(GC)) , [3, 10]); 
         title 'Output Image FFT'
+        linkaxes([im1,im2],'xy')
     end
 end
+

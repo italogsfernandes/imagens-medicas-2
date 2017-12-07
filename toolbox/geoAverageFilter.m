@@ -12,7 +12,7 @@
 %   
 %   Parameters
 %       inputImage: input image (any type)
-%       windowSize: radius of ideal filter
+%       windowSize: mask size
 %       plotResult: 'yes' or 'no'. Plot input and output images with
 %       respective frequency spectrogram
 % 

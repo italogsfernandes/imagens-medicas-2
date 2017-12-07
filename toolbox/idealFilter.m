@@ -5,13 +5,14 @@
 %   this stuff was helpful, you can buy me a beer
 %   Shout out to professor Ana Claudia, for the inspiring code
 %
-%   Ideal high pass filter. Takes a image and the mask radius and
+%   Ideal low pass filter. Takes an image and the mask radius and
 %   oupts the filtered image in same type
 %
-%   [outputImage] = idealHighPass(inputImage, radius, plotResult) 
+%   [outputImage] = idealFilter(inputImage, type, radius, plotResult) 
 %   
 %   Parameters
 %       inputImage: input image (any type)
+%       type: 'low' for low-pass or 'high' for high-pass
 %       radius: radius of ideal filter
 %       plotResult: 'yes' or 'no'. Plot input and output images with
 %       respective frequency spectrogram
@@ -20,7 +21,7 @@
 %       outputImage: output image (same type as inputImage)
 %
 
-function [outputImage] = idealHighPass(inputImage, radius, plotResult)    
+function [outputImage] = idealFilter(inputImage, type, radius, plotResult)    
     [rows, cols] = size (inputImage);
     if radius > min(rows,cols)
         radius = min(rows,cols);
@@ -36,10 +37,14 @@ function [outputImage] = idealHighPass(inputImage, radius, plotResult)
             dx = dx^2;
             dy = j - centerY;
             dy = dy^2;
-            mask(i, j) = dx + dy >= radius;
+            if strcpm(type,'low')
+                mask(i, j) = dx + dy <= radius;
+            elseif strcpm(type,'high')
+                mask(i, j) = dx + dy >= radius;
+            end
         end;
     end;    
-    %Calculating FFT 
+
     DFT  = fft2(inputImage);
     DFTC = fftshift(DFT);    
     GC = mask .* DFTC;

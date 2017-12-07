@@ -5,8 +5,8 @@
 %   this stuff was helpful, you can buy me a beer
 %   Shout out to professor Ana Claudia, for the inspiring code
 % 
-%   Ideal high pass filter. Takes a image and the mask radius and
-%   oupts the filtered image in same type
+%   Ideal high pass filter. Takes in an image and a mask size and
+%   oupts the filtered image in same type as original one
 % 
 %   [outputImage] = idealHighPass(inputImage, radius, plotResult) 
 %   
@@ -26,6 +26,13 @@
 %   Outputs
 %       outputImage: output image (same type as inputImage)
 %
+%   Use example:
+%       Insert 2% of noise in the image, (1% salt and 1% pepper)
+%          outputImage = insertNoise(inputImage, 'SaltAndPepper', 'yes',{0.01});
+% 
+%       By default, insert 10% of noise in the image, (5% salt and 5% pepper)
+%          outputImage = insertNoise(inputImage, 'SaltAndPepper');
+%
 
 function [outputImage] = insertNoise(inputImage, noiseType, plotResult, par)
     %Same type guaranteed
@@ -36,49 +43,73 @@ function [outputImage] = insertNoise(inputImage, noiseType, plotResult, par)
            if ~exist('par','var')
                par = {0,80};
            end
-           uniformNoise = unifrnd(par{1},par{2},size(inputImage));
-           outputImage = inputImage + uniformNoise;
+           try
+               uniformNoise = unifrnd(par{1},par{2},size(inputImage));
+               outputImage = inputImage + uniformNoise;
+           catch
+               disp('Invalid noise parameters');
+           end
            
        case 'Gaussian'
            if ~exist('par','var')
                par = {5,30};
            end
-           gaussianNoise = normrnd(par{1},par{2},size(inputImage));
-           outputImage = inputImage + gaussianNoise;
+           try
+               gaussianNoise = normrnd(par{1},par{2},size(inputImage));
+               outputImage = inputImage + gaussianNoise;
+           catch
+               disp('Invalid noise parameters');
+           end
 
        case 'Rayleight'
            if ~exist('par','var')
                par = {20};
            end
-           rayleightNoise = raylrnd(par{1},size(inputImage));
-           outputImage = inputImage + rayleightNoise;
+           try
+               rayleightNoise = raylrnd(par{1},size(inputImage));
+               outputImage = inputImage + rayleightNoise;
+           catch
+               disp('Invalid noise parameters');
+           end
            
        case 'Exponential'
            if ~exist('par','var')
                par = {5};
            end
-           exponentialNoise = exprnd(par{1},size(inputImage));
-           outputImage = inputImage + exponentialNoise;
-          
+           try
+               exponentialNoise = exprnd(par{1},size(inputImage));
+               outputImage = inputImage + exponentialNoise;
+           catch
+               disp('Invalid noise parameters');
+           end
+           
        case 'Gamma'
            if ~exist('par','var')
                par = {1,8};
            end
-           gammalNoise = gamrnd(par{1},par{2},size(inputImage));
-           outputImage = inputImage + gammalNoise;
+           try
+               gammalNoise = gamrnd(par{1},par{2},size(inputImage));
+               outputImage = inputImage + gammalNoise;
+           catch
+               disp('Invalid noise parameters');
+           end           
            
        case 'SaltAndPepper'
            if ~exist('par','var')
                par = {0.05};
            end
-           SaltAndPepperNoise = rand(size(inputImage));
-           pepperProportion = par{1};
-           saltProportion = 1 - pepperProportion;
-           pepper = find(SaltAndPepperNoise <= pepperProportion);
-           outputImage(pepper) = 0;
-           salt = find(SaltAndPepperNoise >= saltProportion);
-           %Max value of variable type
-           outputImage(salt) = intmax(class(inputImage));
+           try
+               SaltAndPepperNoise = rand(size(inputImage));
+               pepperProportion = par{1};
+               saltProportion = 1 - pepperProportion;
+               pepper = find(SaltAndPepperNoise <= pepperProportion);
+               outputImage(pepper) = 0;
+               salt = find(SaltAndPepperNoise >= saltProportion);
+               %Max value of variable type
+               outputImage(salt) = intmax(class(inputImage));
+           catch
+               disp('Invalid noise parameters');
+           end  
  
        otherwise
           disp('Not valid type');
