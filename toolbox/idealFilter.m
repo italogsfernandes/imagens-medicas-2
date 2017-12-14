@@ -37,9 +37,9 @@ function [outputImage] = idealFilter(inputImage, type, radius, plotResult)
             dx = dx^2;
             dy = j - centerY;
             dy = dy^2;
-            if strcpm(type,'low')
+            if strcmp(type,'low')
                 mask(i, j) = dx + dy <= radius;
-            elseif strcpm(type,'high')
+            elseif strcmp(type,'high')
                 mask(i, j) = dx + dy >= radius;
             end
         end;

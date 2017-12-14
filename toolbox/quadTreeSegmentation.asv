@@ -4,16 +4,13 @@
 %   Use it as you please. If we meet some day, and you think
 %   this stuff was helpful, you can buy me a beer
 %
-%   Butterworth filter. Takes an image and the mask radius and
-%   oupts the filtered image in same type
+%    quadTreeSegmentation performs a tree segmentation on input image. Tree
+%    segmentation segments the input image in squares with similar pixels
 %
-%   [outputImage] = butterworhtFilter(inputImage,type,radius,order,plotResult) 
+%   [outputImage] = quadTreeSegmentation(inputImage,plotResult) 
 %   
 %   Parameters
 %       inputImage------: input image (any type)
-%       type------------: 'low' for low-pass or 'high' for high-pass
-%       radius----------: filter radius
-%       order-----------: radius of ideal filter
 %       plotResult------: 'yes' or 'no'. Plot input and output images with
 %       respective frequency spectrogram
 % 
@@ -47,17 +44,24 @@ function [outputImage] = quadTreeSegmentation(inputImage,plotResult)
         inputImage = inputImage(:,1:end-1); 
     end
     %at this point, the image is a square
-    r = rem(sqrt(length(inputImage)),2);    
+    r = rem(sqrt(length(inputImage)),2);
+    %if not a perfect square
     if r ~= 0
-        toPad = abs(nextpow2(length(inputImage)) - length(inputImage));
-        padding = zeros(round(toPad/2),cols);
+        toPad = abs(pow2(nextpow2(length(inputImage))) - length(inputImage));
+        padding = zeros(round(toPad/2),length(inputImage));
         inputImage = [padding;inputImage;padding];
+        padding = zeros(length(inputImage),round(toPad/2));
         inputImage = [padding,inputImage,padding];        
     end
     
-    qtdecomp(inputImage,.27);
+    %So, I belive this code will run for every image size
+    
+    S = qtdecomp(inputImage);
     outputImage = repmat(uint8(0),size(S));
-
+    
+    %potential problem: what if the image is really big, like over 9000
+    %generate an array with all pow2. Challenge proposed!
+    %hint: pow2(length(inputImage))-1 recursively will do it
     for dim = [512 256 128 64 32 16 8 4 2 1];    
       numblocks = length(find(S==dim));    
       if (numblocks > 0)        
@@ -74,22 +78,13 @@ function [outputImage] = quadTreeSegmentation(inputImage,plotResult)
         plotResult = 'no';
     end
     if strcmp(plotResult,'yes')
-        figure()
-        imshow(mask)
-        title 'Mask used'
         figure ();
-        im1 = subplot (2,2,1);
+        im1 = subplot (1,2,1);
         imshow (inputImage);
         title 'Input Image'
-        subplot (2,2,2);
-        imshow (log(1+abs(DFTC)) , [3, 10]); 
-        title 'Input Image FFT'
-        im2 = subplot (2,2,3);
-        imshow (outputImage); 
-        title 'Output Image'
-        subplot (2,2,4);
-        imshow (log(1+abs(GC)) , [3, 10]); 
-        title 'Output Image FFT'
+        im2 = subplot (1,2,2);
+        imshow(outputImage,[]);
+        title 'Output Image' 
         linkaxes([im1,im2],'xy')
     end
 end
