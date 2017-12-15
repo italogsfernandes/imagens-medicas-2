@@ -18,7 +18,7 @@
 %       outputImage-----: output image (same type as inputImage)
 %
 
-function [outputImage] = quadTreeSegmentation(inputImage,plotResult)
+function [outputImage] = quadTreeSegmentation(inputImage,threshold,plotResult)
 
     %This is really bad implementation, but in order to do quadtree
     %segmentation, one must assure that the image is a power of 2. So... if
@@ -48,15 +48,20 @@ function [outputImage] = quadTreeSegmentation(inputImage,plotResult)
     %if not a perfect square
     if r ~= 0
         toPad = abs(pow2(nextpow2(length(inputImage))) - length(inputImage));
-        padding = zeros(round(toPad/2),length(inputImage));
+        padding = zeros(ceil(toPad/2),length(inputImage));
         inputImage = [padding;inputImage;padding];
-        padding = zeros(length(inputImage),round(toPad/2));
-        inputImage = [padding,inputImage,padding];        
+        padding = zeros(length(inputImage),ceil(toPad/2));
+        inputImage = [padding,inputImage,padding];
+        %triming excess
+        [rows, cols] = size (inputImage);
+        if rem(rows,2) ~= 0
+            inputImage = inputImage(1:end-1,1:end-1);
+        end
     end
     
     %So, I belive this code will run for every image size
     
-    S = qtdecomp(inputImage);
+    S = qtdecomp(inputImage,threshold);
     outputImage = repmat(uint8(0),size(S));
     
     %potential problem: what if the image is really big, like over 9000

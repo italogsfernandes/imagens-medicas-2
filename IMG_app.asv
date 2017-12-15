@@ -22,7 +22,7 @@ function varargout = IMG_app(varargin)
 
 % Edit the above text to modify the response to help IMG_app
 
-% Last Modified by GUIDE v2.5 14-Dec-2017 11:42:36
+% Last Modified by GUIDE v2.5 15-Dec-2017 16:20:19
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -51,10 +51,16 @@ function IMG_app_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to IMG_app (see VARARGIN)
-
+global raio ordem tipo plotResult limiar mascara seeds;
 % Choose default command line output for IMG_app
 handles.output = hObject;
-
+raio = str2double(handles.text_raio.String);
+ordem = str2double(handles.text_ordem.String);
+tipo = 'low';
+plotResult = 'yes';
+limiar = 0.27;
+mascara = 9;
+seeds = [];
 % Update handles structure
 guidata(hObject, handles);
 
@@ -82,6 +88,7 @@ axes(handles.axes_output);
 imshow(imagemSaida);
 axes(handles.axes_input);
 imshow(imagemSaida);
+linkaxes([handles.axes_input,handles.axes_output],'xy')
 
 % --- Executes on button press in button_resetar.
 function button_resetar_Callback(hObject, eventdata, handles)
@@ -107,7 +114,7 @@ function checkbox_butter_Callback(hObject, eventdata, handles)
 global tipo imagemSaida raio ordem plotResult;
 % Hint: get(hObject,'Value') returns toggle state of checkbox_passaBaixa
 if get(hObject,'Value')
-    [imagemSaida] = butterworhtFilter(imagemSaida,tipo,raio,ordem,plotResult); 
+    [imagemSaida] = butterworthFilter(imagemSaida,tipo,raio,ordem,plotResult); 
     axes(handles.axes_output);
     imshow(imagemSaida);
 end
@@ -130,10 +137,10 @@ function checkbox_passaAlta_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_passaAlta (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global passa;
+global tipo;
 % Hint: get(hObject,'Value') returns toggle state of checkbox_passaBaixa
 if get(hObject,'Value')
-    passa = 'high';
+    tipo = 'high';
 end
 
 % --- Executes on button press in checkbox_passaBaixa.
@@ -141,10 +148,10 @@ function checkbox_passaBaixa_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_passaBaixa (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global passa;
+global tipo;
 % Hint: get(hObject,'Value') returns toggle state of checkbox_passaBaixa
 if get(hObject,'Value')
-    passa = 0;
+    tipo = 'low';
 end
 
 
@@ -154,8 +161,7 @@ function text_raio_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global raio;
 % raio = get(hObject,'String');
-raio = str2double(get(hObject,'String'));
-
+raio = str2double(handles.text_raio.String);
 
 % --- Executes during object creation, after setting all properties.
 function text_raio_CreateFcn(hObject, eventdata, handles)
@@ -175,63 +181,90 @@ function checkbox_media_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_media (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+global  imagemSaida plotResult mascara;
 % Hint: get(hObject,'Value') returns toggle state of checkbox_media
-
-
+[imagemSaida] = averageFilter(imagemSaida, mascara,plotResult); 
+axes(handles.axes_output);
+imshow(imagemSaida);
+    
 % --- Executes on button press in checkbox_max.
 function checkbox_max_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_max (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+global  imagemSaida plotResult mascara;
 % Hint: get(hObject,'Value') returns toggle state of checkbox_max
-
+[imagemSaida] = maximumFilter(imagemSaida, mascara,plotResult); 
+axes(handles.axes_output);
+imshow(imagemSaida);
 
 % --- Executes on button press in checkbox_mediana.
 function checkbox_mediana_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_mediana (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of checkbox_mediana
-
+global  imagemSaida plotResult mascara;
+% Hint: get(hObject,'Value') returns toggle state of checkbox_max
+[imagemSaida] = medianFilter(imagemSaida, mascara,plotResult); 
+axes(handles.axes_output);
+imshow(imagemSaida);
 
 % --- Executes on button press in checkbox_medGeo.
 function checkbox_medGeo_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_medGeo (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of checkbox_medGeo
-
+global  imagemSaida plotResult mascara;
+% Hint: get(hObject,'Value') returns toggle state of checkbox_max
+[imagemSaida] = geoAverageFilter(imagemSaida, mascara,plotResult); 
+axes(handles.axes_output);
+imshow(imagemSaida);
 
 % --- Executes on button press in checkbox_min.
 function checkbox_min_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_min (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
-% Hint: get(hObject,'Value') returns toggle state of checkbox_min
-
+global  imagemSaida plotResult mascara;
+% Hint: get(hObject,'Value') returns toggle state of checkbox_max
+[imagemSaida] = minimumFilter(imagemSaida, mascara,plotResult); 
+axes(handles.axes_output);
+imshow(imagemSaida);
 
 % --- Executes on button press in checkbox_sementes.
 function checkbox_sementes_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_sementes (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+global seeds seedsInv imagemSaida imagemMarcada;
 % Hint: get(hObject,'Value') returns toggle state of checkbox_sementes
-
+p = ginput(1);
+y = round(axes2pix(size(imagemSaida, 2), get(handles.axes_input.Children, 'XData'), p(2)));
+x = round(axes2pix(size(imagemSaida, 1), get(handles.axes_input.Children, 'YData'), p(1)));
+seeds = [seeds x y];
+disp('xablaus');
+imagemMarcada = insertMarker(handles.axes_input.Children.CData,seeds);
+% inverte para proxima funcao
+seedsInv = [seedsInv y x];
+axes(handles.axes_output);
+imshow(imagemMarcada);
 
 % --- Executes on button press in checkbox_crescimento.
 function checkbox_crescimento_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_crescimento (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+global seeds seedsInv imagemSaida imagemMarcada limiar;
 % Hint: get(hObject,'Value') returns toggle state of checkbox_crescimento
-
+limiarCrescimento = round(limiar*255);
+% imagemMarcada = handles.axes_input.Children.CData;
+for i=1:size(seedsInv,1);    
+    poly = regionGrowing(imagemSaida, [seedsInv 1], limiarCrescimento);
+    hold on
+    axes(handles.axes_output);
+    plot(poly(:,1), poly(:,2), 'LineWidth', 2)
+end
+hold off
 
 % --- Executes on button press in checkbox_acumular.
 function checkbox_acumular_Callback(hObject, eventdata, handles)
@@ -262,9 +295,9 @@ function checkbox_arvore_Callback(hObject, eventdata, handles)
 % hObject    handle to checkbox_arvore (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global imagemSaida;
+global imagemSaida limiar;
 % Hint: get(hObject,'Value') returns toggle state of checkbox_arvore
-quadTreeSegmentation(imagemSaida','yes');
+quadTreeSegmentation(imagemSaida',limiar,'yes');
 
 
 
@@ -275,8 +308,7 @@ function text_ordem_Callback(hObject, eventdata, handles)
 global ordem;
 % Hints: get(hObject,'String') returns contents of text_ordem as text
 %        str2double(get(hObject,'String')) returns contents of text_ordem as a double
-ordem = str2double(get(hObject,'String'));
-
+ordem = str2double(handles.text_ordem.String);
 
 % --- Executes during object creation, after setting all properties.
 function text_ordem_CreateFcn(hObject, eventdata, handles)
@@ -288,4 +320,27 @@ function text_ordem_CreateFcn(hObject, eventdata, handles)
 %       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on slider movement.
+function slider_limiar_Callback(hObject, eventdata, handles)
+% hObject    handle to slider_limiar (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global limiar;
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+limiar = get(hObject,'Value');
+set(handles.text_limiar,'String',num2str(limiar));
+
+% --- Executes during object creation, after setting all properties.
+function slider_limiar_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider_limiar (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
