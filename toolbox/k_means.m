@@ -23,6 +23,7 @@
 %
 
 function [ outputImage ] = k_means( inputImage, classes, plotResult )
+    im=inputImage;
     imflat = double(reshape(im, size(im,1) * size(im,2), 1));
     [kIDs] = kmeans(imflat,classes, 'Display', 'iter', 'MaxIter', 100,...
         'Start', 'sample');

@@ -11,8 +11,8 @@
 %   
 %   Parameters
 %       inputImage------: input image (any type)
-%       plotResult------: 'yes' or 'no'. Plot input and output images with
-%       respective frequency spectrogram
+%       threshold-------: higher value means bigger segmentation
+%       plotResult------: 'yes' or 'no'. Plot input and output images.
 % 
 %   Outputs
 %       outputImage-----: output image (same type as inputImage)
@@ -64,7 +64,7 @@ function [outputImage] = quadTreeSegmentation(inputImage,threshold,plotResult)
     S = qtdecomp(inputImage,threshold);
     outputImage = repmat(uint8(0),size(S));
     
-    %potential problem: what if the image is really big, like over 9000
+    %potential problem: what if the image is really big, like over 9000!!
     %generate an array with all pow2. Challenge proposed!
     %hint: pow2(length(inputImage))-1 recursively will do it
     for dim = [512 256 128 64 32 16 8 4 2 1];    

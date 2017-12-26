@@ -45,6 +45,7 @@ function [outputImage] = insertNoise(inputImage, noiseType, plotResult, par)
            end
            try
                uniformNoise = unifrnd(par{1},par{2},size(inputImage));
+               uniformNoise = cast(uniformNoise,class(inputImage));
                outputImage = inputImage + uniformNoise;
            catch
                disp('Invalid noise parameters');
@@ -56,6 +57,7 @@ function [outputImage] = insertNoise(inputImage, noiseType, plotResult, par)
            end
            try
                gaussianNoise = normrnd(par{1},par{2},size(inputImage));
+               gaussianNoise = cast(gaussianNoise,class(inputImage));
                outputImage = inputImage + gaussianNoise;
            catch
                disp('Invalid noise parameters');
@@ -67,6 +69,7 @@ function [outputImage] = insertNoise(inputImage, noiseType, plotResult, par)
            end
            try
                rayleightNoise = raylrnd(par{1},size(inputImage));
+               rayleightNoise = cast(rayleightNoise,class(inputImage));
                outputImage = inputImage + rayleightNoise;
            catch
                disp('Invalid noise parameters');
@@ -78,6 +81,7 @@ function [outputImage] = insertNoise(inputImage, noiseType, plotResult, par)
            end
            try
                exponentialNoise = exprnd(par{1},size(inputImage));
+               exponentialNoise = cast(exponentialNoise,class(inputImage));
                outputImage = inputImage + exponentialNoise;
            catch
                disp('Invalid noise parameters');
@@ -89,6 +93,7 @@ function [outputImage] = insertNoise(inputImage, noiseType, plotResult, par)
            end
            try
                gammalNoise = gamrnd(par{1},par{2},size(inputImage));
+               gammalNoise = cast(gammalNoise,class(inputImage));
                outputImage = inputImage + gammalNoise;
            catch
                disp('Invalid noise parameters');
