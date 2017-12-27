@@ -6,9 +6,10 @@ O projeto [IM2_app](https://github.com/ronaldosena/imagens-medicas-2) é uma ini
 
 IM2_app está em sua versão 1.1.0. Baixe o instalador [__*aqui*__](https://goo.gl/59uwRe).
 
+
 ## Colabore com o projeto
 
-Se você quiser contribuir com o projeto e ajudá-lo a crescer e melhorar, toda ajuda será bem-vinda. Contribuir também é uma forma de aprender mais sobre [*social coding*](http://opentechschool.github.io/social-coding/), relatório de bugs, sugestões de desenvolvimento e *pull requests*.
+Se você quiser contribuir com o projeto, toda ajuda será bem-vinda. Contribuir também é uma forma de aprender mais sobre [*social coding*](http://opentechschool.github.io/social-coding/), relatório de bugs, sugestões de desenvolvimento, *pull requests*...
 
 
 ## Contato
