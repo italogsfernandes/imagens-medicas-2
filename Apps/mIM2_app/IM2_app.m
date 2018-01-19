@@ -11,7 +11,7 @@
 
 % 
 %   
-%                       CONFIGURA��ES INCIAIS
+%                       CONFIGURAÇÕES INCIAIS
 %
 % 
 function varargout = IM2_app(varargin)
@@ -95,7 +95,7 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 % 
 %   
-%                       CONFIGURA��ES INCIAIS
+%                       CONFIGURAÇÕES INCIAIS
 %
 % 
 
@@ -239,7 +239,7 @@ imshow(imagemSaida);
 
 %
 %   
-%                       CONFIGURA��ES
+%                       CONFIGURAÇÕES
 % 
 %
 function text_mascara_Callback(hObject, eventdata, handles)
@@ -294,7 +294,7 @@ global comparar;
 comparar =  get(hObject,'Value');
 %
 %   
-%                       CONFIGURA��ES
+%                       CONFIGURAÇÕES
 % 
 %
 
@@ -303,7 +303,7 @@ comparar =  get(hObject,'Value');
 
 %
 %   
-%                       FILTROS DE FREQU�NCIA
+%                       FILTROS DE FREQUÊNCIA 
 % 
 %
 function pushbutton_ideal_Callback(hObject, eventdata, handles)
@@ -374,7 +374,7 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 %
 %   
-%                       FILTROS DE FREQU�NCIA
+%                       FILTROS DE FREQUÊNCIA 
 % 
 %
 
@@ -383,7 +383,7 @@ end
 
 %
 %   
-%                       SEGMENTA��O
+%                       SEGMENTAÇÃO
 % 
 %
 % --- Executes on button press in pushbutton_lancarSementes.
@@ -464,7 +464,7 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 %
 %   
-%                       SEGMENTA��O
+%                       SEGMENTAÇÃO
 % 
 %
 

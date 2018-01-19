@@ -37,10 +37,10 @@ for i = 1:length(fileName)
         outImages{i,j} = imfilter(inImages{i},filter{j});
         subplot(2,length(maskSize)+1,(j+1))
         imshow(outImages{i,j});
-        title(['M�scara de ',int2str(maskSize{j}),'x',int2str(maskSize{j})])
+        title(['Máscara de ',int2str(maskSize{j}),'x',int2str(maskSize{j})])
         subplot(2,length(maskSize)+1,j+length(maskSize)+2)
         imhist(outImages{i,j});
-        title(['Histograma com m�scara de ',int2str(maskSize{j}),'x',int2str(maskSize{j})])
+        title(['Histograma com máscara de ',int2str(maskSize{j}),'x',int2str(maskSize{j})])
     end
 end
 input('Press to continue...');
