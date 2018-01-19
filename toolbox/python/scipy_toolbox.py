@@ -283,23 +283,23 @@ def test():
         show_image(f,'face') # uses the Image module (PIL)        
      
     def read_image_example():
-        my_image = read_image('blood1','.PNG','../datasets/')
+        my_image = read_image('blood1','.PNG','../../datasets/')
         show_image(my_image)
     
     def show_hist_example():
-        my_image = read_image('blood1','.PNG','../datasets/')
+        my_image = read_image('blood1','.PNG','../../datasets/')
         show_hist(my_image)
         
     def show_image_and_hist_example():
-        my_image = read_image('blood1','.PNG','../datasets/')
+        my_image = read_image('blood1','.PNG','../../datasets/')
         show_image_and_hist(my_image,'Blood', 'Histogram of Blood')
     
     def gaussian_filter_example():
-        my_image = read_image('blood1','.PNG','../datasets/')
+        my_image = read_image('blood1','.PNG','../../datasets/')
         gaussian_filter(my_image,show_result=True)
     
     def uniform_filter_example():
-        my_image = read_image('blood1','.PNG','../datasets/')        
+        my_image = read_image('blood1','.PNG','../../datasets/')        
         uniform_filter(my_image,size=11,show_result=True)
         
     def sharpenning_filter_example():        
