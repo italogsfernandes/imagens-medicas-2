@@ -1,25 +1,68 @@
 # -*- coding: utf-8 -*-
-# ------------------------------------------------------------------------------
-# FEDERAL UNIVERSITY OF UBERLANDIA
-# Faculty of Electrical Engineering
-# Biomedical Engineering Lab
-# ------------------------------------------------------------------------------
-# Author: Italo Gustavo Sampaio Fernandes
-# Contact: italogsfernandes@gmail.com
-# Git: www.github.com/italogfernandes
-# ------------------------------------------------------------------------------
-# Description: Scipy image toolbox
-#   Based on: 
-#   http://www.scipy-lectures.org/advanced/image_processing/index.html
-#   and
-#   TODO: https://docs.scipy.org/doc/scipy/reference/tutorial/ndimage.html
-# ------------------------------------------------------------------------------
+"""Ferramentas para manipulação de imagens utilizando a biblioteca scipy
+
+Neste modulo estão implementadas diversas funções úteis para o processamento de
+imagens medicas. Estas foram baseadas nos exemplos presentes no seguinte link:
+http://www.scipy-lectures.org/advanced/image_processing/index.html
+
+Sendo eles:
+    2.6.1. Opening and writing to image files
+    2.6.2. Displaying images
+    2.6.3. Basic manipulations
+    2.6.4. Image filtering
+    2.6.5. Feature extraction
+    2.6.6. Measuring objects properties: ndimage.measurements
+
+Outro link importante:
+https://docs.scipy.org/doc/scipy/reference/tutorial/ndimage.html
+
+License
+-------
+*THE BEERWARE LICENSE* (Revision 42):
+Italo Fernandes wrote this code. As long as you retain this 
+notice, you can do whatever you want with this stuff. If we
+meet someday, and you think this stuff is worth it, you can
+buy me a beer in return.
+
+Author
+------
+Italo Gustavo Sampaio Fernandes
+    Contact: italogsfernandes@gmail.com
+    Git: www.github.com/italogfernandes
+    
+Janeiro de 2018
+
+Organization
+------------
+FEDERAL UNIVERSITY OF UBERLANDIA
+Faculty of Electrical Engineering
+Biomedical Engineering Lab
+
+Examples
+-------
+Os exemplos de uso foram immplementados na função test, está é chamada se
+o arquivo for executado diretamente e não importado::
+
+    $ python scipy_toolbox.py
+
+
+É preciso selecionar qual exemplo você deseja visualizar a execução. Leia o
+código da função test() para mais informações.
+
+"""
 from scipy import misc # Opening and clossing
 import matplotlib.pyplot as plt # Showing the images
 import numpy as np # Image manipulation as nparray
 from scipy import ndimage # Gaussian filter
+
+SPATIAL_FILTER_TYPES = ['uniform','median','maximum','minimum']
+"""str list: Lista com os possíveis tipos de filtros espaciais"""
+
+NOISE_TYPES = ['uniform','gaussian','rayleight','exponential','gamma','salt_and_pepper']
+"""str list: Lista com os tipo de ruidos implementados"""
+
 # ------------------------------------------------------------------------------
-## Saving and reading images, basics
+## 2.6.1. Opening and writing to image files
 # ------------------------------------------------------------------------------
 def save_image(input_image,name=None,extension='.png',folder=None):
     complete_file_name = name + extension
@@ -105,10 +148,7 @@ def show_images_and_hists(input_images,titles=[],hist_titles=[],colorbar=True):
         if colorbar:
             plt.colorbar(im, orientation='horizontal')
         
-# ------------------------------------------------------------------------------
-## Filtering images
-# ------------------------------------------------------------------------------
-SPATIAL_FILTER_TYPES = ['uniform','median','maximum','minimum']
+
 # ------------------------------------------------------------------------------
 ## Spatial Filtering
 # ------------------------------------------------------------------------------
@@ -174,7 +214,6 @@ def insert_salt_and_pepper_noise(input_image,s_vs_p=0.5,amount=0.004):
     output_image[coords] = min_value
     return (output_image).astype(input_image.dtype)
 
-NOISE_TYPES = ['uniform','gaussian','rayleight','exponential','gamma','salt_and_pepper']
 def insert_noise(input_image, noise_type, show_result=False, *args, **kwargs):
     if noise_type == 'uniform':
         output_image = insert_uniform_noise(input_image,*args, **kwargs)
