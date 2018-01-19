@@ -22,7 +22,7 @@ import scipy.ndimage as ndimage
 from matlab_fspecial import fspecial
 
 # First part
-files_folder = '../datasets/'
+files_folder = '../../datasets/' # Caminho para a pasta onde estao as imagens
 file_names = ('arteriaBMP.bmp','blood0.PNG','blood1.PNG','pe.jpg')
 in_images = [imread(files_folder+image_name) for image_name in file_names ]
 out_images = [None] * len(file_names)

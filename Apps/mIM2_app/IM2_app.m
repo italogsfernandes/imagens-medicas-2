@@ -11,7 +11,7 @@
 
 % 
 %   
-%                       CONFIGURAÇÕES INCIAIS
+%                       CONFIGURAï¿½ï¿½ES INCIAIS
 %
 % 
 function varargout = IM2_app(varargin)
@@ -80,6 +80,9 @@ seeds = [];
 seedsInv = [];
 handles.panel_filtros.Visible = 'on';
 handles.panel_segmentacao.Visible = 'off';
+% Caminho a partir desta pasta para a pasta onde estÃ£o as imagens
+% utilizadas
+addpath('../../toolbox/matlab') 
 % Update handles structure
 guidata(hObject, handles);
 
@@ -92,7 +95,7 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 % 
 %   
-%                       CONFIGURAÇÕES INCIAIS
+%                       CONFIGURAï¿½ï¿½ES INCIAIS
 %
 % 
 
@@ -236,7 +239,7 @@ imshow(imagemSaida);
 
 %
 %   
-%                       CONFIGURAÇÕES
+%                       CONFIGURAï¿½ï¿½ES
 % 
 %
 function text_mascara_Callback(hObject, eventdata, handles)
@@ -291,7 +294,7 @@ global comparar;
 comparar =  get(hObject,'Value');
 %
 %   
-%                       CONFIGURAÇÕES
+%                       CONFIGURAï¿½ï¿½ES
 % 
 %
 
@@ -300,7 +303,7 @@ comparar =  get(hObject,'Value');
 
 %
 %   
-%                       FILTROS DE FREQUÊNCIA
+%                       FILTROS DE FREQUï¿½NCIA
 % 
 %
 function pushbutton_ideal_Callback(hObject, eventdata, handles)
@@ -371,7 +374,7 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 %
 %   
-%                       FILTROS DE FREQUÊNCIA
+%                       FILTROS DE FREQUï¿½NCIA
 % 
 %
 
@@ -380,7 +383,7 @@ end
 
 %
 %   
-%                       SEGMENTAÇÃO
+%                       SEGMENTAï¿½ï¿½O
 % 
 %
 % --- Executes on button press in pushbutton_lancarSementes.
@@ -461,7 +464,7 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 %
 %   
-%                       SEGMENTAÇÃO
+%                       SEGMENTAï¿½ï¿½O
 % 
 %
 

@@ -4,6 +4,10 @@
 %   Use it as you please. If we meet some day, and you think
 %   this stuff was helpful, you can buy me a beer
 
+% Caminho a partir desta pasta para a pasta onde estÃ£o as imagens
+% utilizadas
+addpath('../../datasets') 
+
 %%  First part
 clear;
 clc;
@@ -33,10 +37,10 @@ for i = 1:length(fileName)
         outImages{i,j} = imfilter(inImages{i},filter{j});
         subplot(2,length(maskSize)+1,(j+1))
         imshow(outImages{i,j});
-        title(['Máscara de ',int2str(maskSize{j}),'x',int2str(maskSize{j})])
+        title(['Mï¿½scara de ',int2str(maskSize{j}),'x',int2str(maskSize{j})])
         subplot(2,length(maskSize)+1,j+length(maskSize)+2)
         imhist(outImages{i,j});
-        title(['Histograma com máscara de ',int2str(maskSize{j}),'x',int2str(maskSize{j})])
+        title(['Histograma com mï¿½scara de ',int2str(maskSize{j}),'x',int2str(maskSize{j})])
     end
 end
 input('Press to continue...');

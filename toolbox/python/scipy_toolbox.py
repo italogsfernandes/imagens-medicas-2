@@ -468,6 +468,10 @@ def test():
         show_images_and_hists([img, b_img.astype(float), clear_seg.astype(float),rec_seg.astype(float)],
                        titles=['Input','Segmentation - %.2f' % (np.mean(img)), 'Openning/Clossing', 'Reconstruct'],
                       colorbar=True) 
+        # TODO: See also Other Scientific Packages provide algorithms that can
+        #             be useful for image processing. In this example, we use 
+        #             the spectral clustering function of the scikit-learn in 
+        #             order to segment glued objects.
         
 
         
