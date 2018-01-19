@@ -6,6 +6,6 @@
 .pyc
 
 *.exe
-*.prj
+#*.prj
 Apps/mIM2_app/IM2_app
 Apps/mIM2_app/IM2_app_resources/
