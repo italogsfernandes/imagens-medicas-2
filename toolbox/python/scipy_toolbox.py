@@ -108,6 +108,7 @@ def show_images_and_hists(input_images,titles=[],hist_titles=[],colorbar=True):
 # ------------------------------------------------------------------------------
 ## Filtering images
 # ------------------------------------------------------------------------------
+SPATIAL_FILTER_TYPES = ['uniform','median','maximum','minimum']
 # ------------------------------------------------------------------------------
 ## Spatial Filtering
 # ------------------------------------------------------------------------------
@@ -139,22 +140,22 @@ def sharpenning_filter(input_image, alpha = 30, filter_sigma=1,show_result=False
 # ------------------------------------------------------------------------------
 ## Inserting Noise
 # ------------------------------------------------------------------------------
-def insert_uniform_noise(input_image,low=0,high=80):
-    return (input_image + np.random.uniform(low,high,input_image.shape)).astype(input_image.dtype)
+def insert_uniform_noise(input_image, low=0, high=80, amount=1.0):
+    return (input_image + amount * np.random.uniform(low,high,input_image.shape)).astype(input_image.dtype)
     
-def insert_gaussian_noise(input_image, mean=5, std=30):
-    return (input_image + np.random.normal(mean,std,input_image.shape)).astype(input_image.dtype)
+def insert_gaussian_noise(input_image, mean=5, std=30, amount=1.0):
+    return (input_image + amount * np.random.normal(mean,std,input_image.shape)).astype(input_image.dtype)
 
-def insert_rayleight_noise(input_image, scale=20):
-    return (input_image + np.random.rayleigh(scale,input_image.shape)).astype(input_image.dtype)
+def insert_rayleight_noise(input_image, scale=20, amount=1.0):
+    return (input_image + amount * np.random.rayleigh(scale,input_image.shape)).astype(input_image.dtype)
       
-def insert_exponential_noise(input_image, scale=5):
-    return (input_image + np.random.exponential(scale,input_image.shape)).astype(input_image.dtype)
+def insert_exponential_noise(input_image, scale=5, amount=1.0):
+    return (input_image + amount * np.random.exponential(scale,input_image.shape)).astype(input_image.dtype)
 
-def insert_gamma_noise(input_image, shape=1, scale=8):
-    return (input_image + np.random.gamma(shape,scale,input_image.shape)).astype(input_image.dtype)
+def insert_gamma_noise(input_image, shape=1, scale=8, amount=1.0):
+    return (input_image + amount * np.random.gamma(shape,scale,input_image.shape)).astype(input_image.dtype)
 
-def insert_salt_and_pepper_noise(input_image,amount=0.004,s_vs_p=0.5):
+def insert_salt_and_pepper_noise(input_image,s_vs_p=0.5,amount=0.004):
     if input_image.dtype == np.float64:
         min_value = min(input_image.ravel())
         max_value = max(input_image.ravel())
@@ -173,6 +174,7 @@ def insert_salt_and_pepper_noise(input_image,amount=0.004,s_vs_p=0.5):
     output_image[coords] = min_value
     return (output_image).astype(input_image.dtype)
 
+NOISE_TYPES = ['uniform','gaussian','rayleight','exponential','gamma','salt_and_pepper']
 def insert_noise(input_image, noise_type, show_result=False, *args, **kwargs):
     if noise_type == 'uniform':
         output_image = insert_uniform_noise(input_image,*args, **kwargs)

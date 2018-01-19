@@ -1,9 +1,12 @@
+# Pycharm
+*.idea*
 
 # Gedit temporary files
 *~
 
 # Python Files
 .pyc
+*__pycache__*
 
 *.exe
 #*.prj
