@@ -1,4 +1,11 @@
+
+# Gedit temporary files
+*~
+
+# Python Files
+.pyc
+
 *.exe
 *.prj
-IM2_app/
-IM2_app_resources/
+Apps/mIM2_app/IM2_app
+Apps/mIM2_app/IM2_app_resources/
