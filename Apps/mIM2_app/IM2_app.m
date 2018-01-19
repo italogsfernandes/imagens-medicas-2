@@ -303,7 +303,7 @@ comparar =  get(hObject,'Value');
 
 %
 %   
-%                       FILTROS DE FREQUÊNCIA 
+%                       FILTROS DE FREQUÊNCIA
 % 
 %
 function pushbutton_ideal_Callback(hObject, eventdata, handles)
@@ -374,7 +374,7 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 %
 %   
-%                       FILTROS DE FREQUÊNCIA 
+%                       FILTROS DE FREQUÊNCIA
 % 
 %
 
