@@ -19,7 +19,7 @@ import pandas as pd
 from scipy.misc import imread
 import matplotlib.image as mpimg
 # First part
-files_folder = '../datasets/'
+files_folder = '../../datasets/'
 file_names = ('arteriaBMP.bmp','blood0.PNG','blood1.PNG','pe.jpg')
 in_images = [imread(files_folder+image_name) for image_name in file_names ]
 out_images = [None] * len(file_names)
