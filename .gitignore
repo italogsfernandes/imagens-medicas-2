@@ -1,4 +1,17 @@
+# Meu dataset pessoal
+hidden/
+
+# Pycharm
+*.idea*
+
+# Gedit temporary files
+*~
+
+# Python Files
+.pyc
+*__pycache__*
+
 *.exe
-*.prj
-IM2_app/
-IM2_app_resources/
+#*.prj
+Apps/mIM2_app/IM2_app
+Apps/mIM2_app/IM2_app_resources/

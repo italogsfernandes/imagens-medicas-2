@@ -4,7 +4,9 @@
 %   Use it as you please. If we meet some day, and you think
 %   this stuff was helpful, you can buy me a beer
 
-
+% Caminho a partir desta pasta para a pasta onde estão as imagens
+% utilizadas
+addpath('../../datasets') 
 clear;
 clc;
 close all;
