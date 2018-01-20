@@ -19,6 +19,7 @@ import sys
 from PyQt4.QtGui import *
 from views import base_qt4 as base
 from controllers import image_handler as ih
+from controllers import doc_creator
 # ------------------------------------------------------------------------------
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
@@ -154,6 +155,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.actionReset.triggered.connect(self.action_reset_triggered)
         self.actionUndo.triggered.connect(self.action_undo_triggered)
         self.actionVer_Historico.triggered.connect(self.action_see_history_triggered)
+        self.actionSalvar_em_docx.triggered.connect(self.action_save_in_doc_triggered)
         self.menuSobre.addAction('&About', self.about)
         # endregion
     # endregion
@@ -342,7 +344,10 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
             print(modifier)
 
     def action_save_in_doc_triggered(self):
-        pass
+        # TODO: Faze ele salvar todas as imagens do historico num arquivo .doc
+        self.edited_image_fig.savefig('edited_image.png')
+        self.statusbar.show()
+        self.statusbar.showMessage('imagem salva', 1000)
 
     def about(self):
         QMessageBox.about(
