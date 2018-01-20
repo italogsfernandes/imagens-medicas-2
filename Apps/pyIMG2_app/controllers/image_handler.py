@@ -15,8 +15,8 @@ def equalize_image(input_image):
         max_value = 255
         min_value = 0
     elif input_image.dtype == np.float64:
-        max_value = 1.0
-        min_value = -1.0
+        max_value = 0
+        min_value = 255
 
     img_max = input_image.max()
     img_min = input_image.min()

@@ -59,7 +59,9 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
 
     # region UI SETUP
     def replace_ui_widgets(self):
-        self.statusbar.hide()
+        #self.statusbar.hide()
+        self.lbl_fixed_status.hide()
+        self.lbl_status_msg.hide()
         # region Image viewers
         self.v_layout_edited_image.removeWidget(self.replace_edited_image)
         self.h_layout_original_image.removeWidget(self.replace_original_image)
@@ -84,12 +86,11 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.update_edited_figure()
         # region Menus
         # TODO: scipy_toolbox.format_names
+        # TODO: ajustar escala: 0,1 - 0,255 - -1,1
         # TODO: color / rgb selection
-        self.cb_format.addItems(('uint8(0,255)',
-                                 'float(0,1)',
-                                 'float(-1,1)',
-                                 'float(0,255)'))
-        self.sl_brightness.setRange(0, 100)
+        self.cb_format.addItems(('uint8',
+                                 'float64'))
+        self.sl_brightness.setRange(-100, 100)
         self.sl_contrast.setRange(0, 100)
 
         self.cb_noise.addItems(scipy_toolbox.noise_names)
@@ -105,7 +106,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         # endregion
 
     def pos_signals_ui(self):
-        self.cb_format.setCurrentIndex(1)
+        self.cb_format.setCurrentIndex(0)
         self.cb_noise.setCurrentIndex(1)
         self.cb_filter.setCurrentIndex(1)
         self.cb_morph_type.setCurrentIndex(1)
@@ -163,22 +164,51 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
     # region Interface Slots
     # region Basics Menu
     def cb_img_format_changed(self):
-        pass
+        image_format = self.cb_format.currentText()
+        self.lbl_format.setText('Formato: %s' % image_format)
 
     def btn_apply_img_format_clicked(self):
-        pass
+        image_format = self.cb_format.currentText()
+        if image_format == 'uint8':
+            d_type = np.uint8
+        elif image_format == 'float64':
+            d_type = np.float64
+        self.undo_backup_image = self.edited_image
+        self.edited_image = self.edited_image.astype(d_type)
+        self.my_history.append('Format: %s' % image_format)
+        self.statusbar.showMessage('Format: %s' % image_format, 1000)
+        self.update_edited_figure()
 
     def sl_brightness_value_changed(self):
-        pass
+        self.lbl_brightness.setText("Brilho: %d" % self.sl_brightness.value())
 
     def btn_apppy_brightness_clicked(self):
-        pass
+        self.undo_backup_image = self.edited_image
+
+        self.edited_image = self.edited_image.astype(np.float64) + self.sl_brightness.value()
+        self.edited_image[self.edited_image > 255] = 255
+        self.edited_image[self.edited_image < 0] = 0
+        self.edited_image = self.edited_image.astype(self.undo_backup_image.dtype)
+
+        self.my_history.append('Brightness: %d' % self.sl_brightness.value())
+        self.statusbar.showMessage('Brightness: %d' % self.sl_brightness.value(), 1000)
+        self.update_edited_figure()
 
     def sl_contrast_value_changed(self):
-        pass
+        self.lbl_contrast.setText('Contrast: %d' % self.sl_contrast.value())
 
     def btn_apply_contrast_clicked(self):
-        pass
+        self.undo_backup_image = self.edited_image
+
+        self.edited_image = self.edited_image * self.sl_contrast.value()
+        self.edited_image[self.edited_image > 255] = 255
+        self.edited_image[self.edited_image < 0] = 0
+        self.edited_image = self.edited_image.astype(self.undo_backup_image.dtype)
+
+        self.my_history.append('Contrast: %d' % self.sl_contrast.value())
+        self.statusbar.showMessage('Contrast: %d' % self.sl_contrast.value(), 1000)
+        self.update_edited_figure()
+
     # endregion
 
     # region Noise Menu
@@ -276,7 +306,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
 
     # region Mathematical Morphologies Menu
     def cb_morph_type_changed(self):
-        pass
+        self.label_morph_type.setText("Morph: %s" % self.cb_morph_type.currentText())
 
     def radio_morph_binary_gray_toggled(self):
         pass
