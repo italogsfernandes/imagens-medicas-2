@@ -18,6 +18,7 @@ import sys
 # PyQt4
 from PyQt4.QtGui import *
 from views import base_qt4 as base
+from controllers import image_handler as ih
 # ------------------------------------------------------------------------------
 from matplotlib.backends import qt_compat
 from matplotlib.figure import Figure
@@ -88,11 +89,11 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.update_edited_figure()
         self.sl_filter_size.setRange(1, 50)
         self.sl_noise_amount.setRange(0, 1000)
-        self.cb_noise.addItems(scipy_toolbox.NOISE_TYPES)
-        self.cb_filter.addItems(scipy_toolbox.SPATIAL_FILTER_TYPES)
+        self.cb_noise.addItems(scipy_toolbox.noise_names)
+        self.cb_filter.addItems(scipy_toolbox.filter_names)
 
     def pos_signals_ui(self):
-        self.cb_noise.setCurrentIndex(5)
+        self.cb_noise.setCurrentIndex(1)
         self.cb_filter.setCurrentIndex(1)
 
     def setup_signals_connections(self):
@@ -114,25 +115,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
     def cb_noise_changed(self):
         noise_type = str(self.cb_noise.currentText())
         self.lbl_noise.setText('Ruído: ' + noise_type)
-        if noise_type == 'uniform':
-            self.noise_amount = 1
-            self.noise_params = {'low': 0, 'high': 80}
-        elif noise_type == 'gaussian':
-            self.noise_amount = 1
-            self.noise_params = {'mean': 5, 'std': 30}
-        elif noise_type == 'rayleight':
-            self.noise_amount = 1
-            self.noise_params = {'scale': 20}
-        elif noise_type == 'exponential':
-            self.noise_amount = 1
-            self.noise_params = {'scale': 5}
-        elif noise_type == 'gamma':
-            self.noise_amount = 1
-            self.noise_params = {'shape': 5, 'scale': 8}
-        elif noise_type == 'salt_and_pepper':
-            self.noise_amount = 0.004
-            self.noise_params = {'s_vs_p': 0.5}
-
+        self.noise_params = scipy_toolbox.noise_params[noise_type].copy()
+        self.noise_amount = self.noise_params.pop('amount')
         self.lbl_noise_amount.setText('Multiplier: %.3f' % self.noise_amount)
         self.sl_noise_amount.setValue(self.noise_amount*1000)
         self.lbl_noise_params.setText('Params: %s' %
@@ -142,19 +126,25 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
     def cb_filter_changed(self):
         filter_type = str(self.cb_filter.currentText())
         self.lbl_filter.setText('Filtro: ' + filter_type)
-        if filter_type == 'uniform' or filter_type == 'median'\
-                or filter_type == 'maximum' or filter_type == 'minimum':
-            self.filter_size = 3
-            self.filter_params = {}
-        self.lbl_filter_size.setText('Size(px): %d' % self.filter_size)
-        self.sl_filter_size.setValue(self.filter_size)
+        self.filter_params = scipy_toolbox.filter_params[filter_type].copy()
+        if 'size' in self.filter_params.keys():
+            self.lbl_filter_size.show()
+            self.sl_filter_size.show()
+            self.filter_size = self.filter_params.pop('size')
+            self.lbl_filter_size.setText('Size(px): %d' % self.filter_size)
+            self.sl_filter_size.setValue(self.filter_size)
+        else:
+            self.lbl_filter_size.hide()
+            self.sl_filter_size.hide()
+
         if not self.filter_params == {}:
-            self.edit_filter_params.setEnabled(True)
+            self.lbl_filter_params.show()
+            self.edit_filter_params.show()
             self.lbl_filter_params.setText('Params: %s' % ', '.join([str(p) for p in self.filter_params.keys()]))
             self.edit_filter_params.setText(', '.join([str(p) for p in self.filter_params.values()]))
         else:
-            self.lbl_filter_params.setText('Params: Nenhum')
-            self.edit_filter_params.setEnabled(False)
+            self.lbl_filter_params.hide()
+            self.edit_filter_params.hide()
 
     def sl_noise_amount_changed(self):
         self.noise_amount = self.sl_noise_amount.value() / 1000.0
@@ -165,31 +155,51 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.lbl_filter_size.setText('Size(px): %d' % self.filter_size)
 
     def btn_noise_clicked(self):
-        params = [float(param) for param in self.edit_noise_params.text().split(', ')]
-        amount = self.sl_noise_amount.value() / 1000.0
-        params.append(amount)
-        noise_type = str(self.cb_noise.currentText())
-        self.edited_image =\
-            scipy_toolbox.insert_noise(self.edited_image, noise_type,
-                                       False, *params)
+        keys = self.lbl_noise_params.text().split(': ')
+        if len(keys) > 1:
+            keys = [k for k in keys[1].split(', ')]
+        else:
+            keys = []
+
+        values = [float(param) for param in self.edit_noise_params.text().split(', ')]
+
+        keys.append('amount')
+        values.append(self.sl_noise_amount.value() / 1000.0)
+
+        d = {}
+        for i in range(len(keys)):
+            d[keys[i]] = values[i]
+        print(d)
+        mod = ih.NoiseModifier(self.cb_noise.currentText(), d)
+        self.edited_image = mod.apply_modifier(self.edited_image)
         self.update_edited_figure()
 
     def btn_insert_filter_clicked(self):
-        filter_type = str(self.cb_filter.currentText())
-        size = self.sl_filter_size.value()
-        # print("%s, %d" % (filter_type, size))
-        if filter_type == 'uniform':
-            self.edited_image = ndimage.uniform_filter(self.edited_image, size=size)
-        elif filter_type == 'median':
-            self.edited_image = ndimage.median_filter(self.edited_image, size=size)
-        elif filter_type == 'maximum':
-            self.edited_image = ndimage.maximum_filter(self.edited_image, size=size)
-        elif filter_type == 'minimum':
-            self.edited_image = ndimage.minimum_filter(self.edited_image, size=size)
+        keys = []
+        values = []
+        if not self.lbl_filter_params.isHidden():
+            keys = self.lbl_filter_params.text().split(': ')
+            if len(keys) > 1:
+                keys = [k for k in keys[1].split(', ')]
+            else:
+                keys = []
+            values = [float(param) for param in self.edit_filter_params.text().split(', ')]
+
+        if not self.sl_filter_size.isHidden():
+            keys.append('size')
+            values.append(self.sl_filter_size.value())
+
+        d = {}
+        for i in range(len(keys)):
+            d[keys[i]] = values[i]
+
+        mod = ih.FilterModifier(self.cb_filter.currentText(), d)
+        self.edited_image = mod.apply_modifier(self.edited_image)
         self.update_edited_figure()
 
     def btn_equalize_clicked(self):
-        pass
+        self.edited_image = ih.equalize_image(self.edited_image)
+        self.update_edited_figure()
 
     def radio_compare_clicked(self):
         self.update_edited_figure()
@@ -202,7 +212,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         dlg.setWindowTitle('Secione a imagem que deseja abrir.')
         dlg.setViewMode(QFileDialog.Detail)
         file_name = dlg.getOpenFileName(self, 'Open File')
-        self.original_image = misc.imread(file_name)
+        self.original_image = misc.imread(file_name, mode='L').astype(np.float64)
+        print(self.original_image.dtype)
         self.edited_image = np.copy(self.original_image)
         self.setWindowTitle('Medical Images App' + file_name)
         self.update_original_figure()
@@ -235,6 +246,7 @@ se de alguma maneira ele foi útil a você, agradeça com um café, ou uma cerve
         self.original_image_fig.gca().imshow(
             self.original_image, cmap=plt.cm.gray, clim=(min_value, max_value))
         self.original_image_fig.gca().set_title('Original Image')
+        self.original_image_canvas.draw()
 
     def update_edited_figure_image(self, min_value, max_value,
                                    title='Edited Image', img=None):

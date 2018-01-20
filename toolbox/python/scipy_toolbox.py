@@ -74,7 +74,7 @@ noise_names = ('uniform',
 """str tuple: tuple with the possible noises that you can add to a image"""
 
 noise_params = {'uniform':{'low':0.0,'high':80.0,'amount':1.0},
-                'gaussian':{'mean':5.0,'str':30.0,'amount':1.0},
+                'gaussian':{'mean':5.0,'std':30.0,'amount':1.0},
                 'rayleight':{'scale':20.0,'amount':1.0},
                 'exponential':{'scale':5.0,'amount':1.0},
                 'gamma':{'shape':1.0,'scale':8.0,'amount':1.0},
@@ -136,7 +136,7 @@ def show_image(input_image,title=None, colorbar=False):
     else:
         min_value = np.iinfo(input_image.dtype).min
         max_value = np.iinfo(input_image.dtype).max    
-    im = plt.imshow(input_image, cmap=plt.cm.grey,clim=(min_value, max_value))
+    im = plt.imshow(input_image, cmap=plt.cm.gray,clim=(min_value, max_value))
     if colorbar:
         plt.colorbar(orientation='vertical')
     if not title is None:
@@ -838,7 +838,20 @@ def test():
     plt.show()
     
 if __name__ == '__main__':  # if we're running file directly and not importing it
-   test()
-     
-       
-  
+    test()
+"""     
+d = filter_params['uniform'].copy()
+'size' in d.keys()
+a = d.pop('amount')
+
+for k in d.keys():
+    print k
+
+keys= ['a','b']
+values = [1,2]
+
+d = dict.fromkeys(keys)
+d = {}
+for i in range(len(keys)):
+    d[keys[i]] = values[i]
+"""
