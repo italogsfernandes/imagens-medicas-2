@@ -38,6 +38,9 @@ class ImageModifier:
         output_image = np.copy(input_image)
         return output_image
 
+    def __str__(self):
+        return "Modifier: %s - %s - %s" % (self.modifier_type, self.name, self.param)
+
 
 class NoiseModifier(ImageModifier):
     def __init__(self, name, param):

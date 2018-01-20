@@ -39,14 +39,11 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.setupUi(self)
         # region Initializing the attributes
         self.my_history = []
-        self.noise_params = dict()
-        self.noise_amount = 0
-        self.filter_params = dict()
-        self.filter_size = 0
         # endregion
         # region Images and Matplotlib Figures
         self.original_image = np.ones((100, 100), dtype=np.uint8)*127
         self.edited_image = np.copy(self.original_image)
+        self.undo_backup_image = np.copy(self.edited_image)
         self.original_image_fig = Figure(figsize=(0.1, 0.1))
         self.original_image_canvas = FigureCanvas(self.original_image_fig)
         self.edited_image_fig = Figure(figsize=(0.1, 0.1))
@@ -93,18 +90,28 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.cb_filter.setCurrentIndex(1)
 
     def setup_signals_connections(self):
+        # region Noise Menu
         self.cb_noise.currentIndexChanged.connect(self.cb_noise_changed)
-        self.cb_filter.currentIndexChanged.connect(self.cb_filter_changed)
         self.sl_noise_amount.valueChanged.connect(self.sl_noise_amount_changed)
-        self.sl_filter_size.valueChanged.connect(self.sl_filter_size_changed)
         self.btn_insert_noise.clicked.connect(self.btn_noise_clicked)
+        # endregion
+        # region Filter Menu
+        self.cb_filter.currentIndexChanged.connect(self.cb_filter_changed)
+        self.sl_filter_size.valueChanged.connect(self.sl_filter_size_changed)
         self.btn_insert_filter.clicked.connect(self.btn_insert_filter_clicked)
+        # endregion
+        # region Option Menu
         self.btn_equalize.clicked.connect(self.btn_equalize_clicked)
         self.radio_compare.clicked.connect(self.radio_compare_clicked)
         self.radio_hist.clicked.connect(self.radio_hist_clicked)
+        # endregion
+        # region Action Menu Bar
         self.actionAbrir.triggered.connect(self.action_open_triggered)
         self.actionReset.triggered.connect(self.action_reset_triggered)
+        self.actionUndo.triggered.connect(self.action_undo_triggered)
+        self.actionVer_Historico.triggered.connect(self.action_see_history_triggered)
         self.menuSobre.addAction('&About', self.about)
+        # endregion
     # endregion
 
     # region Interface Slots
@@ -132,13 +139,13 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
     def cb_noise_changed(self):
         noise_type = str(self.cb_noise.currentText())
         self.lbl_noise.setText('Ruído: ' + noise_type)
-        self.noise_params = scipy_toolbox.noise_params[noise_type].copy()
-        self.noise_amount = self.noise_params.pop('amount')
-        self.lbl_noise_amount.setText('Multiplier: %.3f' % self.noise_amount)
-        self.sl_noise_amount.setValue(self.noise_amount*1000)
+        noise_params = scipy_toolbox.noise_params[noise_type].copy()
+        noise_amount = noise_params.pop('amount')
+        self.lbl_noise_amount.setText('Multiplier: %.3f' % noise_amount)
+        self.sl_noise_amount.setValue(noise_amount*1000)
         self.lbl_noise_params.setText('Params: %s' %
-                                      ', '.join([str(p) for p in self.noise_params.keys()]))
-        self.edit_noise_params.setText(', '.join([str(p) for p in self.noise_params.values()]))
+                                      ', '.join([str(p) for p in noise_params.keys()]))
+        self.edit_noise_params.setText(', '.join([str(p) for p in noise_params.values()]))
 
     def sl_noise_amount_changed(self):
         self.noise_amount = self.sl_noise_amount.value() / 1000.0
@@ -159,9 +166,11 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         d = {}
         for i in range(len(keys)):
             d[keys[i]] = values[i]
-        print(d)
+
         mod = ih.NoiseModifier(self.cb_noise.currentText(), d)
+        self.undo_backup_image = self.edited_image
         self.edited_image = mod.apply_modifier(self.edited_image)
+        self.my_history.append(mod)
         self.update_edited_figure()
     # endregion
 
@@ -169,22 +178,22 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
     def cb_filter_changed(self):
         filter_type = str(self.cb_filter.currentText())
         self.lbl_filter.setText('Filtro: ' + filter_type)
-        self.filter_params = scipy_toolbox.filter_params[filter_type].copy()
-        if 'size' in self.filter_params.keys():
+        filter_params = scipy_toolbox.filter_params[filter_type].copy()
+        if 'size' in filter_params.keys():
             self.lbl_filter_size.show()
             self.sl_filter_size.show()
-            self.filter_size = self.filter_params.pop('size')
-            self.lbl_filter_size.setText('Size(px): %d' % self.filter_size)
-            self.sl_filter_size.setValue(self.filter_size)
+            filter_size = filter_params.pop('size')
+            self.lbl_filter_size.setText('Size(px): %d' % filter_size)
+            self.sl_filter_size.setValue(filter_size)
         else:
             self.lbl_filter_size.hide()
             self.sl_filter_size.hide()
 
-        if not self.filter_params == {}:
+        if not filter_params == {}:
             self.lbl_filter_params.show()
             self.edit_filter_params.show()
-            self.lbl_filter_params.setText('Params: %s' % ', '.join([str(p) for p in self.filter_params.keys()]))
-            self.edit_filter_params.setText(', '.join([str(p) for p in self.filter_params.values()]))
+            self.lbl_filter_params.setText('Params: %s' % ', '.join([str(p) for p in filter_params.keys()]))
+            self.edit_filter_params.setText(', '.join([str(p) for p in filter_params.values()]))
         else:
             self.lbl_filter_params.hide()
             self.edit_filter_params.hide()
@@ -213,7 +222,9 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
             d[keys[i]] = values[i]
 
         mod = ih.FilterModifier(self.cb_filter.currentText(), d)
+        self.undo_backup_image = self.edited_image
         self.edited_image = mod.apply_modifier(self.edited_image)
+        self.my_history.append(mod)
         self.update_edited_figure()
     # endregion
 
@@ -272,10 +283,13 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.update_edited_figure()
 
     def action_undo_triggered(self):
-        pass
+        self.my_history.pop()
+        self.edited_image = self.undo_backup_image
+        self.update_edited_figure()
 
     def action_see_history_triggered(self):
-        pass
+        for modifier in self.my_history:
+            print(modifier)
 
     def action_save_in_doc_triggered(self):
         pass
