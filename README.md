@@ -5,8 +5,8 @@ O projeto [IM2_app](https://github.com/ronaldosena/imagens-medicas-2) é uma ini
 
 ![](docs/im2_app_doge_screenshot.png)
 ![](docs/aula_1_blood_screenshot.png)
-![](colonies_counter_screenshot.png)
-![](regios_encontradas_screenshot.png)
+![](docs/colonies_counter_screenshot.jpeg)
+![](docs/regios_encontradas_screenshot.png)
 
 **Obs**: O app IM2_app foi desenvolvido em MATLAB, isso gera contradições quanto a iniciativa open-source, entretanto o programa deve rodar com todas suas funcionalidades em Octave.
 Atualmente existe uma linha de desenvolvido em python em seus estágios iniciais.
