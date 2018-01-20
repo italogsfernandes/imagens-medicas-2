@@ -20,7 +20,6 @@ from PyQt4.QtGui import *
 from views import base_qt4 as base
 from controllers import image_handler as ih
 # ------------------------------------------------------------------------------
-from matplotlib.backends import qt_compat
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
@@ -28,9 +27,6 @@ from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as Navigatio
 import numpy as np  # Images are handled as nparray
 import matplotlib.pyplot as plt  # Showing images
 from scipy import misc  # Opening images
-from scipy import ndimage  # multi dimession image processing
-# ------------------------------------------------------------------------------
-import tempfile
 # ------------------------------------------------------------------------------
 sys.path.append('../../toolbox/python')
 import scipy_toolbox  # Custom toolbox with image processing functions
@@ -112,6 +108,27 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
     # endregion
 
     # region Interface Slots
+    # region Basics Menu
+    def cb_img_format_changed(self):
+        pass
+
+    def btn_apply_img_format_clicked(self):
+        pass
+
+    def sl_brightness_value_changed(self):
+        pass
+
+    def btn_apppy_brightness_clicked(self):
+        pass
+
+    def sl_contrast_value_changed(self):
+        pass
+
+    def btn_apply_contrast_clicked(self):
+        pass
+    # endregion
+
+    # region Noise Menu
     def cb_noise_changed(self):
         noise_type = str(self.cb_noise.currentText())
         self.lbl_noise.setText('Ruído: ' + noise_type)
@@ -123,6 +140,32 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
                                       ', '.join([str(p) for p in self.noise_params.keys()]))
         self.edit_noise_params.setText(', '.join([str(p) for p in self.noise_params.values()]))
 
+    def sl_noise_amount_changed(self):
+        self.noise_amount = self.sl_noise_amount.value() / 1000.0
+        self.lbl_noise_amount.setText('Multiplier: %.3f' % self.noise_amount)
+
+    def btn_noise_clicked(self):
+        keys = self.lbl_noise_params.text().split(': ')
+        if len(keys) > 1:
+            keys = [k for k in keys[1].split(', ')]
+        else:
+            keys = []
+
+        values = [float(param) for param in self.edit_noise_params.text().split(', ')]
+
+        keys.append('amount')
+        values.append(self.sl_noise_amount.value() / 1000.0)
+
+        d = {}
+        for i in range(len(keys)):
+            d[keys[i]] = values[i]
+        print(d)
+        mod = ih.NoiseModifier(self.cb_noise.currentText(), d)
+        self.edited_image = mod.apply_modifier(self.edited_image)
+        self.update_edited_figure()
+    # endregion
+
+    # region Filter Menu
     def cb_filter_changed(self):
         filter_type = str(self.cb_filter.currentText())
         self.lbl_filter.setText('Filtro: ' + filter_type)
@@ -146,33 +189,9 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
             self.lbl_filter_params.hide()
             self.edit_filter_params.hide()
 
-    def sl_noise_amount_changed(self):
-        self.noise_amount = self.sl_noise_amount.value() / 1000.0
-        self.lbl_noise_amount.setText('Multiplier: %.3f' % self.noise_amount)
-
     def sl_filter_size_changed(self):
         self.filter_size = self.sl_filter_size.value()
         self.lbl_filter_size.setText('Size(px): %d' % self.filter_size)
-
-    def btn_noise_clicked(self):
-        keys = self.lbl_noise_params.text().split(': ')
-        if len(keys) > 1:
-            keys = [k for k in keys[1].split(', ')]
-        else:
-            keys = []
-
-        values = [float(param) for param in self.edit_noise_params.text().split(', ')]
-
-        keys.append('amount')
-        values.append(self.sl_noise_amount.value() / 1000.0)
-
-        d = {}
-        for i in range(len(keys)):
-            d[keys[i]] = values[i]
-        print(d)
-        mod = ih.NoiseModifier(self.cb_noise.currentText(), d)
-        self.edited_image = mod.apply_modifier(self.edited_image)
-        self.update_edited_figure()
 
     def btn_insert_filter_clicked(self):
         keys = []
@@ -196,7 +215,34 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         mod = ih.FilterModifier(self.cb_filter.currentText(), d)
         self.edited_image = mod.apply_modifier(self.edited_image)
         self.update_edited_figure()
+    # endregion
 
+    # region Mathematical Morphologies Menu
+    def cb_morph_type_changed(self):
+        pass
+
+    def radio_morph_binary_gray_toggled(self):
+        pass
+
+    def sl_morph_size_value_changed(self):
+        pass
+
+    def btn_apply_morph_clicked(self):
+        pass
+    # endregion
+
+    # region Segmentation Menu
+    def sl_segmentation_threshold_value_changed(self):
+        pass
+
+    def radio_mean_median_toggled(self):
+        pass
+
+    def btn_apply_segmentation_clicked(self):
+        pass
+    # endregion
+
+    # region Option Menu
     def btn_equalize_clicked(self):
         self.edited_image = ih.equalize_image(self.edited_image)
         self.update_edited_figure()
@@ -206,7 +252,9 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
 
     def radio_hist_clicked(self):
         self.update_edited_figure()
+    # endregion
 
+    # region Actions Menu Bar
     def action_open_triggered(self):
         dlg = QFileDialog(self)
         dlg.setWindowTitle('Secione a imagem que deseja abrir.')
@@ -223,16 +271,25 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.edited_image = np.copy(self.original_image)
         self.update_edited_figure()
 
+    def action_undo_triggered(self):
+        pass
+
+    def action_see_history_triggered(self):
+        pass
+
+    def action_save_in_doc_triggered(self):
+        pass
+
     def about(self):
         QMessageBox.about(
             self.centralwidget,
             "About",
             """     Medical Images App
-    Italo Fernandes e Ronando Sena escreveram este código,
+    Italo Fernandes e Ronaldo Sena escreveram este código,
 ele é livre para o uso, alterações e distribuição,
 se de alguma maneira ele foi útil a você, agradeça com um café, ou uma cerveja.
     Mais informações: https://github.com/ronaldosena/imagens-medicas-2""")
-
+    # endregion
     # endregion
 
     # region Update Figures
