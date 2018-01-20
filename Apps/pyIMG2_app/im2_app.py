@@ -59,7 +59,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
     # region UI SETUP
     def replace_ui_widgets(self):
         self.statusbar.hide()
-
+        # region Image viewers
         self.v_layout_edited_image.removeWidget(self.replace_edited_image)
         self.h_layout_original_image.removeWidget(self.replace_original_image)
         self.replace_edited_image.setParent(None)
@@ -75,21 +75,49 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.v_layout_edited_image.addWidget(self.edited_image_canvas)
         self.edited_image_canvas.draw()
         self.v_layout_edited_image.addWidget(self.edited_image_toolbar)
+        # endregion
 
     def pos_setup_ui(self):
         self.replace_ui_widgets()
         self.update_original_figure()
         self.update_edited_figure()
-        self.sl_filter_size.setRange(1, 50)
-        self.sl_noise_amount.setRange(0, 1000)
+        # region Menus
+        # TODO: scipy_toolbox.format_names
+        # TODO: color / rgb selection
+        self.cb_format.addItems(('uint8(0,255)',
+                                 'float(0,1)',
+                                 'float(-1,1)',
+                                 'float(0,255)'))
+        self.sl_brightness.setRange(0, 100)
+        self.sl_contrast.setRange(0, 100)
+
         self.cb_noise.addItems(scipy_toolbox.noise_names)
+        self.sl_noise_amount.setRange(0, 1000)
+
         self.cb_filter.addItems(scipy_toolbox.filter_names)
+        self.sl_filter_size.setRange(1, 50)
+
+        self.cb_morph_type.addItems(scipy_toolbox.mathematical_morphologies_names)
+        self.sl_morph_size.setRange(1, 50)
+
+        self.sl_segmentation_th.setRange(0, 255)
+        # endregion
 
     def pos_signals_ui(self):
+        self.cb_format.setCurrentIndex(1)
         self.cb_noise.setCurrentIndex(1)
         self.cb_filter.setCurrentIndex(1)
+        self.cb_morph_type.setCurrentIndex(1)
 
     def setup_signals_connections(self):
+        # region Basics Menu
+        self.cb_format.currentIndexChanged.connect(self.cb_img_format_changed)
+        self.btn_format.clicked.connect(self.btn_apply_img_format_clicked)
+        self.sl_brightness.valueChanged.connect(self.sl_brightness_value_changed)
+        self.btn_brightness.clicked.connect(self.btn_apppy_brightness_clicked)
+        self.sl_contrast.valueChanged.connect(self.sl_contrast_value_changed)
+        self.btn_contrast.clicked.connect(self.btn_apply_contrast_clicked)
+        # endregion
         # region Noise Menu
         self.cb_noise.currentIndexChanged.connect(self.cb_noise_changed)
         self.sl_noise_amount.valueChanged.connect(self.sl_noise_amount_changed)
@@ -99,6 +127,22 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.cb_filter.currentIndexChanged.connect(self.cb_filter_changed)
         self.sl_filter_size.valueChanged.connect(self.sl_filter_size_changed)
         self.btn_insert_filter.clicked.connect(self.btn_insert_filter_clicked)
+        # endregion
+        # region Mathematical Morphologies Menu
+        self.cb_morph_type.currentIndexChanged.connect(self.cb_morph_type_changed)
+        self.radio_morph_binary.toggled.connect(self.radio_morph_binary_gray_toggled)
+        # self.radio_morph_grey.toggled.connect(self.radio_morph_binary_gray_toggled)
+        self.sl_morph_size.valueChanged.connect(self.sl_morph_size_value_changed)
+        self.btn_morph.clicked.connect(self.btn_apply_morph_clicked)
+        # endregion
+        # region Segmentation Menu
+        self.sl_segmentation_th.valueChanged.connect(self.sl_segmentation_threshold_value_changed)
+        self.radio_seg_mean_th.toggled.connect(self.radio_mean_median_toggled)
+        self.radio_seg_median_th.toggled.connect(self.radio_mean_median_toggled)
+        self.btn_hist_segmentation.clicked.connect(self.btn_apply_segmentation_clicked)
+        # endregion
+        # region Misc Menu
+        self.btn_labels.clicked.connect(self.btn_labels_clicked)
         # endregion
         # region Option Menu
         self.btn_equalize.clicked.connect(self.btn_equalize_clicked)
@@ -253,6 +297,11 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         pass
     # endregion
 
+    # region Misc Menu
+    def btn_labels_clicked(self):
+        pass
+    # endregion
+
     # region Option Menu
     def btn_equalize_clicked(self):
         self.edited_image = ih.equalize_image(self.edited_image)
@@ -288,6 +337,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.update_edited_figure()
 
     def action_see_history_triggered(self):
+        print('****History****')
         for modifier in self.my_history:
             print(modifier)
 
