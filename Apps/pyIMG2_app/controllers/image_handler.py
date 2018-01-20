@@ -28,50 +28,72 @@ def equalize_image(input_image):
     return corrected_image
 
 
+def change_format(input_image, dtype):
+    output_image = input_image.astype(dtype)
+    return output_image
+
+
+def change_brightness(input_image, level):
+    output_image = input_image.astype(np.float64) + level
+    output_image[output_image > 255] = 255
+    output_image[output_image < 0] = 0
+    output_image = output_image.astype(input_image.dtype)
+    return output_image
+
+
+def change_contrast(input_image, level):
+    output_image = input_image * level
+    output_image[output_image > 255] = 255
+    output_image[output_image < 0] = 0
+    output_image = output_image.astype(input_image.dtype)
+    return output_image
+
+
 class ImageModifier:
-    def __init__(self, name, param):
-        self.modifier_type = None
+    def __init__(self,modifier_type='', name='', param={}):
+        self.modifier_type = modifier_type
         self.name = name
         self.param = param
 
     def apply_modifier(self, input_image):
-        output_image = np.copy(input_image)
-        return output_image
+        if self.modifier_type == 'basic':
+            return self.apply_basic(input_image)
+        elif self.modifier_type == 'noise':
+            return self.apply_noise(input_image)
+        elif self.modifier_type == 'filter':
+            return self.apply_filter(input_image)
+        elif self.modifier_type == 'morphology':
+            return self.apply_morph(input_image)
+        elif self.modifier_type == 'segmentation':
+            return self.apply_seg(input_image)
+        else:
+            raise NotImplementedError
 
-    def __str__(self):
-        return "Modifier: %s - %s - %s" % (self.modifier_type, self.name, self.param)
+    def apply_basic(self, input_image):
+        if self.name == 'format':
+            return change_format(input_image,**self.param)
+        elif self.name == 'brightness':
+            return change_brightness(input_image,**self.param)
+        elif self.name == 'contrast':
+            return change_contrast(input_image,**self.param)
+        elif self.name == 'equalize':
+            return equalize_image(input_image)
+        else:
+            raise NotImplementedError
 
-
-class NoiseModifier(ImageModifier):
-    def __init__(self, name, param):
-        ImageModifier.__init__(self, name, param)
-        self.modifier_type = 'noise'
-
-    def apply_modifier(self, input_image):
+    def apply_noise(self, input_image):
         output_image = \
             scipy_toolbox.insert_noise(input_image, self.name,
                                        False, **self.param)
         return output_image
 
-
-class FilterModifier(ImageModifier):
-    def __init__(self, name, param):
-        ImageModifier.__init__(self, name, param)
-        self.modifier_type = 'filter'
-
-    def apply_modifier(self, input_image):
+    def apply_filter(self, input_image):
         output_image = \
             scipy_toolbox.apply_filter(input_image, self.name,
                                        False, **self.param)
         return output_image
 
-
-class MathMorphModifier(ImageModifier):
-    def __init__(self, name, morph_op, size):
-        ImageModifier.__init__(self, name, {'morph_op': morph_op, 'size': size})
-        self.modifier_type = 'morph'
-
-    def apply_modifier(self, input_image):
+    def apply_morph(self, input_image):
         output_image = \
             scipy_toolbox.apply_math_morphologie(
                 input_image,
@@ -81,25 +103,30 @@ class MathMorphModifier(ImageModifier):
                 False)
         return output_image
 
+    def apply_seg(self, input_image):
+        if self.name == 'histogram':
+            output_image = input_image > self.param['threshold']
+            output_image = output_image.astype(np.float64)
+            return output_image
+
+    def __str__(self):
+        return "Modifier: %s - %s - %s" % (self.modifier_type, self.name, self.param)
+
+    @staticmethod
+    def from_string(str_modifier):
+        a = str_modifier.split('Modifier: ')[1]
+        m_type = a.split(' - ')[0]
+        m_name = a.split(' - ')[1]
+        m_dict = a.split(' - ')[2]
+        m_dict = m_dict[1:-1]
+        m_dict_pars = m_dict.split(', ')
+        m_keys = [b.split(': ')[0] for b in m_dict_pars]
+        m_values = [b.split(': ')[1] for b in m_dict_pars]
+        return ImageModifier(m_type,m_name,m_dict)
+
 
 def test():
-    my_img = np.ones((100, 100), dtype=np.uint8) * 127
-    my_mod = NoiseModifier('uniform', {'low': 0.0, 'high': 80.0, 'amount': 1.0})
-    out_img = my_mod.apply_modifier(my_img)
-    plt.figure()
-    scipy_toolbox.show_images_and_hists([my_img, out_img], ['gray', 'noise'])
-
-    my_filt = FilterModifier('median', {'size': 3})
-    filt_img = my_filt.apply_modifier(out_img)
-    plt.figure()
-    scipy_toolbox.show_images_and_hists([out_img, filt_img], ['noise', 'median'])
-
-    my_morph = MathMorphModifier('erosion', 'grey', 3)
-    morph_img = my_morph.apply_modifier(out_img)
-    plt.figure()
-    scipy_toolbox.show_images_and_hists([out_img, morph_img], ['noise', 'morph'])
-
-    plt.show()
+    pass
 
 if __name__ == "__main__":
     test()

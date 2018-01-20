@@ -11,23 +11,24 @@
 # Description:
 # ------------------------------------------------------------------------------
 import sys
+
+import matplotlib.pyplot as plt  # Showing images
+# ------------------------------------------------------------------------------
+import numpy as np  # Images are handled as nparray
 # ------------------------------------------------------------------------------
 # PyQt5
 # from PyQt5.QtWidgets import *
 # from views import base_qt5 as base
 # PyQt4
 from PyQt4.QtGui import *
-from views import base_qt4 as base
-from controllers import image_handler as ih
-from controllers import doc_creator
-# ------------------------------------------------------------------------------
-from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 # ------------------------------------------------------------------------------
-import numpy as np  # Images are handled as nparray
-import matplotlib.pyplot as plt  # Showing images
+from matplotlib.figure import Figure
 from scipy import misc  # Opening images
+
+from controllers import image_handler as ih
+from views import base_qt4 as base
 # ------------------------------------------------------------------------------
 sys.path.append('../../toolbox/python')
 import scipy_toolbox  # Custom toolbox with image processing functions
@@ -42,7 +43,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.my_history = []
         # endregion
         # region Images and Matplotlib Figures
-        self.original_image = np.ones((100, 100), dtype=np.uint8)*127
+        self.original_image = np.ones((100, 100), dtype=np.uint8) * 127
         self.edited_image = np.copy(self.original_image)
         self.undo_backup_image = np.copy(self.edited_image)
         self.original_image_fig = Figure(figsize=(0.1, 0.1))
@@ -59,7 +60,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
 
     # region UI SETUP
     def replace_ui_widgets(self):
-        #self.statusbar.hide()
+        # self.statusbar.hide()
         self.lbl_fixed_status.hide()
         self.lbl_status_msg.hide()
         # region Image viewers
@@ -116,7 +117,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.cb_format.currentIndexChanged.connect(self.cb_img_format_changed)
         self.btn_format.clicked.connect(self.btn_apply_img_format_clicked)
         self.sl_brightness.valueChanged.connect(self.sl_brightness_value_changed)
-        self.btn_brightness.clicked.connect(self.btn_apppy_brightness_clicked)
+        self.btn_brightness.clicked.connect(self.btn_apply_brightness_clicked)
         self.sl_contrast.valueChanged.connect(self.sl_contrast_value_changed)
         self.btn_contrast.clicked.connect(self.btn_apply_contrast_clicked)
         # endregion
@@ -159,6 +160,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.actionSalvar_em_docx.triggered.connect(self.action_save_in_doc_triggered)
         self.menuSobre.addAction('&About', self.about)
         # endregion
+
     # endregion
 
     # region Interface Slots
@@ -169,45 +171,27 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
 
     def btn_apply_img_format_clicked(self):
         image_format = self.cb_format.currentText()
+        d_type = np.uint8
         if image_format == 'uint8':
             d_type = np.uint8
         elif image_format == 'float64':
             d_type = np.float64
-        self.undo_backup_image = self.edited_image
-        self.edited_image = self.edited_image.astype(d_type)
-        self.my_history.append('Format: %s' % image_format)
-        self.statusbar.showMessage('Format: %s' % image_format, 1000)
-        self.update_edited_figure()
+        mod = ih.ImageModifier('basic', 'format', {'dtype': d_type})
+        self.apply_modifier(mod)
 
     def sl_brightness_value_changed(self):
         self.lbl_brightness.setText("Brilho: %d" % self.sl_brightness.value())
 
-    def btn_apppy_brightness_clicked(self):
-        self.undo_backup_image = self.edited_image
-
-        self.edited_image = self.edited_image.astype(np.float64) + self.sl_brightness.value()
-        self.edited_image[self.edited_image > 255] = 255
-        self.edited_image[self.edited_image < 0] = 0
-        self.edited_image = self.edited_image.astype(self.undo_backup_image.dtype)
-
-        self.my_history.append('Brightness: %d' % self.sl_brightness.value())
-        self.statusbar.showMessage('Brightness: %d' % self.sl_brightness.value(), 1000)
-        self.update_edited_figure()
+    def btn_apply_brightness_clicked(self):
+        mod = ih.ImageModifier('basic', 'brightness', {'level': self.sl_brightness.value()})
+        self.apply_modifier(mod)
 
     def sl_contrast_value_changed(self):
         self.lbl_contrast.setText('Contrast: %d' % self.sl_contrast.value())
 
     def btn_apply_contrast_clicked(self):
-        self.undo_backup_image = self.edited_image
-
-        self.edited_image = self.edited_image * self.sl_contrast.value()
-        self.edited_image[self.edited_image > 255] = 255
-        self.edited_image[self.edited_image < 0] = 0
-        self.edited_image = self.edited_image.astype(self.undo_backup_image.dtype)
-
-        self.my_history.append('Contrast: %d' % self.sl_contrast.value())
-        self.statusbar.showMessage('Contrast: %d' % self.sl_contrast.value(), 1000)
-        self.update_edited_figure()
+        mod = ih.ImageModifier('basic', 'contrast', {'level': self.sl_contrast.value()})
+        self.apply_modifier(mod)
 
     # endregion
 
@@ -218,14 +202,14 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         noise_params = scipy_toolbox.noise_params[noise_type].copy()
         noise_amount = noise_params.pop('amount')
         self.lbl_noise_amount.setText('Multiplier: %.3f' % noise_amount)
-        self.sl_noise_amount.setValue(noise_amount*1000)
+        self.sl_noise_amount.setValue(noise_amount * 1000)
         self.lbl_noise_params.setText('Params: %s' %
                                       ', '.join([str(p) for p in noise_params.keys()]))
         self.edit_noise_params.setText(', '.join([str(p) for p in noise_params.values()]))
 
     def sl_noise_amount_changed(self):
-        self.noise_amount = self.sl_noise_amount.value() / 1000.0
-        self.lbl_noise_amount.setText('Multiplier: %.3f' % self.noise_amount)
+        noise_amount = self.sl_noise_amount.value() / 1000.0
+        self.lbl_noise_amount.setText('Multiplier: %.3f' % noise_amount)
 
     def btn_noise_clicked(self):
         keys = self.lbl_noise_params.text().split(': ')
@@ -243,11 +227,9 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         for i in range(len(keys)):
             d[keys[i]] = values[i]
 
-        mod = ih.NoiseModifier(self.cb_noise.currentText(), d)
-        self.undo_backup_image = self.edited_image
-        self.edited_image = mod.apply_modifier(self.edited_image)
-        self.my_history.append(mod)
-        self.update_edited_figure()
+        mod = ih.ImageModifier('noise', self.cb_noise.currentText(), d)
+        self.apply_modifier(mod)
+
     # endregion
 
     # region Filter Menu
@@ -275,8 +257,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
             self.edit_filter_params.hide()
 
     def sl_filter_size_changed(self):
-        self.filter_size = self.sl_filter_size.value()
-        self.lbl_filter_size.setText('Size(px): %d' % self.filter_size)
+        filter_size = self.sl_filter_size.value()
+        self.lbl_filter_size.setText('Size(px): %d' % filter_size)
 
     def btn_insert_filter_clicked(self):
         keys = []
@@ -297,11 +279,10 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         for i in range(len(keys)):
             d[keys[i]] = values[i]
 
-        mod = ih.FilterModifier(self.cb_filter.currentText(), d)
-        self.undo_backup_image = self.edited_image
-        self.edited_image = mod.apply_modifier(self.edited_image)
-        self.my_history.append(mod)
-        self.update_edited_figure()
+        mod = ih.ImageModifier('filter',
+                               self.cb_filter.currentText(), d)
+        self.apply_modifier(mod)
+
     # endregion
 
     # region Mathematical Morphologies Menu
@@ -312,26 +293,58 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         pass
 
     def sl_morph_size_value_changed(self):
-        pass
+        self.lbl_morph_size.setText("Size(px): %d" % self.sl_morph_size.value())
 
     def btn_apply_morph_clicked(self):
-        pass
+        morph_name = self.cb_morph_type.currentText()
+        morph_op = 'binary' if self.radio_morph_binary.isChecked() else 'grey'
+        morph_size = self.sl_morph_size.value()
+        d = {'morph_op': morph_op, 'size': morph_size}
+        mod = ih.ImageModifier('morphology', morph_name, d)
+        print(mod)
+        self.apply_modifier(mod)
+
     # endregion
 
     # region Segmentation Menu
     def sl_segmentation_threshold_value_changed(self):
-        pass
+        self.lbl_seg_threshold.setText('Limiar: %d' % self.sl_segmentation_th.value())
+        self.radio_seg_median_th.setChecked(False)
+        self.radio_seg_mean_th.setChecked(False)
 
     def radio_mean_median_toggled(self):
-        pass
+        if self.radio_seg_mean_th.isChecked():
+            self.sl_segmentation_th.setValue(self.edited_image.mean())
+        elif self.radio_seg_median_th.isChecked():
+            self.sl_segmentation_th.setValue(self.edited_image.max() - self.edited_image.min())
 
     def btn_apply_segmentation_clicked(self):
-        pass
+        mod = ih.ImageModifier('segmentation', 'histogram',
+                               {'threshold': self.sl_segmentation_th.value()})
+        self.apply_modifier(mod)
+
     # endregion
 
     # region Misc Menu
     def btn_labels_clicked(self):
+        from scipy import ndimage
+        import matplotlib.pyplot as plt
+        self.undo_backup_image = self.edited_image
+        label_im, nb_labels = ndimage.label(self.edited_image)
+        self.btn_labels.setText("Labels: %d" % nb_labels)  # how many regions?
+        plt.imshow(label_im)
+        plt.title('Regioes Econtradas: %d' % nb_labels)
+        plt.show()
+
+    def do_example_labels(self):
+        """
+        Modifier: noise - salt_and_pepper - {'s_vs_p': 0.5, 'amount': 0.004}
+        Modifier: morphology - dilation - {'morph_op': 'grey', 'size': 10}
+        Modifier: filter - gaussian - {'sigma': 3.0}
+        Modifier: segmentation - histogram - {'threshold': 148}
+        """
         pass
+
     # endregion
 
     # region Option Menu
@@ -344,6 +357,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
 
     def radio_hist_clicked(self):
         self.update_edited_figure()
+
     # endregion
 
     # region Actions Menu Bar
@@ -364,6 +378,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.update_edited_figure()
 
     def action_undo_triggered(self):
+        self.actionUndo.setEnabled(False)
         self.my_history.pop()
         self.edited_image = self.undo_backup_image
         self.update_edited_figure()
@@ -388,6 +403,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
 ele é livre para o uso, alterações e distribuição,
 se de alguma maneira ele foi útil a você, agradeça com um café, ou uma cerveja.
     Mais informações: https://github.com/ronaldosena/imagens-medicas-2""")
+
     # endregion
     # endregion
 
@@ -429,7 +445,7 @@ se de alguma maneira ele foi útil a você, agradeça com um café, ou uma cerve
             else:
                 o_min_value = np.iinfo(self.original_image.dtype).min
                 o_max_value = np.iinfo(self.original_image.dtype).max
-            self.edited_image_fig.add_subplot(1+self.radio_hist.isChecked(),2, 1)
+            self.edited_image_fig.add_subplot(1 + self.radio_hist.isChecked(), 2, 1)
             im_original = self.update_edited_figure_image(o_min_value, o_max_value,
                                                           title='Original Image',
                                                           img=self.original_image)
@@ -445,9 +461,9 @@ se de alguma maneira ele foi útil a você, agradeça com um café, ou uma cerve
             max_value = np.iinfo(self.edited_image.dtype).max
 
         if self.radio_hist.isChecked() or self.radio_compare.isChecked():
-            self.edited_image_fig.add_subplot(1+self.radio_hist.isChecked(),
-                                              1+self.radio_compare.isChecked(),
-                                              1+self.radio_compare.isChecked())
+            self.edited_image_fig.add_subplot(1 + self.radio_hist.isChecked(),
+                                              1 + self.radio_compare.isChecked(),
+                                              1 + self.radio_compare.isChecked())
 
         im = self.update_edited_figure_image(min_value, max_value)
 
@@ -456,11 +472,22 @@ se de alguma maneira ele foi útil a você, agradeça com um café, ou uma cerve
                                               1 +
                                               self.radio_compare.isChecked(),
                                               2 +
-                                              2*self.radio_compare.isChecked())
+                                              2 * self.radio_compare.isChecked())
             self.update_edited_figure_hist(im, min_value, max_value)
 
         self.edited_image_canvas.draw()
+
     # endregion
+
+    def apply_modifier(self, modifier):
+        self.actionUndo.setEnabled(True)
+        self.undo_backup_image = self.edited_image
+
+        self.edited_image = modifier.apply_modifier(self.edited_image)
+
+        self.my_history.append(modifier)
+        self.statusbar.showMessage(str(modifier), 2000)
+        self.update_edited_figure()
 
     def closeEvent(self, q_close_event):
         super(self.__class__, self).closeEvent(q_close_event)
@@ -471,6 +498,7 @@ def main():
     form = IM2APP()
     form.show()
     app.exec_()
+
 
 if __name__ == "__main__":
     main()
