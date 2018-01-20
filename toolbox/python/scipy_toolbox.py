@@ -96,7 +96,7 @@ def read_image(name,extension='.png',folder=None):
     return output_image
 
 # ------------------------------------------------------------------------------
-## Showing images
+##  2.6.2. Displaying images
 # ------------------------------------------------------------------------------
 def show_image(input_image,title=None, colorbar=False):
     if input_image.dtype == np.float64:
@@ -150,7 +150,7 @@ def show_images_and_hists(input_images,titles=[],hist_titles=[],colorbar=True):
         
 
 # ------------------------------------------------------------------------------
-## Spatial Filtering
+## 2.6.4. Image filtering
 # ------------------------------------------------------------------------------
 def gaussian_filter(input_image, sigma=3, show_result=False):    
     blurred_image = ndimage.gaussian_filter(input_image, sigma=sigma)
