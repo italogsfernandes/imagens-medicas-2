@@ -29,6 +29,8 @@ import matplotlib.pyplot as plt  # Showing images
 from scipy import misc  # Opening images
 from scipy import ndimage  # multi dimession image processing
 # ------------------------------------------------------------------------------
+import tempfile
+# ------------------------------------------------------------------------------
 sys.path.append('../../toolbox/python')
 import scipy_toolbox  # Custom toolbox with image processing functions
 # ------------------------------------------------------------------------------
@@ -39,6 +41,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         super(IM2APP, self).__init__(parent)
         self.setupUi(self)
         # region Initializing the attributes
+        self.my_history = []
         self.noise_params = dict()
         self.noise_amount = 0
         self.filter_params = dict()
