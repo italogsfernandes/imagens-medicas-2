@@ -17,18 +17,18 @@ import matplotlib.pyplot as plt  # Showing images
 import numpy as np  # Images are handled as nparray
 # ------------------------------------------------------------------------------
 # PyQt5
-# from PyQt5.QtWidgets import *
-# from views import base_qt5 as base
+from PyQt5.QtWidgets import *
+from views import base_qt5 as base
 # PyQt4
-from PyQt4.QtGui import *
+#from PyQt4.QtGui import *
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 # ------------------------------------------------------------------------------
 from matplotlib.figure import Figure
-from scipy import misc  # Opening images
+from imageio import imread # Opening images
 
 from controllers import image_handler as ih
-from views import base_qt4 as base
+#from views import base_qt4 as base
 # ------------------------------------------------------------------------------
 sys.path.append('../../toolbox/python')
 import scipy_toolbox  # Custom toolbox with image processing functions
@@ -366,7 +366,10 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         dlg.setWindowTitle('Secione a imagem que deseja abrir.')
         dlg.setViewMode(QFileDialog.Detail)
         file_name = dlg.getOpenFileName(self, 'Open File')
-        self.original_image = misc.imread(file_name, mode='L').astype(np.float64)
+        file_name = str(file_name[0])
+        self.original_image = imread(file_name).astype(np.float64)
+        rgb2gray = lambda x: np.dot(x[...,:3], [0.299, 0.587, 0.114])
+        self.original_image = rgb2gray(self.original_image)
         print(self.original_image.dtype)
         self.edited_image = np.copy(self.original_image)
         self.setWindowTitle('Medical Images App' + file_name)
