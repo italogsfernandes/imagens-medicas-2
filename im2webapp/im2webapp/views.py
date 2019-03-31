@@ -5,9 +5,13 @@ from django.shortcuts import render
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        return HttpResponse('<h1>IM2 Web App Home</h1>')
+        return render(
+            request,
+            'im2webapp/home.html',
+            {'title': 'Imagens Médicas 2'}
+        )
 
 
 class AboutView(View):
     def get(self, request, *args, **kwargs):
-        return HttpResponse('<h1>IM2 Web App About</h1>')
+        return render(request, 'im2webapp/about.html', {'title': 'About'})
