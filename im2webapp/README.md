@@ -5,7 +5,10 @@
 * Activating Virtual Env: `source activate im2`
 * Installing Django: `pip install Django`
 * `python -m django --version` ##2.1
+* `django-admin startproject django_project`
+* `./manage.py startapp im2webapp`
 * `./manage.py runserver`
+* `./manage.py migrate`
 
 
 
