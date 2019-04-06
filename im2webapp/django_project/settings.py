@@ -26,7 +26,7 @@ SECRET_KEY = '!-mi(aqg))3348d$%g0e%plgxtrgl5#m!3a-e3h9vmwuz%(r6i'
 DEBUG = True
 
 # SECURITY WARNING: Create separete settings for local and production
-ALLOWED_HOSTS = ['italogsfernandes.com']
+ALLOWED_HOSTS = ['italogsfernandes.com', 'localhost']
 
 
 # Application definition
