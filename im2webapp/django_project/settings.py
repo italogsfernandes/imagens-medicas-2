@@ -25,7 +25,8 @@ SECRET_KEY = '!-mi(aqg))3348d$%g0e%plgxtrgl5#m!3a-e3h9vmwuz%(r6i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: Create separete settings for local and production
+ALLOWED_HOSTS = ['italogsfernandes.com']
 
 
 # Application definition
