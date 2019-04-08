@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('IM2_WEBAPP_SECRET_KEY')
+SECRET_KEY = '!-mi(aqg))3348d$%g0e%plgxtrgl5#m!3a-e3h9vmwuz%(r6i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # SECURITY WARNING: Create separete settings for local and production
 ALLOWED_HOSTS = ['italogsfernandes.com', 'localhost']
