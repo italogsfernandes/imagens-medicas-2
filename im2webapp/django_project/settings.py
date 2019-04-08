@@ -83,6 +83,7 @@ DATABASES = {
         'NAME': 'im2webapp',
     }
 }
+DATABASES['default']['USER'] = 'http'  # NOQA
 
 
 # Password validation
