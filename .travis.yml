@@ -35,4 +35,5 @@ before_script:
 
 #command to run the test suite
 script:
+  - ./check_locales.sh
   - python manage.py test
