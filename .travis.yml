@@ -1,9 +1,19 @@
 language: python
 
-services: postgresql
-
 python:
   - "3.6"
+
+services: postgresql
+
+addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+env:
+  global:
+  - PGPORT=5433
 
 env:
   global:
@@ -20,7 +30,7 @@ install:
   - pip install -q -r requirements.txt
 
 before_script:
-  - createdb im2webapp
+  - psql -c 'create database travis_ci_db;' -U travis
   - python manage.py syncdb --noinput
 
 #command to run the test suite
