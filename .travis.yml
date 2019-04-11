@@ -2,6 +2,9 @@ language: python
 
 services: postgresql
 
+python:
+  - "3"
+
 env:
   global:
     - DJANGO_SETTINGS_MODULE="django_project.settings.tests"
