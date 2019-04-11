@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-11 18:25+0200\n"
+"POT-Creation-Date: 2019-04-11 16:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,30 +87,30 @@ msgstr "S'identifier"
 msgid "Register"
 msgstr "S'inscrire"
 
-#: im2webapp/templates/im2webapp/base.html:53
+#: im2webapp/templates/im2webapp/base.html:58
 msgid "Change language"
-msgstr ""
+msgstr "Changer de langue"
 
-#: im2webapp/templates/im2webapp/base.html:75
+#: im2webapp/templates/im2webapp/base.html:80
 msgid "Our Sidebar"
 msgstr "Notre sidebar"
 
-#: im2webapp/templates/im2webapp/base.html:76
+#: im2webapp/templates/im2webapp/base.html:81
 msgid "You can put any information here you'd like."
 msgstr "Vous pouvez mettre n'importe quelle information ici que vous voudriez."
 
-#: im2webapp/templates/im2webapp/base.html:78
+#: im2webapp/templates/im2webapp/base.html:83
 msgid "Latest"
 msgstr "Nouveau"
 
-#: im2webapp/templates/im2webapp/base.html:79
+#: im2webapp/templates/im2webapp/base.html:84
 msgid "Announcements"
 msgstr "Annonces"
 
-#: im2webapp/templates/im2webapp/base.html:80
+#: im2webapp/templates/im2webapp/base.html:85
 msgid "Calendars"
 msgstr "Calendriers"
 
-#: im2webapp/templates/im2webapp/base.html:81
+#: im2webapp/templates/im2webapp/base.html:86
 msgid "etc"
 msgstr "etc"
