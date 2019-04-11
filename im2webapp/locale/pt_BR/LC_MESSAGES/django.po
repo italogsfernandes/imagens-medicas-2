@@ -1,0 +1,113 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-11 15:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: django_project/settings/base.py:100
+msgid "Brazilian Portuguese"
+msgstr "Português Brasileiro"
+
+#: django_project/settings/base.py:101
+msgid "English"
+msgstr "Inglês"
+
+#: django_project/settings/base.py:102
+msgid "French"
+msgstr "Francês"
+
+#: im2webapp/templates/403.html:8
+msgid "Permission denied!"
+msgstr "Permissão negada!"
+
+#: im2webapp/templates/403.html:10
+msgid "We're sorry but you are not permitted to access this page."
+msgstr "Lamentamos, mas você não tem permissão para acessar esta página."
+
+#: im2webapp/templates/404.html:8
+msgid "Page not found"
+msgstr "Página não encontrada"
+
+#: im2webapp/templates/404.html:10
+msgid "Sorry, this page could not be found."
+msgstr "Desculpe, esta página não pode ser encontrada."
+
+#: im2webapp/templates/500.html:10
+msgid "Internal server error"
+msgstr "Erro do Servidor Interno"
+
+#: im2webapp/templates/500.html:12
+msgid "Sorry, there seems to be an error. Please try again soon."
+msgstr "Desculpe, parece haver um erro. Por favor, tente novamente em breve."
+
+#: im2webapp/templates/im2webapp/about.html:6
+msgid "About Page"
+msgstr "Sobre a página"
+
+#: im2webapp/templates/im2webapp/base.html:26
+#, fuzzy
+#| msgid "Medical Imaging 2"
+msgid "Medical Images 2"
+msgstr "Imagens Médicas 2"
+
+#: im2webapp/templates/im2webapp/base.html:32
+msgid "Home"
+msgstr "Início"
+
+#: im2webapp/templates/im2webapp/base.html:33
+msgid "About"
+msgstr "Sobre"
+
+#: im2webapp/templates/im2webapp/base.html:38
+msgid "Profile"
+msgstr "Perfil"
+
+#: im2webapp/templates/im2webapp/base.html:39
+msgid "Logout"
+msgstr "Sair"
+
+#: im2webapp/templates/im2webapp/base.html:41
+msgid "Login"
+msgstr "Entrar"
+
+#: im2webapp/templates/im2webapp/base.html:42
+msgid "Register"
+msgstr "Inscrever"
+
+#: im2webapp/templates/im2webapp/base.html:63
+msgid "Our Sidebar"
+msgstr "Nossa barra lateral"
+
+#: im2webapp/templates/im2webapp/base.html:64
+msgid "You can put any information here you'd like."
+msgstr "Você pode colocar qualquer informação aqui que você gostaria."
+
+#: im2webapp/templates/im2webapp/base.html:66
+msgid "Latest"
+msgstr "Mais recentes"
+
+#: im2webapp/templates/im2webapp/base.html:67
+msgid "Announcements"
+msgstr "Anúncios"
+
+#: im2webapp/templates/im2webapp/base.html:68
+msgid "Calendars"
+msgstr "Calendários"
+
+#: im2webapp/templates/im2webapp/base.html:69
+msgid "etc"
+msgstr "etc"
