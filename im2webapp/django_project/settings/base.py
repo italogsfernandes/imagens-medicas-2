@@ -1,6 +1,8 @@
 import os
 from os.path import dirname, abspath, join
 
+from django.utils.translation import ugettext_lazy as _
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -93,6 +95,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = [
+    ('pt', _('Portuguese')),
+    ('en', _('English')),
+    ('fr', _('French')),
+]
 
 TIME_ZONE = 'UTC'
 

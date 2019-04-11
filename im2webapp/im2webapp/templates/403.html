@@ -1,0 +1,11 @@
+{% extends "im2webapp/base.html" %}
+
+{% load i18n %}
+
+{% block title %}403{% endblock %}
+
+{% block content %}
+    <h1>{% trans 'Permission denied!' %}</h1>
+
+    <h2>{% trans "We're sorry but you are not permitted to access this page." %}</h2>
+{% endblock %}
