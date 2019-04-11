@@ -1,0 +1,28 @@
+language: python
+
+python:
+  - "3.7"
+
+services: postgresql
+
+env:
+  global:
+    - DJANGO_SETTINGS_MODULE="django_project.settings.tests"
+    - PYTHONPATH="/home/travis/build/italogsfernandes/imagens-medicas-2/im2webapp"
+    - PIP_USE_MIRRORS=true
+    - BUILD_ON_TRAVIS=true
+  matrix:
+    - DJANGO=1.7 DB=postgresql
+
+#commands to install dependencies
+install:
+  - pip install -q Django==$DJANGO
+  - pip install -q -r requirements.txt
+
+before_script:
+  - createdb im2webapp
+  - python manage.py syncdb --noinput
+
+#command to run the test suite
+script:
+  - python manage.py test
