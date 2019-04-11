@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-11 15:46+0000\n"
+"POT-Creation-Date: 2019-04-11 18:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: django_project/settings/base.py:100
+#: django_project/settings/base.py:101
 msgid "Brazilian Portuguese"
 msgstr "Português Brasileiro"
 
-#: django_project/settings/base.py:101
+#: django_project/settings/base.py:102
 msgid "English"
 msgstr "Inglês"
 
-#: django_project/settings/base.py:102
+#: django_project/settings/base.py:103
 msgid "French"
 msgstr "Francês"
 
@@ -88,26 +88,30 @@ msgstr "Entrar"
 msgid "Register"
 msgstr "Inscrever"
 
-#: im2webapp/templates/im2webapp/base.html:63
+#: im2webapp/templates/im2webapp/base.html:53
+msgid "Change language"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/base.html:75
 msgid "Our Sidebar"
 msgstr "Nossa barra lateral"
 
-#: im2webapp/templates/im2webapp/base.html:64
+#: im2webapp/templates/im2webapp/base.html:76
 msgid "You can put any information here you'd like."
 msgstr "Você pode colocar qualquer informação aqui que você gostaria."
 
-#: im2webapp/templates/im2webapp/base.html:66
+#: im2webapp/templates/im2webapp/base.html:78
 msgid "Latest"
 msgstr "Mais recentes"
 
-#: im2webapp/templates/im2webapp/base.html:67
+#: im2webapp/templates/im2webapp/base.html:79
 msgid "Announcements"
 msgstr "Anúncios"
 
-#: im2webapp/templates/im2webapp/base.html:68
+#: im2webapp/templates/im2webapp/base.html:80
 msgid "Calendars"
 msgstr "Calendários"
 
-#: im2webapp/templates/im2webapp/base.html:69
+#: im2webapp/templates/im2webapp/base.html:81
 msgid "etc"
 msgstr "etc"
