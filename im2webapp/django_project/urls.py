@@ -44,9 +44,9 @@ urlpatterns = [
              template_name='users/password_reset_complete.html'
          ),
          name='password_reset_complete'),
+    path('i18n/', include('django.conf.urls.i18n')),
     path('', include('im2webapp.urls')),
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(
