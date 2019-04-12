@@ -19,10 +19,13 @@ env:
   matrix:
     - DB=postgresql
 
+virtualenv:
+  system_site_packages: true
+
 #commands to install dependencies
 install:
   - pip install -q -r requirements.txt
-
+  
 before_script:
   - createdb im2webapp
   - cd im2webapp
