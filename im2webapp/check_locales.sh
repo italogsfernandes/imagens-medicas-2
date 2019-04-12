@@ -14,7 +14,7 @@ pushd $LOCALE_DIR/.. > /dev/null
 
 for LANGUAGE in ${LANGUAGES[@]} ; do
     echo "Checking locales for: "$LANGUAGE
-    django-admin makemessages -l $LANGUAGE 2>&1 > /dev/null
+    python manage.py makemessages -l $LANGUAGE 2>&1 > /dev/null
     LOCALE_FILE=locale/$LANGUAGE/LC_MESSAGES/django.po
     NB_DIFFS=$(git diff $LOCALE_FILE | grep "^[+-]" | grep -v "^[+-]\{3\}" | grep -v "POT-Creation-Date" | grep -v "[+-]#" | wc -l)
     if [ ! $NB_DIFFS -eq 0 ] ; then
