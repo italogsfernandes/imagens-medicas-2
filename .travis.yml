@@ -25,7 +25,7 @@ install:
   - pip install -q -r requirements.txt
 
 before_script:
-  - psql -c "CREATE DATABASE im2webapp;" -U postgres
+  - createdb im2webapp
   - python manage.py migrate
 
 
