@@ -1,5 +1,4 @@
-from os.path import join
-
+import os
 from .base import *  # NOQA
 
 DEBUG = False

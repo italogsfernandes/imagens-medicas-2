@@ -1,5 +1,5 @@
 import os
-from os.path import dirname, abspath, join
+from os.path import dirname, abspath
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -78,16 +78,28 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': (
+            'django.contrib.auth.'
+            'password_validation.UserAttributeSimilarityValidator'
+         ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': (
+            'django.contrib.auth.'
+            'password_validation.MinimumLengthValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.'
+            'password_validation.CommonPasswordValidator'
+        ),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': (
+            'django.contrib.auth.'
+            'password_validation.NumericPasswordValidator'
+        ),
     },
 ]
 
