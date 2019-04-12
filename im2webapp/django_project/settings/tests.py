@@ -1,3 +1,4 @@
+import os
 from .developpement import *  # NOQA
 
 SECRET_KEY = os.environ.get('DJANGO_IM2WEBAPP_TESTS_SECRET_KEY')
