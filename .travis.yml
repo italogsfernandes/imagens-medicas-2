@@ -22,6 +22,7 @@ env:
 #commands to install dependencies
 before_install:
   - sudo apt-get install -qq gdal-bin
+  - sudo apt-get install -qq postgis
 
 install:
   - pip install -q -r requirements.txt
