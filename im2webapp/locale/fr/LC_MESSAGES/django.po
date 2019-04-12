@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-12 14:58+0200\n"
+"POT-Creation-Date: 2019-04-12 15:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: django_project/settings/base.py:101
+#: django_project/settings/base.py:114
 msgid "Brazilian Portuguese"
 msgstr "Portugais Brésilien"
 
-#: django_project/settings/base.py:102
+#: django_project/settings/base.py:115
 msgid "English"
 msgstr "Anglais"
 
-#: django_project/settings/base.py:103
+#: django_project/settings/base.py:116
 msgid "French"
 msgstr "Français"
 
