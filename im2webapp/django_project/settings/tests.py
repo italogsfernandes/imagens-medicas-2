@@ -1,6 +1,7 @@
+import os
 from .developpement import *  # NOQA
 
-SECRET_KEY = "57c%giio-i327pa+c*w5)^$hpemx35s@c3*2%ncgu9fp#pxc9r"
+SECRET_KEY = os.environ.get('DJANGO_IM2WEBAPP_TESTS_SECRET_KEY')
 DEBUG = False
 TEMPLATE_DEBUG = True
 
