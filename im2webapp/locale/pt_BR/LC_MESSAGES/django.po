@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-11 16:33+0000\n"
+"POT-Creation-Date: 2019-04-12 14:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,6 +81,7 @@ msgid "Logout"
 msgstr "Sair"
 
 #: im2webapp/templates/im2webapp/base.html:41
+#: users/templates/users/login.html:13
 msgid "Login"
 msgstr "Entrar"
 
@@ -115,3 +116,75 @@ msgstr "Calendários"
 #: im2webapp/templates/im2webapp/base.html:86
 msgid "etc"
 msgstr "etc"
+
+#: users/templates/users/login.html:9
+msgid "Log In"
+msgstr "Entrar"
+
+#: users/templates/users/login.html:15
+msgid "Forgot Password?"
+msgstr "Esqueceu a senha?"
+
+#: users/templates/users/login.html:21
+msgid "Need An Account?"
+msgstr "Precisa de uma conta?"
+
+#: users/templates/users/login.html:21
+msgid "Sign Up Now"
+msgstr "Inscreva-se agora"
+
+#: users/templates/users/logout.html:4
+msgid "You have been logged out"
+msgstr "Você foi desconectado"
+
+#: users/templates/users/logout.html:7
+msgid "Log In Again"
+msgstr "Faça o login novamente"
+
+#: users/templates/users/password_reset.html:9
+#: users/templates/users/password_reset_confirm.html:9
+#: users/templates/users/password_reset_confirm.html:13
+msgid "Reset Password"
+msgstr "Redefinir Senha"
+
+#: users/templates/users/password_reset.html:13
+msgid "Request Password Reset"
+msgstr "Solicitar redefinição de senha"
+
+#: users/templates/users/password_reset_complete.html:5
+msgid "Your password has been set."
+msgstr "Sua senha foi definida."
+
+#: users/templates/users/password_reset_complete.html:7
+msgid "Sign In Here"
+msgstr "Inscreva-se aqui"
+
+#: users/templates/users/password_reset_done.html:5
+msgid "An email has been sent with instructions to reset your password"
+msgstr "Um email foi enviado com instruções para redefinir sua senha"
+
+#: users/templates/users/profile.html:16
+#, fuzzy
+#| msgid "Profile"
+msgid "Profile Info"
+msgstr "Perfil"
+
+#: users/templates/users/profile.html:21
+msgid "Update"
+msgstr "Atualizar"
+
+#: users/templates/users/register.html:9
+msgid "Join Today"
+msgstr "Junte-se hoje"
+
+#: users/templates/users/register.html:13
+msgid "Sign Up"
+msgstr "Inscrever-se"
+
+#: users/templates/users/register.html:18
+msgid "Already Have An Account?"
+msgstr "Já tem uma conta?"
+
+#: users/templates/users/register.html:18
+msgid "Sign In"
+msgstr "Se inscrever"
