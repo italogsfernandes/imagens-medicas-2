@@ -9,9 +9,6 @@ TEMPLATE_DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'travis_ci_db',
-        'USER': 'travis',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'im2webapp',
     }
 }
