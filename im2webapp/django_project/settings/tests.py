@@ -1,5 +1,3 @@
-from os.path import join
-
 from .developpement import *  # NOQA
 
 SECRET_KEY = "57c%giio-i327pa+c*w5)^$hpemx35s@c3*2%ncgu9fp#pxc9r"
