@@ -14,7 +14,6 @@ env:
   global:
   - PGPORT=5433
   - DJANGO_SETTINGS_MODULE="django_project.settings.tests"
-  - PYTHONPATH="/home/travis/build/italogsfernandes/imagens-medicas-2/im2webapp/"
   - PIP_USE_MIRRORS=true
   - BUILD_ON_TRAVIS=true
   matrix:
@@ -26,7 +25,7 @@ install:
 
 before_script:
   - createdb im2webapp
-  - pwd
+  - cd im2webapp
   - python manage.py migrate
 
 
