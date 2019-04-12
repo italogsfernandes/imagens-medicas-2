@@ -20,6 +20,9 @@ env:
     - DB=postgresql
 
 #commands to install dependencies
+before_install:
+  - sudo apt-get install -qq gdal-bin
+
 install:
   - pip install -q -r requirements.txt
   
