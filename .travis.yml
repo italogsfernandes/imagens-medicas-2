@@ -35,6 +35,7 @@ before_script:
 
 #command to run the test suite
 script:
+  - ./check_migrations.sh
   - ./check_locales.sh
   - flake8 .
   - python manage.py test
