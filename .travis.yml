@@ -1,39 +1,41 @@
 language: python
-
 python:
   - "3.6"
 
 services: postgresql
-
 addons:
   postgresql: "10"
   apt:
     packages:
     - postgresql-10
     - postgresql-client-10
+
 env:
   global:
   - PGPORT=5433
-
-env:
-  global:
-    - DJANGO_SETTINGS_MODULE="django_project.settings.tests"
-    - PYTHONPATH="/home/travis/build/italogsfernandes/imagens-medicas-2/im2webapp"
-    - PIP_USE_MIRRORS=true
-    - BUILD_ON_TRAVIS=true
+  - DJANGO_SETTINGS_MODULE="django_project.settings.tests"
+  - PIP_USE_MIRRORS=true
+  - BUILD_ON_TRAVIS=true
   matrix:
-    - DJANGO=1.7 DB=postgresql
+    - DB=postgresql
 
 #commands to install dependencies
-install:
-  - pip install -q Django==$DJANGO
-  - pip install -q -r requirements.txt
+before_install:
+  - sudo apt-get install -qq gdal-bin
+  - sudo apt-get install -qq postgis
 
+install:
+  - pip install -q -r requirements.txt
+  
 before_script:
-  - psql -c 'create database travis_ci_db;' -U travis
-  - python manage.py syncdb --noinput
+  - createdb im2webapp
+  - cd im2webapp
+  - python manage.py migrate
+
 
 #command to run the test suite
 script:
+  - ./check_migrations.sh
   - ./check_locales.sh
+  - flake8 .
   - python manage.py test
