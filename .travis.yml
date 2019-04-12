@@ -19,9 +19,6 @@ env:
   matrix:
     - DB=postgresql
 
-virtualenv:
-  system_site_packages: true
-
 #commands to install dependencies
 install:
   - pip install -q -r requirements.txt
