@@ -3,7 +3,6 @@
 
 [![Build Status](https://travis-ci.com/italogsfernandes/imagens-medicas-2.svg?branch=master)](https://travis-ci.com/italogsfernandes/imagens-medicas-2)
 [![GitHub issues](https://img.shields.io/github/issues/italogsfernandes/imagens-medicas-2.svg)](https://github.com/italogsfernandes/imagens-medicas-2/issues)
-[![Dependencies](https://img.shields.io/librariesio/github/italogsfernandes/imagens-medicas-2.svg)](https://github.com/italogsfernandes/imagens-medicas-2/network/dependencies)
 [![License](https://img.shields.io/github/license/italogsfernandes/imagens-medicas-2.svg)](LICENSE)
 
 ## Online Version (Under Development)
