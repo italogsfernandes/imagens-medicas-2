@@ -1,6 +1,8 @@
 # Imagens Médicas 2
 >Iniciativa open-source de um sistema para processamento de imagens médicas.
 
+[![Build Status](https://travis-ci.com/italogsfernandes/imagens-medicas-2.svg?branch=master)](https://travis-ci.com/italogsfernandes/imagens-medicas-2)
+
 ## Online Version (Under Development)
 Follow the link: [IM2 WebApp](http://italogsfernandes.com/imagens-medicas-2)
 
