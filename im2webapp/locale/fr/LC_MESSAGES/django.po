@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-12 14:58+0200\n"
+"POT-Creation-Date: 2019-04-16 17:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: django_project/settings/base.py:101
+#: django_project/settings/base.py:113
 msgid "Brazilian Portuguese"
 msgstr "Portugais Brésilien"
 
-#: django_project/settings/base.py:102
+#: django_project/settings/base.py:114
 msgid "English"
 msgstr "Anglais"
 
-#: django_project/settings/base.py:103
+#: django_project/settings/base.py:115
 msgid "French"
 msgstr "Français"
 
@@ -59,60 +59,60 @@ msgstr "Désolé, il semble y avoir une erreur. Veuillez réessayer bientôt."
 msgid "About Page"
 msgstr "À propos de la page"
 
-#: im2webapp/templates/im2webapp/base.html:26
+#: im2webapp/templates/im2webapp/base.html:29
 msgid "Medical Images 2"
 msgstr "Images médicales 2"
 
-#: im2webapp/templates/im2webapp/base.html:32
+#: im2webapp/templates/im2webapp/base.html:35
 msgid "Home"
 msgstr "Accueil"
 
-#: im2webapp/templates/im2webapp/base.html:33
+#: im2webapp/templates/im2webapp/base.html:36
 msgid "About"
 msgstr "À propos"
 
-#: im2webapp/templates/im2webapp/base.html:38
+#: im2webapp/templates/im2webapp/base.html:41
 msgid "Profile"
 msgstr "Profil"
 
-#: im2webapp/templates/im2webapp/base.html:39
+#: im2webapp/templates/im2webapp/base.html:42
 msgid "Logout"
 msgstr "Déconnecter"
 
-#: im2webapp/templates/im2webapp/base.html:41
+#: im2webapp/templates/im2webapp/base.html:44
 #: users/templates/users/login.html:13
 msgid "Login"
 msgstr "S'identifier"
 
-#: im2webapp/templates/im2webapp/base.html:42
+#: im2webapp/templates/im2webapp/base.html:45
 msgid "Register"
 msgstr "S'inscrire"
 
-#: im2webapp/templates/im2webapp/base.html:58
+#: im2webapp/templates/im2webapp/base.html:61
 msgid "Change language"
 msgstr "Changer de langue"
 
-#: im2webapp/templates/im2webapp/base.html:80
+#: im2webapp/templates/im2webapp/base.html:73
 msgid "Our Sidebar"
 msgstr "Notre sidebar"
 
-#: im2webapp/templates/im2webapp/base.html:81
+#: im2webapp/templates/im2webapp/base.html:74
 msgid "You can put any information here you'd like."
 msgstr "Vous pouvez mettre n'importe quelle information ici que vous voudriez."
 
-#: im2webapp/templates/im2webapp/base.html:83
+#: im2webapp/templates/im2webapp/base.html:76
 msgid "Latest"
 msgstr "Nouveau"
 
-#: im2webapp/templates/im2webapp/base.html:84
+#: im2webapp/templates/im2webapp/base.html:77
 msgid "Announcements"
 msgstr "Annonces"
 
-#: im2webapp/templates/im2webapp/base.html:85
+#: im2webapp/templates/im2webapp/base.html:78
 msgid "Calendars"
 msgstr "Calendriers"
 
-#: im2webapp/templates/im2webapp/base.html:86
+#: im2webapp/templates/im2webapp/base.html:79
 msgid "etc"
 msgstr "etc"
 

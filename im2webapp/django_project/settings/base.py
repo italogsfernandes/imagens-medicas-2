@@ -123,6 +123,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
+)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -140,7 +145,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER_API = os.environ.get('DJANGO_IM2WEBAPP_EMAIL_HOST_USER_API')
-EMAIL_HOST_PASSWORD_KEY = os.environ.get(
+EMAIL_HOST_USER = os.environ.get('DJANGO_IM2WEBAPP_EMAIL_HOST_USER_API')
+EMAIL_HOST_PASSWORD = os.environ.get(
     'DJANGO_IM2WEBAPP_EMAIL_HOST_PASSWORD_KEY'
 )

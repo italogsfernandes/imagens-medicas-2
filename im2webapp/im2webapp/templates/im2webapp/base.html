@@ -13,6 +13,9 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'im2webapp/main.css' %}">
 
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'im2webapp/images/favicon.png' %}"/>
+    
     {% if title %}
         <title>IM2 - {{ title }}</title>
     {% else %}
@@ -65,16 +68,6 @@
     </header>
     <main role="main" class="container">
       <div class="row">
-        <div class="col-md-8">
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-              </div>
-            {% endfor %}
-          {% endif %}
-          {% block content %}{% endblock %}
-        </div>
         <div class="col-md-4">
           <div class="content-section">
             <h3>{% trans "Our Sidebar" %}</h3>
@@ -87,6 +80,16 @@
               </ul>
             </p>
           </div>
+        </div>
+        <div class="col-md-8">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% block content %}{% endblock %}
         </div>
       </div>
     </main>
