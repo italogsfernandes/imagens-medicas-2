@@ -2,6 +2,9 @@
 >Iniciativa open-source de um sistema para processamento de imagens médicas.
 
 [![Build Status](https://travis-ci.com/italogsfernandes/imagens-medicas-2.svg?branch=master)](https://travis-ci.com/italogsfernandes/imagens-medicas-2)
+[![GitHub issues](https://img.shields.io/github/issues/italogsfernandes/imagens-medicas-2.svg)](https://github.com/italogsfernandes/imagens-medicas-2/issues)
+[![Dependencies](https://img.shields.io/librariesio/github/italogsfernandes/imagens-medicas-2.svg)](https://github.com/italogsfernandes/imagens-medicas-2/network/dependencies)
+[![License](https://img.shields.io/github/license/italogsfernandes/imagens-medicas-2.svg)](LICENSE)
 
 ## Online Version (Under Development)
 Follow the link: [IM2 WebApp](http://italogsfernandes.com/imagens-medicas-2)
