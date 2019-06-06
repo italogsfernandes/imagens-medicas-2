@@ -1,5 +1,5 @@
-# Imagens Médicas 2
->Iniciativa open-source de um sistema para processamento de imagens médicas.
+# Imagens Médicas 2 (Medical Images 2)
+>Open-source initiative for a system for medical image processing.
 
 [![Build Status](https://travis-ci.com/italogsfernandes/imagens-medicas-2.svg?branch=master)](https://travis-ci.com/italogsfernandes/imagens-medicas-2)
 [![GitHub issues](https://img.shields.io/github/issues/italogsfernandes/imagens-medicas-2.svg)](https://github.com/italogsfernandes/imagens-medicas-2/issues)
