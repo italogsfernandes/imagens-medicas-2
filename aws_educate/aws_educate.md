@@ -61,3 +61,32 @@ Table: Security group options
 ![aws_ec2_launch_key_pair.png](images/aws_ec2_launch_key_pair.png)
 
 5. Launch your ec2 instance. You will see a message saying ***"Your instances are now launching"*** and some instructions. I highly suggest you to create billing alerts and get notified if you exceed your free usage tier. Then you can go to *View Instances* and see the status of your running instance.
+
+
+### Connecting to your instance
+How to connect to your remote machine using `ssh`.
+You can do these configurations after creating a new EC2 instance.
+    Obs.: It's important the you have access to your key provided by Amazon in hands
+
+#### Localy (Before first connection)
+1. Change the key permission
+    ~~~
+    $ chmod 400 <yourkey>.pem
+    ~~~
+1. Add the `.pem` to the local `authorized_keys`
+    ~~~
+    $ ssh-add <yourkey>.pem
+    ~~~
+1. Copy the contentes of the `id_rsa.pub`
+    ~~~
+    $ ssh-keygen -y
+    ~~~
+    Confirm the file pressing enter and type the password for you `ssh` keys. After that, **copy the output to clipboard.**
+1. Connect to the server
+    ~~~
+    $ ssh ubuntu@xx.xx.xx.xxx
+    ~~~
+    where `xx.xx.xx.xxx` is you remote IP or DNS
+
+### On server
+See file: [setup_server.sh](../blob/master/utils/setup_server.sh)
