@@ -71,5 +71,13 @@ sudo pip3 install virtualenv
 
 echo "################################################################################"
 echo "Installing npm and sass: sudo apt-get install npm sass
-sudo apt-get install npm sass
+sudo apt-get install npm sass"
+echo "################################################################################"
+
+
+echo "################################################################################"
+echo "Step 3: Install Docker"
+echo "To install Docker on Ubuntu, in the terminal window enter the command:"
+echo "sudo apt install docker.io"
+sudo apt install docker.io
 echo "################################################################################"
