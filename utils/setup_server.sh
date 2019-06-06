@@ -33,27 +33,28 @@ cat >> .ssh/authorized_keys
 
 echo "################################################################################"
 echo "Firewall allow out deny in"
-ufw default allow outgoing
-ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw default deny incoming
 echo "################################################################################"
 echo "Firewall allor ssh, http, flaskdebug and django debug"
-ufw allow ssh
-ufw allow http
-ufw allow 5000
-ufw allow 8000
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw allow 5000
+sudo ufw allow 8000
 echo "################################################################################"
 echo "Firewall Enable"
-ufw enable
+sudo ufw enable
 echo "################################################################################"
 echo "Firewall status: "
-ufw status
+sudo ufw status
 
 echo "################################################################################"
 echo "Installing postgis and gdal-bin: apt-get install postgis gdal-bin -y"
-apt-get install postgis gdal-bin -y
+sudo apt-get install postgis gdal-bin -y
 echo "################################################################################"
 echo "Installing apache2"
-apt-get install apache2
+sudo apt-get install apache2
 echo "################################################################################"
 echo "Installing and configuring postgresql"
 sudo apt install postgresql postgresql-contrib
@@ -66,9 +67,9 @@ echo "##########################################################################
 echo "Virtual env"
 sudo apt-get install python3-pip
 sudo pip3 install virtualenv
-virtualenv -p python3 env
+# virtualenv -p python3 env
 
 echo "################################################################################"
-echo "Installing postgis and gdal-bin: apt-get install postgis gdal-bin -y"
-apt-get install npm sass
+echo "Installing npm and sass: sudo apt-get install npm sass
+sudo apt-get install npm sass
 echo "################################################################################"
