@@ -87,7 +87,7 @@ sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.soc
 echo "################################################################################"
 
 echo "################################################################################"
-echo "Then you need to run the Docker container for your project!"
+echo "Then you need to run the Docker container for your project! (login before)"
 echo "################################################################################"
 sudo docker login
 sudo docker run -d --name <my-project> <username>/<my-project>
