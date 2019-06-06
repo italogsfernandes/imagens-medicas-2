@@ -80,4 +80,14 @@ echo "Step 3: Install Docker"
 echo "To install Docker on Ubuntu, in the terminal window enter the command:"
 echo "sudo apt install docker.io"
 sudo apt install docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+docker --version
+sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock v2tec/watchtower
 echo "################################################################################"
+
+echo "################################################################################"
+echo "Then you need to run the Docker container for your project!"
+echo "################################################################################"
+sudo docker login
+sudo docker run -d --name <my-project> <username>/<my-project>
