@@ -89,4 +89,4 @@ You can do these configurations after creating a new EC2 instance.
     where `xx.xx.xx.xxx` is you remote IP or DNS
 
 ### On server
-See file: [setup_server.sh](../../utils/setup_server.sh)
+See file: [setup_server.sh](../utils/setup_server.sh)
