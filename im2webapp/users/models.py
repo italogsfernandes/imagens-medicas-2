@@ -2,12 +2,12 @@ from PIL import Image
 
 from django.db import models
 from django.contrib.auth.models import User
-
+from django_project import settings
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(
-        default='/static/images/profile-default.jpg',
+        default='..{}images/profile-default.jpg'.format(settings.STATIC_URL),
         upload_to='profile_pics'
     )
 
