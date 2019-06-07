@@ -30,3 +30,9 @@ class PostReceiveGitHubWebHookView(View):
                             event_type, delivery_id, signature)
             })
         return JsonResponse({"success": True})
+
+    def get(self, request, *args, **kwargs):
+        return JsonResponse({
+            "success": False,
+            "message": "Good anakin."
+        })
