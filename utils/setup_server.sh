@@ -160,3 +160,8 @@ python /home/italo/imagens-medicas-2/im2webapp/manage.py migrate
 python /home/italo/imagens-medicas-2/im2webapp/manage.py collectstatic --noinput
 
 sudo service apache2 restart
+
+echo "##################"
+echo "env variables"
+echo "##################"
+sudo nano /etc/environment

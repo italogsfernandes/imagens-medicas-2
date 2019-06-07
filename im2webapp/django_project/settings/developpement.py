@@ -9,11 +9,14 @@ if os.environ.get('DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_PASSWORD'):
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'NAME': 'im2webapp',
-            'USER': os.environ.get('DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_USER'),
+            'USER': os.environ.get(
+                'DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_USER'),
             'PASSWORD': os.environ.get(
                 'DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_PASSWORD'),
-            'HOST': os.environ.get('DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_HOST'),
-            'PORT': os.environ.get('DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_PORT'),
+            'HOST': os.environ.get(
+                'DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_HOST'),
+            'PORT': os.environ.get(
+                'DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_PORT'),
         }
     }
 
