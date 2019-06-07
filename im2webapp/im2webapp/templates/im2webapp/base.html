@@ -15,7 +15,7 @@
 
     <!-- favicon -->
     <link rel="shortcut icon" type="image/png" href="{% static 'im2webapp/images/favicon.png' %}"/>
-    
+
     {% if title %}
         <title>IM2 - {{ title }}</title>
     {% else %}
@@ -32,7 +32,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{% url 'home' %}">{% trans "Home" %}</a>
+              <a class="nav-item nav-link" href="{% url 'home' %}">{% trans "Home" %}</a><a class="nav-item nav-link" href="{% url 'home' %}">HUEHUE</a>
               <a class="nav-item nav-link" href="{% url 'about' %}">{% trans "About" %}</a>
             </div>
             <!-- Navbar Right Side -->
@@ -45,7 +45,7 @@
                 <a class="nav-item nav-link" href="{% url 'register' %}">{% trans "Register" %}</a>
               {% endif %}
               {% get_available_languages as LANGUAGES %}
-              <div class="idiomas">            
+              <div class="idiomas">
               <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                 <input name="next" type="hidden" value="{{ redirect_to }}">
                 <select name="language">
