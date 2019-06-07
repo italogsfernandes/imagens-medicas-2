@@ -53,8 +53,11 @@ echo "##########################################################################
 echo "Installing postgis and gdal-bin: apt-get install postgis gdal-bin -y"
 sudo apt-get install postgis gdal-bin -y
 echo "################################################################################"
-echo "Installing apache2"
+echo "Installing apache2 and mod-wsgi"
 sudo apt-get install apache2
+# sudo apt-get install libapache2-mod-wsgi
+sudo apt-get install libapache2-mod-wsgi-py3
+sudo a2enmod wsgi
 echo "################################################################################"
 echo "Installing and configuring postgresql"
 sudo apt install postgresql postgresql-contrib
@@ -122,3 +125,4 @@ scp wsgi_production.py italo@italogsfernandes.com:/home/italo/imagens-medicas-2/
 echo "Apache2 conf (httpd.conf) + WSGI:"
 echo "NOTE: This path can change depending on apache version"
 sudo cp /home/italo/imagens-medicas-2/utils/apache2.conf /etc/apache2/apache2.conf
+sudo service apache2 restart
