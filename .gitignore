@@ -26,6 +26,8 @@ Apps/mIM2_app/IM2_app_resources/
 /im2webapp/extra_locales
 /im2webapp/im2webapp/settings/local.py
 /im2webapp/db.sqlite3
+# Production files
+/im2webapp/django_project/wsgi_production.py
 
 #####=== Python ===#####
 
