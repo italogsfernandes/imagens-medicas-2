@@ -113,6 +113,8 @@ python /home/italo/imagens-medicas-2/im2webapp/manage.py migrate
 echo "Creating super user:"
 python /home/italo/imagens-medicas-2/im2webapp/manage.py createsuperuser
 
-
 echo "Running first debug: "
 python /home/italo/imagens-medicas-2/im2webapp/manage.py runserver 0.0.0.0:8000
+
+echo "WSGI:"
+scp wsgi_production.py italo@italogsfernandes.com:/home/italo/imagens-medicas-2/im2webapp/django_project/
