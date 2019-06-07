@@ -91,3 +91,28 @@ echo "Then you need to run the Docker container for your project! (login before)
 echo "################################################################################"
 sudo docker login
 sudo pip3 install docker-compose
+
+echo "################################################################################"
+echo "Project specific"
+echo "################################################################################"
+echo "Git clone:"
+git clone https://github.com/italogsfernandes/server-management.git
+echo "Virtual Env:"
+virtualenv -p python3 /home/italo/imagens-medicas-2/env
+source /home/italo/imagens-medicas-2/env/bin/activate
+# virtualenv -p python3 env
+# source env/bin/activate
+echo "Pip requirements:"
+pip3 install -r /home/italo/imagens-medicas-2/requirements.txt
+# pip3 install -r requirements.txt
+
+echo "Creating postgresql DB:"
+createdb im2webapp
+echo "Migrating:"
+python /home/italo/imagens-medicas-2/im2webapp/manage.py migrate
+echo "Creating super user:"
+python /home/italo/imagens-medicas-2/im2webapp/manage.py createsuperuser
+
+
+echo "Running first debug: "
+python /home/italo/imagens-medicas-2/im2webapp/manage.py runserver 0.0.0.0:8000
