@@ -113,12 +113,31 @@ pip3 install -r /home/italo/imagens-medicas-2/requirements.txt
 echo "Creating postgresql DB:"
 createdb im2webapp
 echo "Configuring postgresql to production:"
+sudo nano /etc/postgresql/10/main/pg_hba.conf
+# Change this line:
+# -local   all             all                                     peer
+# To this:
+# +local   all             all                                     md5
+sudo service postgresql restart # I dont know if i need this
+
+echo "Configuring postgresql to production creating user:"
+# dropuser <username>
 sudo su - postgres
+# role and pass in private files
+# next 3 questions -> n (do not allow)
 createuser --interactive --pwprompt
 psql
-GRANT ALL ON DATABASE im2webapp TO <username>;
+GRANT italo TO <username>;
 \q
 exit
+
+# GRANT ALL ON DATABASE im2webapp TO <username>;
+# GRANT ALL ON SCHEMA public TO <username>;
+# GRANT ALL ON ALL TABLES IN SCHEMA public TO <username>;
+# REVOKE ALL ON DATABASE im2webapp FROM <username>;
+# REVOKE ALL ON SCHEMA public FROM <username>;
+# REVOKE ALL ON ALL TABLES IN SCHEMA public FROM <username>;
+# REVOKE italo FROM im2webapp_django_user;
 
 echo "Migrating:"
 python /home/italo/imagens-medicas-2/im2webapp/manage.py migrate
