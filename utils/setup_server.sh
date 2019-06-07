@@ -50,8 +50,9 @@ echo "Firewall status: "
 sudo ufw status
 
 echo "################################################################################"
-echo "Installing postgis and gdal-bin: apt-get install postgis gdal-bin -y"
+echo "Installing postgis and gdal-bin: apt-get install postgis gdal-bin gettext -y"
 sudo apt-get install postgis gdal-bin -y
+sudo apt-get install gettext -y
 echo "################################################################################"
 echo "Installing apache2 and mod-wsgi"
 sudo apt-get install apache2
@@ -116,6 +117,9 @@ python /home/italo/imagens-medicas-2/im2webapp/manage.py migrate
 echo "Creating super user:"
 python /home/italo/imagens-medicas-2/im2webapp/manage.py createsuperuser
 
+echo "compile locale:"
+python /home/italo/imagens-medicas-2/im2webapp/manage.py compilemessages
+
 echo "Running first debug: "
 python /home/italo/imagens-medicas-2/im2webapp/manage.py runserver 0.0.0.0:8000
 
@@ -125,4 +129,7 @@ scp wsgi_production.py italo@italogsfernandes.com:/home/italo/imagens-medicas-2/
 echo "Apache2 conf (httpd.conf) + WSGI:"
 echo "NOTE: This path can change depending on apache version"
 sudo cp /home/italo/imagens-medicas-2/utils/apache2.conf /etc/apache2/apache2.conf
+python /home/italo/imagens-medicas-2/im2webapp/manage.py migrate
+python /home/italo/imagens-medicas-2/im2webapp/manage.py collectstatic --noinput
+
 sudo service apache2 restart
