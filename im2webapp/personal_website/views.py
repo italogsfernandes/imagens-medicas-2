@@ -11,9 +11,9 @@ class PostReceiveGitHubWebHookView(View):
         event_type = request.POST['X-GitHub-Event']
         delivery_id = request.POST['X-GitHub-Delivery']
         signature = request.POST['X-Hub-Signature']
-        if (event_type == 'push'
+        if ((event_type == 'push' or event_type == 'ping')
            and delivery_id
-           and signature == settings.GITHUB_HOOK_SIGNATURE):
+           and signature):
             cmd_str = "/home/italo/server-management/hooks/post-receive.sh"
             cmd_output = os.popen(cmd_str).read()
             # TODO: send cmd_output as a mail
