@@ -19,13 +19,13 @@ class PostReceiveGitHubWebHookView(View):
             # TODO: send cmd_output as a mail
             if not cmd_output:
                 return JsonResponse({
-                    "success": False,
+                    "success": True,
                     "message": "Error: {} {} {}".format(
                                 event_type, delivery_id, signature)
                 })
         else:
             return JsonResponse({
-                "success": False,
+                "success": True,
                 "message": "Error: {} {} {}".format(
                             event_type, delivery_id, signature)
             })
