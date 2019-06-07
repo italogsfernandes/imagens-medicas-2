@@ -23,6 +23,9 @@ class PostReceiveGitHubWebHookView(View):
                     "message": "Error: {} {} {}".format(
                                 event_type, delivery_id, signature)
                 })
+            else:
+                with open("/home/italo/xablaus.txt", 'w+') as cmd_file:
+                    cmd_file.write(cmd_output)
         else:
             return JsonResponse({
                 "success": True,
