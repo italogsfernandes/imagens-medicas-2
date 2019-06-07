@@ -118,3 +118,7 @@ python /home/italo/imagens-medicas-2/im2webapp/manage.py runserver 0.0.0.0:8000
 
 echo "WSGI:"
 scp wsgi_production.py italo@italogsfernandes.com:/home/italo/imagens-medicas-2/im2webapp/django_project/
+
+echo "Apache2 conf (httpd.conf) + WSGI:"
+echo "NOTE: This path can change depending on apache version"
+sudo cp /home/italo/imagens-medicas-2/utils/apache2.conf /etc/apache2/apache2.conf
