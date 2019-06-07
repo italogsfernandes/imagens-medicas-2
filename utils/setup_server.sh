@@ -112,6 +112,14 @@ pip3 install -r /home/italo/imagens-medicas-2/requirements.txt
 
 echo "Creating postgresql DB:"
 createdb im2webapp
+echo "Configuring postgresql to production:"
+sudo su - postgres
+createuser --interactive --pwprompt
+psql
+GRANT ALL ON DATABASE im2webapp TO <username>;
+\q
+exit
+
 echo "Migrating:"
 python /home/italo/imagens-medicas-2/im2webapp/manage.py migrate
 echo "Creating super user:"
