@@ -19,7 +19,7 @@ Apps/mIM2_app/IM2_app_resources/
 
 ## Project specific
 /im2webapp/junit.xml
-/im2webapp/media
+/im2webapp/media/*
 !/im2webapp/media/default.jpg
 /im2webapp/node_modules
 /im2webapp/static
