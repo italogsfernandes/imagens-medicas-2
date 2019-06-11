@@ -1,5 +1,6 @@
 {% extends "im2webapp/base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}{{title}}{% endblock %}
 
@@ -9,12 +10,11 @@
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
-      <a class="mr-2" href="#">Lorem</a>
-      <small class="text-muted">Ipsum</small>
+      <small class="text-muted">{% trans "Image Output" %}</small>
     </div>
-    <h2><a class="article-title" href="#">Lorem Ipsum</a></h2>
-    <p class="article-content">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <h2><a class="article-title" href="#">Mammography</a></h2>
+    <p class="article-conten text-center">
+      <img src="{% static 'im2webapp/images/examples/mammography.jpg' %}">
     </p>
   </div>
 </article>
