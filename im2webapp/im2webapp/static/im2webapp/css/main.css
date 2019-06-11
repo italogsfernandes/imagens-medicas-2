@@ -28,6 +28,18 @@ ul {
   font-weight: 500;
 }
 
+.user-link {
+  color: #000000;
+}
+
+.user-link:hover {
+  color: #AAAAAA;
+}
+
+.user-option {
+  padding-left: 5px;
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
