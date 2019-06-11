@@ -1,0 +1,77 @@
+{% load i18n %}
+{% load static %}
+
+<div class="content-section">
+  <h3>{% trans "Image Modifiers" %}</h3>
+  <nav class="nav nav-tabs">
+    <a data-toggle="tab" href="#tab_basics" class="nav-item nav-link active">{% trans "Basics" %}</a>
+    <a data-toggle="tab" href="#tab_noise" class="nav-item nav-link">{% trans "Noise" %}</a>
+    <a data-toggle="tab" href="#tab_filters" class="nav-item nav-link">{% trans "Filters" %}</a>
+  </nav>
+  <div class="tab-content">
+    <div id="tab_basics" class="tab-pane fade active show">
+      <form action="" method="post">
+        <br>
+        <p>{% trans "Brightness" %}</p>
+        <div class="slidecontainer">
+          <input type="range" min="1" max="100" value="50" class="slider" id="range_brightness">
+        </div>
+        <hr>
+        <p>{% trans "Contrast" %}</p>
+        <div class="slidecontainer">
+          <input type="range" min="1" max="100" value="50" class="slider" id="range_contrast">
+        </div>
+        <br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <div id="tab_noise" class="tab-pane fade">
+      <form action="" method="post">
+        <br>
+        <p>
+          {% trans "Noise type: " %}
+          <select>
+            <option value="uniform">{% trans "Uniform" %}</option>
+            <option value="gaussian">{% trans "Gaussian" %}</option>
+            <option value="rayleight">{% trans "Rayleigh" %}</option>
+            <option value="exponential">{% trans "Exponential" %}</option>
+            <option value="gamma">{% trans "Gamma" %}</option>
+            <option value="salt_and_pepper">{% trans "Salt and Pepper" %}</option>
+          </select>
+        </p>
+        <hr>
+        <p>{% trans "Amount" %}</p>
+        <p class="slidecontainer">
+          <input type="range" min="1" max="100" value="50" class="slider" id="range_amount">
+        </p>
+        <p>
+          {% trans "Range: " %}
+          <input type="text" name="range">
+        </p>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <div id="tab_filters" class="tab-pane fade">
+      <p>Some content in Filters.</p>
+    </div>
+    <div id="tab_morph" class="tab-pane fade">
+      <p>Some content in Morph.</p>
+    </div>
+    <div id="tab_segmentation" class="tab-pane fade">
+      <p>Some content in Segmentation.</p>
+    </div>
+  </div>
+</div>
+
+<div class="content-section">
+  <h3>{% trans "Mini-Viewer" %}</h3>
+  <form action="" method="post">
+    <input type="button" name="viewer-equalize" value="Equalize">
+    <input type="checkbox" name="viewer-compare" value="Compare">{% trans "Compare" %}
+    <input type="checkbox" name="viewer-histogram" value="Histogram">{% trans "Histogram" %}
+  </form>
+  <h5 class="text-center">{% trans "Original Image" %}</h5>
+  <p class="text-center">
+    <img src="{% static 'im2webapp/images/examples/mammography.jpg' %}" width="150px" height="auto">
+  </p>
+</div>

@@ -8,6 +8,8 @@
 ## Online Version (Under Development)
 Follow the link: [IM2 WebApp](http://italogsfernandes.com/imagens-medicas-2)
 
+![](docs/site_screenshot.png)
+
 ## Summary
 
 The project [IM2_app](https://github.com/italogsfernandes/imagens-medicas-2) is an initiative to create an open source medical imaging system.
