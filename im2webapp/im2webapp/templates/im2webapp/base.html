@@ -1,97 +1,51 @@
 {% load static %}
 {% load i18n %}
+
 <!DOCTYPE html>
 <html>
 <head>
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="msapplication-config" content="none">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'im2webapp/images/favicon.png' %}">
+
+    {% block extra_meta %}{% endblock %}
+    <title>{% block title %}{% endblock %} | {% block title_suffix %}IM2{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'im2webapp/css/main.css' %}">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'im2webapp/main.css' %}">
+    {# Global fonts #}
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600">
 
-    <!-- favicon -->
-    <link rel="shortcut icon" type="image/png" href="{% static 'im2webapp/images/favicon.png' %}"/>
-
-    {% if title %}
-        <title>IM2 - {{ title }}</title>
-    {% else %}
-        <title>IM2</title>
-    {% endif %}
+    {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %} ">
+
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-        <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'home' %}">{% trans "Medical Images 2" %}</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{% url 'home' %}">{% trans "Home" %}</a>
-              <a class="nav-item nav-link" href="{% url 'about' %}">{% trans "About" %}</a>
-            </div>
-            <!-- Navbar Right Side -->
-            <div class="navbar-nav">
-              {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'profile' %}">{% trans "Profile" %}</a>
-                <a class="nav-item nav-link" href="{% url 'logout' %}">{% trans "Logout" %}</a>
-              {% else %}
-                <a class="nav-item nav-link" href="{% url 'login' %}">{% trans "Login" %}</a>
-                <a class="nav-item nav-link" href="{% url 'register' %}">{% trans "Register" %}</a>
-              {% endif %}
-              {% get_available_languages as LANGUAGES %}
-              <div class="idiomas">
-              <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                <input name="next" type="hidden" value="{{ redirect_to }}">
-                <select name="language">
-                  {% get_current_language as LANGUAGE_CODE %}
-                  {% get_available_languages as LANGUAGES %}
-                  {% get_language_info_list for LANGUAGES as languages %}
-                  {% for language in languages %}
-                  <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-                    {{ language.name_local }} ({{ language.code }})
-                  </option>
-                  {% endfor %}
-                  </select>
-                <input type="submit" value="{% trans 'Change language' %}">
-              </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+    {% block top_menu %}{% include 'im2webapp/_top_menu.html' %}{% endblock %}
     </header>
+
+    {% block layout %}{% endblock %}
+
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-4">
-          <div class="content-section">
-            <h3>{% trans "Our Sidebar" %}</h3>
-            <p class='text-muted'>{% trans "You can put any information here you'd like." %}
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">{% trans "Latest" %}</li>
-                <li class="list-group-item list-group-item-light">{% trans "Announcements" %}</li>
-                <li class="list-group-item list-group-item-light">{% trans "Calendars" %}</li>
-                <li class="list-group-item list-group-item-light">{% trans "etc" %}</li>
-              </ul>
-            </p>
-          </div>
+          {% block side_bar %}{% endblock %}
         </div>
+        {% block outside_content %}
         <div class="col-md-8">
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-              </div>
-            {% endfor %}
-          {% endif %}
-          {% block content %}{% endblock %}
+            {% include 'im2webapp/_messages.html' %}
+            {% block content %}{% endblock %}
         </div>
+        {% endblock %}
       </div>
+      {% block footer %}{% include 'im2webapp/_footer.html' %}{% endblock %}
     </main>
 
     <!-- Optional JavaScript -->
@@ -99,5 +53,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
