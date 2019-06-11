@@ -57,7 +57,7 @@ msgstr "Désolé, il semble y avoir une erreur. Veuillez réessayer bientôt."
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:5
 msgid "Image Modifiers"
-msgstr "Modificateurs d'image"
+msgstr "Modificateurs"
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:7
 msgid "Basics"
