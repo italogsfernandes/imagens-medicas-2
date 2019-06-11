@@ -7,7 +7,7 @@ class HomeView(View):
         return render(
             request,
             'im2webapp/home.html',
-            {'title': 'Imagens Médicas 2'}
+            {'title': 'Home'}
         )
 
 

@@ -2,6 +2,10 @@
 
 {% load i18n %}
 
+{% block title %}{{title}}{% endblock %}
+
+{% block side_bar %}{% include 'im2webapp/_side_bar.html' %}{% endblock %}
+
 {% block content %}
     <h1>{% trans 'About Page' %}</h1>
 {% endblock content %}
