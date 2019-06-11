@@ -15,7 +15,7 @@
 
     <!-- favicon -->
     <link rel="shortcut icon" type="image/png" href="{% static 'im2webapp/images/favicon.png' %}"/>
-    
+
     {% if title %}
         <title>IM2 - {{ title }}</title>
     {% else %}
@@ -45,7 +45,7 @@
                 <a class="nav-item nav-link" href="{% url 'register' %}">{% trans "Register" %}</a>
               {% endif %}
               {% get_available_languages as LANGUAGES %}
-              <div class="idiomas">            
+              <div class="idiomas">
               <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                 <input name="next" type="hidden" value="{{ redirect_to }}">
                 <select name="language">

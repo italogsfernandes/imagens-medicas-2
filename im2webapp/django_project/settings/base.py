@@ -131,6 +131,7 @@ LOCALE_PATHS = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -148,4 +149,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('DJANGO_IM2WEBAPP_EMAIL_HOST_USER_API')
 EMAIL_HOST_PASSWORD = os.environ.get(
     'DJANGO_IM2WEBAPP_EMAIL_HOST_PASSWORD_KEY'
+)
+
+GITHUB_HOOK_SIGNATURE = os.environ.get(
+    'DJANGO_IM2WEBAPP_GITHUB_HOOK_SIGNATURE'
 )

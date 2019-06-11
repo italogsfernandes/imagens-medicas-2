@@ -1,6 +1,6 @@
 certifi==2019.3.9
 cycler==0.10.0
-Django==2.1.7
+Django==2.1.9
 django-crispy-forms==1.7.2
 flake8==3.7.7
 imageio==2.5.0

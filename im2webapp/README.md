@@ -12,7 +12,7 @@
 
 
 
-* Installing requirements: ``
+* Installing requirements: `pip3 install -r requirements.txt`
 
 
 ## TODO

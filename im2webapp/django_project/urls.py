@@ -12,6 +12,8 @@ from django.contrib.auth.views import (
     PasswordResetCompleteView,
 )
 
+from personal_website.views import PostReceiveGitHubWebHookView
+
 from users.views import register, profile
 
 urlpatterns = [
@@ -24,6 +26,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(
         template_name='users/logout.html'), name='logout'
     ),
+
     path('password-reset/',
          PasswordResetView.as_view(
              template_name='users/password_reset.html'
@@ -44,7 +47,13 @@ urlpatterns = [
              template_name='users/password_reset_complete.html'
          ),
          name='password_reset_complete'),
+
+    path('post-receive-github-web-hook-view/',
+         PostReceiveGitHubWebHookView.as_view(),
+         name='post_receive_github_web_hook_view'),
+
     path('i18n/', include('django.conf.urls.i18n'), name='set_language'),
+
     path('', include('im2webapp.urls')),
 ]
 
