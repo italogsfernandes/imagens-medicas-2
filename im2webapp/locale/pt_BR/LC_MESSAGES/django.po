@@ -1,16 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# This file is distributed under the same license as the IM2WebApp package.
+# Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail.com>, 2019.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-16 17:42+0000\n"
+"POT-Creation-Date: 2019-06-11 08:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
+"com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -54,68 +54,91 @@ msgstr "Erro do Servidor Interno"
 msgid "Sorry, there seems to be an error. Please try again soon."
 msgstr "Desculpe, parece haver um erro. Por favor, tente novamente em breve."
 
-#: im2webapp/templates/im2webapp/about.html:6
-msgid "About Page"
-msgstr "Sobre a página"
+#: im2webapp/templates/im2webapp/_footer.html:10
+msgid "Support IM2 Web App: "
+msgstr "Suporte IM2 Web App: "
 
-#: im2webapp/templates/im2webapp/base.html:29
-#, fuzzy
-#| msgid "Medical Imaging 2"
-msgid "Medical Images 2"
-msgstr "Imagens Médicas 2"
+#: im2webapp/templates/im2webapp/_footer.html:14
+msgid "Found a bug or want to suggest a feature? "
+msgstr "Encontrou um bug ou deseja fazer uma sugestão? "
 
-#: im2webapp/templates/im2webapp/base.html:35
-msgid "Home"
-msgstr "Início"
+#: im2webapp/templates/im2webapp/_footer.html:16
+msgid "Report it here"
+msgstr "Reporte aqui"
 
-#: im2webapp/templates/im2webapp/base.html:36
+#: im2webapp/templates/im2webapp/_footer.html:25
+#: im2webapp/templates/im2webapp/_top_menu.html:14
 msgid "About"
 msgstr "Sobre"
 
-#: im2webapp/templates/im2webapp/base.html:41
-msgid "Profile"
-msgstr "Perfil"
+#: im2webapp/templates/im2webapp/_footer.html:26
+msgid "Terms of Use"
+msgstr "Termos de Uso"
 
-#: im2webapp/templates/im2webapp/base.html:42
-msgid "Logout"
-msgstr "Sair"
+#: im2webapp/templates/im2webapp/_footer.html:27
+msgid "Privacy Policy"
+msgstr "Política de Privacidade"
 
-#: im2webapp/templates/im2webapp/base.html:44
+#: im2webapp/templates/im2webapp/_footer.html:29
+msgid "Language: "
+msgstr "Idioma: "
+
+#: im2webapp/templates/im2webapp/_side_bar.html:3
+msgid "Our Sidebar"
+msgstr "Nossa barra lateral"
+
+#: im2webapp/templates/im2webapp/_side_bar.html:4
+msgid "You can put any information here you'd like."
+msgstr "Você pode colocar qualquer informação aqui que você gostaria."
+
+#: im2webapp/templates/im2webapp/_side_bar.html:6
+msgid "Latest"
+msgstr "Mais recentes"
+
+#: im2webapp/templates/im2webapp/_side_bar.html:7
+msgid "Announcements"
+msgstr "Anúncios"
+
+#: im2webapp/templates/im2webapp/_side_bar.html:8
+msgid "Calendars"
+msgstr "Calendários"
+
+#: im2webapp/templates/im2webapp/_side_bar.html:9
+msgid "etc"
+msgstr "etc"
+
+#: im2webapp/templates/im2webapp/_top_menu.html:6
+msgid "Medical Images 2"
+msgstr "Imagens Médicas 2"
+
+#: im2webapp/templates/im2webapp/_top_menu.html:13
+msgid "Home"
+msgstr "Início"
+
+#: im2webapp/templates/im2webapp/_top_menu.html:22
+msgid "My user account"
+msgstr "Minha conta"
+
+#: im2webapp/templates/im2webapp/_top_menu.html:23
+msgid " - Profile"
+msgstr " - Perfil"
+
+#: im2webapp/templates/im2webapp/_top_menu.html:25
+msgid " - Logout"
+msgstr " - Sair"
+
+#: im2webapp/templates/im2webapp/_top_menu.html:29
 #: users/templates/users/login.html:13
 msgid "Login"
 msgstr "Entrar"
 
-#: im2webapp/templates/im2webapp/base.html:45
+#: im2webapp/templates/im2webapp/_top_menu.html:30
 msgid "Register"
 msgstr "Inscrever"
 
-#: im2webapp/templates/im2webapp/base.html:61
-msgid "Change language"
-msgstr "Mudar idioma"
-
-#: im2webapp/templates/im2webapp/base.html:73
-msgid "Our Sidebar"
-msgstr "Nossa barra lateral"
-
-#: im2webapp/templates/im2webapp/base.html:74
-msgid "You can put any information here you'd like."
-msgstr "Você pode colocar qualquer informação aqui que você gostaria."
-
-#: im2webapp/templates/im2webapp/base.html:76
-msgid "Latest"
-msgstr "Mais recentes"
-
-#: im2webapp/templates/im2webapp/base.html:77
-msgid "Announcements"
-msgstr "Anúncios"
-
-#: im2webapp/templates/im2webapp/base.html:78
-msgid "Calendars"
-msgstr "Calendários"
-
-#: im2webapp/templates/im2webapp/base.html:79
-msgid "etc"
-msgstr "etc"
+#: im2webapp/templates/im2webapp/about.html:6
+msgid "About Page"
+msgstr "Sobre a página"
 
 #: users/templates/users/login.html:9
 msgid "Log In"
@@ -164,8 +187,6 @@ msgid "An email has been sent with instructions to reset your password"
 msgstr "Um email foi enviado com instruções para redefinir sua senha"
 
 #: users/templates/users/profile.html:16
-#, fuzzy
-#| msgid "Profile"
 msgid "Profile Info"
 msgstr "Perfil"
 
