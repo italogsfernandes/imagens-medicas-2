@@ -94,3 +94,33 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+.slider {
+ -webkit-appearance: none;
+ width: 100%;
+ height: 5px;
+ border-radius: 5px;
+ background: #d3d3d3;
+ outline: none;
+ opacity: 0.7;
+ -webkit-transition: .2s;
+ transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+ -webkit-appearance: none;
+ appearance: none;
+ width: 15px;
+ height: 15px;
+ border-radius: 50%;
+ background: #428bca;
+ cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+ width: 15px;
+ height: 15px;
+ border-radius: 50%;
+ background: #428bca;
+ cursor: pointer;
+}
