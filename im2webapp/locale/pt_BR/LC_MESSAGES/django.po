@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-11 08:26+0000\n"
+"POT-Creation-Date: 2019-06-11 12:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -53,6 +53,82 @@ msgstr "Erro do Servidor Interno"
 #: im2webapp/templates/500.html:12
 msgid "Sorry, there seems to be an error. Please try again soon."
 msgstr "Desculpe, parece haver um erro. Por favor, tente novamente em breve."
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:5
+msgid "Image Modifiers"
+msgstr "Modificadores de Imagem"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:7
+msgid "Basics"
+msgstr "Básicos"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:8
+msgid "Noise"
+msgstr "Ruídos"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:9
+msgid "Filters"
+msgstr "Filtros"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:15
+msgid "Brightness"
+msgstr "Brilho"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:20
+msgid "Contrast"
+msgstr "Contraste"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:32
+msgid "Noise type: "
+msgstr "Tipo de Ruído: "
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:34
+msgid "Uniform"
+msgstr "Uniforme"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:35
+msgid "Gaussian"
+msgstr "Gaussiano"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:36
+msgid "Rayleigh"
+msgstr "Rayleigh"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:37
+msgid "Exponential"
+msgstr "Exponencial"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:38
+msgid "Gamma"
+msgstr "Gamma"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:39
+msgid "Salt and Pepper"
+msgstr "Sal e Pimenta"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:43
+msgid "Amount"
+msgstr "Intensidade"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:48
+msgid "Range: "
+msgstr "Intervalo: "
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:67
+msgid "Mini-Viewer"
+msgstr "Mini-Visualizador"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:70
+msgid "Compare"
+msgstr "Comparar"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:71
+msgid "Histogram"
+msgstr "Histograma"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:73
+msgid "Original Image"
+msgstr "Imagem Original"
 
 #: im2webapp/templates/im2webapp/_footer.html:10
 msgid "Support IM2 Web App: "
@@ -115,30 +191,38 @@ msgstr "Imagens Médicas 2"
 msgid "Home"
 msgstr "Início"
 
-#: im2webapp/templates/im2webapp/_top_menu.html:22
+#: im2webapp/templates/im2webapp/_top_menu.html:16
+msgid "Image editor"
+msgstr "Editor de Imagem"
+
+#: im2webapp/templates/im2webapp/_top_menu.html:25
 msgid "My user account"
 msgstr "Minha conta"
 
-#: im2webapp/templates/im2webapp/_top_menu.html:23
+#: im2webapp/templates/im2webapp/_top_menu.html:26
 msgid " - Profile"
 msgstr " - Perfil"
 
-#: im2webapp/templates/im2webapp/_top_menu.html:25
+#: im2webapp/templates/im2webapp/_top_menu.html:28
 msgid " - Logout"
 msgstr " - Sair"
 
-#: im2webapp/templates/im2webapp/_top_menu.html:29
+#: im2webapp/templates/im2webapp/_top_menu.html:32
 #: users/templates/users/login.html:13
 msgid "Login"
 msgstr "Entrar"
 
-#: im2webapp/templates/im2webapp/_top_menu.html:30
+#: im2webapp/templates/im2webapp/_top_menu.html:33
 msgid "Register"
 msgstr "Inscrever"
 
-#: im2webapp/templates/im2webapp/about.html:6
+#: im2webapp/templates/im2webapp/about.html:10
 msgid "About Page"
 msgstr "Sobre a página"
+
+#: im2webapp/templates/im2webapp/image-editor.html:13
+msgid "Image Output"
+msgstr "Imagem - Output"
 
 #: users/templates/users/login.html:9
 msgid "Log In"
