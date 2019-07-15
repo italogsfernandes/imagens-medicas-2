@@ -26,4 +26,4 @@ class MedicalImageAdmin(admin.ModelAdmin):
     go_to_page.short_description = _('Link')
 
 
-admin.site.register(MedicalImageAdmin)
+admin.site.register(MedicalImage, MedicalImageAdmin)

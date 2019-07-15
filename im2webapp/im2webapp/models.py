@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
 
+
 class MedicalImage(models.Model):
     user = models.ForeignKey(
         User,

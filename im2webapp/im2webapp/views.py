@@ -1,7 +1,8 @@
 from django.views.generic import View, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from im2webapp.models import MedicalImage
+
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
