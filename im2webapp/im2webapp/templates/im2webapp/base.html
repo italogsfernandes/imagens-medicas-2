@@ -34,13 +34,13 @@
     {% block layout %}{% endblock %}
 
     <main role="main" class="container">
+      {% include 'im2webapp/_messages.html' %}
       <div class="row">
+        {% block outside_content %}
         <div class="col-md-4">
           {% block side_bar %}{% endblock %}
         </div>
-        {% block outside_content %}
         <div class="col-md-8">
-            {% include 'im2webapp/_messages.html' %}
             {% block content %}{% endblock %}
         </div>
         {% endblock %}
