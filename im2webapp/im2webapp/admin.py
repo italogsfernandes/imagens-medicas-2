@@ -17,7 +17,8 @@ class MedicalImageAdmin(admin.ModelAdmin):
     def go_to_page(self, instance):
         href = reverse('image-list')
         if instance.pk and instance.slug:
-            href = reverse('image-editor', args=[instance.slug])
+            href = reverse('image-editor')
+            # href = reverse('image-editor', args=[instance.slug])
         return mark_safe(
             '<a href="{url}">{text}</a>'.format(url=href, text=_('Go to page'))
         )
