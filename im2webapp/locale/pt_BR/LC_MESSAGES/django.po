@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-11 12:19+0000\n"
+"POT-Creation-Date: 2019-07-15 13:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -208,11 +208,12 @@ msgid " - Logout"
 msgstr " - Sair"
 
 #: im2webapp/templates/im2webapp/_top_menu.html:32
-#: users/templates/users/login.html:13
+#: users/templates/users/login.html:5 users/templates/users/login.html:16
 msgid "Login"
 msgstr "Entrar"
 
 #: im2webapp/templates/im2webapp/_top_menu.html:33
+#: users/templates/users/register.html:5
 msgid "Register"
 msgstr "Inscrever"
 
@@ -224,72 +225,96 @@ msgstr "Sobre a página"
 msgid "Image Output"
 msgstr "Imagem - Output"
 
-#: users/templates/users/login.html:9
+#: users/templates/users/login.html:12
 msgid "Log In"
 msgstr "Entrar"
 
-#: users/templates/users/login.html:15
+#: users/templates/users/login.html:18
 msgid "Forgot Password?"
 msgstr "Esqueceu a senha?"
 
-#: users/templates/users/login.html:21
+#: users/templates/users/login.html:24
 msgid "Need An Account?"
 msgstr "Precisa de uma conta?"
 
-#: users/templates/users/login.html:21
+#: users/templates/users/login.html:24
 msgid "Sign Up Now"
 msgstr "Inscreva-se agora"
 
 #: users/templates/users/logout.html:4
+msgid "Logout"
+msgstr "Sair"
+
+#: users/templates/users/logout.html:7
 msgid "You have been logged out"
 msgstr "Você foi desconectado"
 
-#: users/templates/users/logout.html:7
+#: users/templates/users/logout.html:10
 msgid "Log In Again"
 msgstr "Faça o login novamente"
 
-#: users/templates/users/password_reset.html:9
-#: users/templates/users/password_reset_confirm.html:9
-#: users/templates/users/password_reset_confirm.html:13
+#: users/templates/users/password_reset.html:5
+msgid "Password Reset"
+msgstr "Redefinição de senha"
+
+#: users/templates/users/password_reset.html:12
+#: users/templates/users/password_reset_confirm.html:12
+#: users/templates/users/password_reset_confirm.html:16
 msgid "Reset Password"
 msgstr "Redefinir Senha"
 
-#: users/templates/users/password_reset.html:13
+#: users/templates/users/password_reset.html:16
 msgid "Request Password Reset"
 msgstr "Solicitar redefinição de senha"
 
-#: users/templates/users/password_reset_complete.html:5
+#: users/templates/users/password_reset_complete.html:4
+msgid "Password Reset Complete"
+msgstr "Redefinição de senha completa"
+
+#: users/templates/users/password_reset_complete.html:8
 msgid "Your password has been set."
 msgstr "Sua senha foi definida."
 
-#: users/templates/users/password_reset_complete.html:7
+#: users/templates/users/password_reset_complete.html:10
 msgid "Sign In Here"
 msgstr "Inscreva-se aqui"
 
-#: users/templates/users/password_reset_done.html:5
+#: users/templates/users/password_reset_confirm.html:5
+msgid "Password Reset Confirm"
+msgstr "Confirme redefinição de senha"
+
+#: users/templates/users/password_reset_done.html:4
+msgid "Password Reset Done"
+msgstr "Senha redefinida"
+
+#: users/templates/users/password_reset_done.html:8
 msgid "An email has been sent with instructions to reset your password"
 msgstr "Um email foi enviado com instruções para redefinir sua senha"
 
-#: users/templates/users/profile.html:16
+#: users/templates/users/profile.html:5
+msgid "Profile"
+msgstr "Perfil"
+
+#: users/templates/users/profile.html:19
 msgid "Profile Info"
 msgstr "Perfil"
 
-#: users/templates/users/profile.html:21
+#: users/templates/users/profile.html:24
 msgid "Update"
 msgstr "Atualizar"
 
-#: users/templates/users/register.html:9
+#: users/templates/users/register.html:12
 msgid "Join Today"
 msgstr "Junte-se hoje"
 
-#: users/templates/users/register.html:13
+#: users/templates/users/register.html:16
 msgid "Sign Up"
 msgstr "Inscrever-se"
 
-#: users/templates/users/register.html:18
+#: users/templates/users/register.html:21
 msgid "Already Have An Account?"
 msgstr "Já tem uma conta?"
 
-#: users/templates/users/register.html:18
+#: users/templates/users/register.html:21
 msgid "Sign In"
 msgstr "Se inscrever"
