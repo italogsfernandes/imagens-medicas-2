@@ -1,0 +1,34 @@
+{% extends "im2webapp/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans 'My images' %}{% endblock %}
+
+{% block side_bar %}{% include 'im2webapp/_side_bar.html' %}{% endblock %}
+
+{% block outside_content %}
+  {% if object_list %}
+    <ul class="nav nav-pills">
+      {% for medical_image in object_list %}
+        {% include "lepinard/_winegrower_thumb.html" %}
+        <li>
+          <h2>{{medical_image.name}}</h2>
+          <p>
+            image: {{image}} <br>
+            created_date: {{created_date}} <br>
+            modified_date: {{modified_date}} <br>
+            slug: {{slug}} <br>
+            description_text: {{description_text}}
+          </p>
+        </li>
+        {% endfor %}
+      </ul>
+  {% else %}
+  <div class="article">
+    <p>{% trans "You don't have any medical image yet." %}</p>
+    <p><a href="{% url 'image-editor' %}">
+      {% trans "Try our examples" %}
+    </a><p>
+  </div>
+  {% endif %}
+{% endblock %}
