@@ -1,33 +1,37 @@
 {% extends "im2webapp/base.html" %}
 {% load i18n %}
 {% load static %}
+{% load imagekit %}
 
 {% block title %}{% trans 'My images' %}{% endblock %}
 
 {% block side_bar %}{% include 'im2webapp/_side_bar.html' %}{% endblock %}
 
 {% block outside_content %}
+<div class="row">
   {% if object_list %}
-    <ul class="nav nav-pills">
-      {% for medical_image in object_list %}
-        <li>
-          <h2>{{medical_image.name}}</h2>
-          <p>
-            image: {{image}} <br>
-            created_date: {{created_date}} <br>
-            modified_date: {{modified_date}} <br>
-            slug: {{slug}} <br>
-            description_text: {{description_text}}
-          </p>
-        </li>
-        {% endfor %}
-      </ul>
+  {% for medical_image in object_list %}
+  <div class="article">
+    <h2>{{medical_image.name}}</h2>
+    <p>
+      image: {{medical_image.image}} <br>
+      created_date: {{medical_image.created_date}} <br>
+      modified_date: {{medical_image.modified_date}} <br>
+      slug: {{medical_image.slug}} <br>
+      description_text: {{medical_image.description_text}}
+    </p>
+    {% generateimage 'im2webapp:medical_image_mini' source=medical_image.image as medical_image_mini %}
+    <img src="{{ medical_image_mini.url }}">
+  </div>
+  {% endfor %}
   {% else %}
   <div class="article">
     <p>{% trans "You don't have any medical image yet." %}</p>
     <p><a href="{% url 'image-editor' %}">
-      {% trans "Try our examples" %}
-    </a><p>
+        {% trans "Try our examples" %}
+      </a>
+      <p>
   </div>
   {% endif %}
+</div>
 {% endblock %}
