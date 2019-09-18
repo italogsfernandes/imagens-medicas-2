@@ -7,15 +7,27 @@
 {% block side_bar %}{% include 'im2webapp/_edit_image_side_bar.html' %}{% endblock %}
 
 {% block content %}
+<div class="modal_loading_opencv"></div>
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
       <small class="text-muted">{% trans "Image Output" %}</small>
     </div>
     <h2><a class="article-title" href="#">Mammography</a></h2>
-    <p class="article-conten text-center">
-      <img src="{% static 'im2webapp/images/examples/mammography.jpg' %}">
+    <p class="article-content text-center">
+      <img src="{% static 'im2webapp/images/examples/mammography.jpg' %}"
+           id="output_image">
+    </p>
+    <p class="article-content text-center">
+      <img src="{% static 'im2webapp/images/examples/mammography.jpg' %}"
+           id="output_image_2">
     </p>
   </div>
 </article>
 {% endblock content %}
+
+{% block extra_js %}
+  {{ block.super }}
+  {# <script async src="{% static 'im2webapp/js/opencv.js' %}" onload="onOpenCvReady();" type="text/javascript"></script> #}
+  <script src="{% static 'im2webapp/js/image-editor.js' %}" type="text/javascript"></script>
+{% endblock %}
