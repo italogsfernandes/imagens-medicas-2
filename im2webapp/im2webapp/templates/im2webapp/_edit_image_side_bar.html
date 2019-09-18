@@ -12,9 +12,14 @@
     <div id="tab_basics" class="tab-pane fade active show">
       <form action="" method="post">
         <br>
-        <p>{% trans "Brightness" %}</p>
+        <p>
+          {% trans "Brightness" %}
+          <span id="brightness_value">
+            25
+          <span>
+        </p>
         <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="50" class="slider" id="range_brightness">
+          <input type="range" min="0" max="100" value="0" class="slider" id="range_brightness">
         </div>
         <hr>
         <p>{% trans "Contrast" %}</p>
