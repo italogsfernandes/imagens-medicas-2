@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $("#range_brightness").change(function() {
+  $("#range_brightness").blur(function() {
     var amount = $(this).val();
     amount = amount / 10;
     $("#brightness_value").text(amount);
