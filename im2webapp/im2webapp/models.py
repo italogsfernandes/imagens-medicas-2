@@ -43,3 +43,42 @@ class ImageModel(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class SimpleImageModifier(models.Model):
+    BRIGHTNESS = 'BRIGHTNESS'
+    CONTRAST = 'CONTRAST'
+    NEGATIVE = 'NEGATIVE'
+    IDENTITY = 'IDENTITY'
+    LOGARITHMIC = 'LOGARITHMIC'
+    EXPONENTIAL = 'EXPONENTIAL'
+    POWER = 'POWER'
+
+    SIMPLE_MODIFER_CHOICES = (
+        (BRIGHTNESS, _('Brightness')),
+        (CONTRAST, _('Contrast')),
+        (NEGATIVE, _('Negative')),
+        (IDENTITY, _('Identity')),
+        (LOGARITHMIC, _('Logarithmic')),
+        (EXPONENTIAL, _('Exponential')),
+        (POWER, _('Power')),
+    )
+
+    type_of_modifier = models.CharField(
+        verbose_name=_('Type of Modifier *'),
+        max_length=max([len(e[0]) for e in SIMPLE_MODIFER_CHOICES]),
+        choices=SIMPLE_MODIFER_CHOICES,
+    )
+
+    argument_name = models.CharField(max_length=255)
+    argument_value = models.DecimalField(
+        decimal_places=2, max_digits=12, default=0
+    )
+
+    imagem = models.ForeignKey(
+        ImageModel,
+        on_delete=models.CASCADE,
+    )
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    applied_date = models.DateTimeField(auto_now=True)
