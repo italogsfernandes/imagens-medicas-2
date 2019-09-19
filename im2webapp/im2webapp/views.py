@@ -1,23 +1,11 @@
-from django.views.generic import View
+from django.views.generic import View, DetailView, ListView
 from django.views.generic.edit import FormView
 from django.shortcuts import render
 from django import forms
 import numpy as np
 from decimal import Decimal as D
-from django.http import HttpResponse
-from django.http import HttpResponse
-from matplotlib import pylab
-from pylab import *
-import PIL, PIL.Image
-from io import StringIO
-import random
-import django
-import datetime
 
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
-from matplotlib.dates import DateFormatter
-from chartit import DataPool, Chart
+from .models import ImageModel
 
 
 class HomeView(View):
@@ -34,15 +22,29 @@ class AboutView(View):
         return render(request, 'im2webapp/about.html', {'title': 'About'})
 
 
-class ImageEditorView(View):
+class ImageListView(ListView):
+    pass
+
+
+class ImageEditorView(DetailView):
+    template_name = 'im2webapp/image-editor.html'
+    model = ImageModel
+    query_pk_and_slug = True
+    slug_url_kwarg = 'image_slug'
+    context_object_name = 'image_object'
+
+
+
+class ImageEditorLiteView(View):
     def get(self, request, *args, **kwargs):
         return render(
             request,
-            'im2webapp/image-editor.html',
+            'im2webapp/image-editor-lite.html',
             {'title': 'Imagens Médicas 2'}
         )
 
 
+# BH
 class QuaternionForm(forms.Form):
     quaternion_w = forms.DecimalField(
         label='W',
