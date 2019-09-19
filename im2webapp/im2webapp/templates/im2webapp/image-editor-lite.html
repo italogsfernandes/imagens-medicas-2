@@ -4,7 +4,7 @@
 
 {% block title %}{{title}}{% endblock %}
 
-{% block side_bar %}{% include 'im2webapp/_edit_image_side_bar.html' %}{% endblock %}
+{% block side_bar %}{% include 'im2webapp/_edit_image_side_bar_lite.html' %}{% endblock %}
 
 {% block content %}
 <div class="modal_loading_opencv"></div>
@@ -13,10 +13,14 @@
     <div class="article-metadata">
       <small class="text-muted">{% trans "Image Output" %}</small>
     </div>
-    <h2><a class="article-title" href="#">{{image_object.name}}</a></h2>
+    <h2><a class="article-title" href="#">Mammography</a></h2>
     <p class="article-content text-center">
-      <img src="{{image_object.original_image.url}}"
+      <img src="{% static 'im2webapp/images/examples/mammography.jpg' %}"
            id="output_image">
+    </p>
+    <p class="article-content text-center">
+      <img src="{% static 'im2webapp/images/examples/mammography.jpg' %}"
+           id="output_image_2">
     </p>
   </div>
 </article>
