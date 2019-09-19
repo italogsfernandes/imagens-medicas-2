@@ -40,3 +40,6 @@ class ImageModel(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
             return super(ImageModel, self).clean()
+
+    def __str__(self):
+        return self.name
