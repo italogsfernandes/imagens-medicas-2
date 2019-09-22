@@ -1,5 +1,7 @@
 # Meu dataset pessoal
 hidden/
+im2webapp/wsgi_production.py
+im2webapp/im2webapp.sql.gz
 
 # Pycharm
 *.idea*
