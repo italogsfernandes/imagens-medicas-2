@@ -28,5 +28,20 @@ $(document).ready(function() {
       amount +
       ')'
     );
+
+  $("#input_compare").change(function() {
+    if(this.checked) {
+      $("#div_output_original_image").show();
+    } else {
+      $("#div_output_original_image").hide();
+    }
+  });
+
+  $("#input_histogram").change(function() {
+    if(this.checked) {
+      $("#div_output_original_histogram").show();
+    } else {
+      $("#div_output_original_histogram").hide();
+    }
   });
 });
