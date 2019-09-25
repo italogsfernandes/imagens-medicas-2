@@ -23,9 +23,19 @@ class AboutView(View):
 
 
 class ImageListView(ListView):
-    pass
+    template_name = 'im2webapp/images_list.html'
+    model = ImageModel
+    ordering = "-modified_date"
+
+    def get_queryset(self):
+        user = self.request.user
+        query = super().get_queryset()
+        query = query.filter(user=user)
+        return query
 
 
+
+# TODO: Dont allow user A see images from user B
 class ImageEditorView(DetailView):
     template_name = 'im2webapp/image-editor.html'
     model = ImageModel
