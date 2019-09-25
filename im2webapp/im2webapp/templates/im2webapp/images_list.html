@@ -1,0 +1,35 @@
+{% extends "im2webapp/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "My Images" %}{% endblock %}
+
+
+{% block outside_content %}
+
+  <div class="container">
+    <a id="top"></a>
+    <h1 class="text-center">{% trans 'My images' %}</h1>
+  </div>
+
+  <hr />
+
+  {% if object_list %}
+    <div class="row">
+      <ul>
+      {% for image_object in object_list %}
+        {# {% include "im2webapp/_image_model_thumb.html" %} #}
+        <li>
+          <a href="{% url 'image-editor' image_object.slug %}">
+            {{image_object.name}}
+          <a>
+        </li>
+      {% endfor %}
+      <ul>
+    </div>
+  {% else %}
+    <p>{% trans 'You have no images, please add one.' %}</p>
+  {% endif %}
+</div>
+
+{% endblock %}
