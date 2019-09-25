@@ -15,8 +15,31 @@
     </div>
     <h2><a class="article-title" href="#">{{image_object.name}}</a></h2>
     <p class="article-content text-center">
-      <img src="{{image_object.original_image.url}}"
-           id="output_image">
+      <div class="row text-center" id="row_image_output">
+        <div class="col-md-12" id="div_output_original_image" style="display:none;">
+          <h3>{% trans "Original Image" %}</h3>
+          <img src="{{image_object.original_image.url}}"
+               id="output_original_image">
+        </div>
+        <div class="col-md-12" id="div_output_image" style="display:block;">
+          <h3>{% trans "Output Image" %}</h3>
+          <img src="{{image_object.original_image.url}}"
+               id="output_image">
+        </div>
+     </div>
+     <div class="row text-center" id="row_historgram_output">
+        <div class="col-md-12" id="div_output_original_histogram" style="display:none;">
+          <h3>{% trans "Original Histogram" %}</h3>
+          <img src="{% static 'im2webapp/images/histogram_example.png' %}"
+               id="output_original_histogram">
+        </div>
+
+        <div class="col-md-12" id="div_output_histogram" style="display:block;">
+          <h3>{% trans "Output Histogram" %}</h3>
+          <img src="{% static 'im2webapp/images/histogram_example.png' %}"
+               id="output_histogram">
+        </div>
+     </div>
     </p>
   </div>
 </article>
