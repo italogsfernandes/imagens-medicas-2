@@ -4,6 +4,7 @@ from django.conf.urls import url
 from .views import (
     HomeView,
     AboutView,
+    ImageListView,
     ImageEditorView,
     ImageEditorLiteView,
     BeloHorizonteView,
@@ -19,5 +20,6 @@ urlpatterns = [
         ImageEditorView.as_view(),
         name='image-editor'
     ),
+    url('images/', ImageListView.as_view(), name='images_list'),
     path('belo-horizonte', BeloHorizonteView.as_view(), name='belo-horizonte'),
 ]
