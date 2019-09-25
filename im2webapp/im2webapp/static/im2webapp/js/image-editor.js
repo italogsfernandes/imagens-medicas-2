@@ -29,21 +29,33 @@ $(document).ready(function() {
       ')'
     );
   });
-    
+
 
   $("#input_compare").change(function() {
     if(this.checked) {
       $("#div_output_original_image").show();
+      if($("#input_histogram").checked) {
+        $("#div_output_original_histogram").show();
+      }
     } else {
       $("#div_output_original_image").hide();
+      if($("#input_histogram").checked) {
+        $("#div_output_original_histogram").hide();
+      }
     }
   });
 
   $("#input_histogram").change(function() {
     if(this.checked) {
-      $("#div_output_original_histogram").show();
+      if($("#input_compare").checked) {
+        $("#div_output_original_histogram").show();
+      }
+      $("#div_output_histogram").show();
     } else {
-      $("#div_output_original_histogram").hide();
+      if($("#input_compare").checked) {
+        $("#div_output_original_histogram").hide();
+      }
+      $("#div_output_histogram").hide();
     }
   });
 });
