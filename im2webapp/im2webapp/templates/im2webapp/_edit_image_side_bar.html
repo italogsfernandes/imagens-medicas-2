@@ -15,19 +15,24 @@
         <p>
           {% trans "Brightness" %}
           <span id="brightness_value">
-            25
+            -
           <span>
         </p>
         <div class="slidecontainer">
           <input type="range" min="0" max="100" value="0" class="slider" id="range_brightness">
         </div>
         <hr>
-        <p>{% trans "Contrast" %}</p>
+        <p>
+          {% trans "Contrast" %}
+          <span id="contrast_value">
+            -
+          <span>
+        </p>
         <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="50" class="slider" id="range_contrast">
+          <input type="range" min="0" max="100" value="0" class="slider" id="range_contrast">
         </div>
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Save">
       </form>
     </div>
     <div id="tab_noise" class="tab-pane fade">
