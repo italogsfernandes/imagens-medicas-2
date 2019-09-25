@@ -28,6 +28,8 @@ $(document).ready(function() {
       amount +
       ')'
     );
+  });
+    
 
   $("#input_compare").change(function() {
     if(this.checked) {
