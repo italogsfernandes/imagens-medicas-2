@@ -27,7 +27,7 @@
           <span id="contrast_value">
             -
           <span>
-        </p>class=""
+        </p>
         <div class="slidecontainer">
           <input type="range" min="0" max="100" value="0" class="slider" id="range_contrast">
         </div>
@@ -79,9 +79,11 @@
   <h3>{% trans "Mini-Viewer" %}</h3>
   <form action="" method="post">
     <input type="button" name="viewer-equalize" value="Equalize">
-    <input type="checkbox" name="viewer-compare" value="Compare">{% trans "Compare" %}
-    <input type="checkbox" name="viewer-histogram" value="Histogram">{% trans "Histogram" %}
   </form>
+  <input type="checkbox" name="viewer-compare" value="Compare" id="input_compare">
+  {% trans "Compare" %}
+  <input type="checkbox" name="viewer-histogram" value="Histogram" id="input_histogram">
+  {% trans "Histogram" %}
   <h5 class="text-center">{% trans "Original Image" %}</h5>
   <p class="text-center">
     <img src="{{image_object.original_image.url}}" width="150px" height="auto">
