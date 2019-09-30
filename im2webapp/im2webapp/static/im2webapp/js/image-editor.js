@@ -42,8 +42,8 @@ $(document).ready(function() {
     var i;
     for (i = 0; i < image_data.data.length; i += 4) {
       r_values[i] = image_data.data[i];
-      g_values[i] = image_data.data[i+1];
-      b_values[i] = image_data.data[i+2];
+      g_values[i] = image_data.data[i + 1];
+      b_values[i] = image_data.data[i + 2];
       x[i] = (r_values[i] + g_values[i] + b_values[i]) / 3;
     }
 
@@ -94,14 +94,14 @@ $(document).ready(function() {
   });
 
 
-  function update_brightness_value(new_value) {
+  function update_brightness_value(new_value, image_data) {
     new_value = parseInt(new_value);
     $("#brightness_value").text(new_value);
     var i;
-    for (i = 0; i < image_data_original.data.length; i += 4) {
-      image_data_output.data[i] = new_value + image_data_original.data[i];
-      image_data_output.data[i + 1] = new_value + image_data_original.data[i + 1];
-      image_data_output.data[i + 2] = new_value + image_data_original.data[i + 2];
+    for (i = 0; i < image_data.data.length; i += 4) {
+      image_data_output.data[i] = new_value + image_data.data[i];
+      image_data_output.data[i + 1] = new_value + image_data.data[i + 1];
+      image_data_output.data[i + 2] = new_value + image_data.data[i + 2];
       image_data_output.data[i + 3] = 255;
     }
     generate_histogram(
@@ -112,17 +112,37 @@ $(document).ready(function() {
     ctx_output.putImageData(image_data_output, 0, 0);
   }
 
-  update_brightness_value($("#range_brightness").val());
+  function update_contrast_value(new_value, image_data) {
+    new_value = parseInt(new_value) / 100.00;
+    $("#contrast_value").text(new_value);
+    var i;
+    for (i = 0; i < image_data.data.length; i += 4) {
+      image_data_output.data[i] = new_value * image_data.data[i];
+      image_data_output.data[i + 1] = new_value * image_data.data[i + 1];
+      image_data_output.data[i + 2] = new_value * image_data.data[i + 2];
+      image_data_output.data[i + 3] = 255;
+    }
+    generate_histogram(
+      "div_output_histogram_result_plot",
+      "Output Histogram",
+      image_data_output
+    );
+    ctx_output.putImageData(image_data_output, 0, 0);
+  }
+
+  function update_brightness_then_contrast(brightness_value, contrast_value) {
+    update_brightness_value(brightness_value, image_data_original);
+    update_contrast_value(contrast_value, image_data_output);
+  }
+
+  update_brightness_then_contrast($("#range_brightness").val(), $("#range_contrast").val());
+
   $("#range_brightness").on('change', _.debounce(function() {
-    update_brightness_value($(this).val());
+    update_brightness_then_contrast($(this).val(), $("#range_contrast").val());
   }, 250));
 
-  function update_contrast_value(new_value) {
-    $("#contrast_value").text(new_value);
-  }
-  update_contrast_value($("#range_contrast").val());
   $("#range_contrast").on('change', _.debounce(function() {
-    update_contrast_value($(this).val());
+    update_brightness_then_contrast($("#range_brightness").val(), $(this).val());
   }, 250));
 
 
