@@ -56,15 +56,23 @@ $(document).ready(function() {
       "Output Histogram");
   });
 
-  $("#range_brightness").blur(function() {
-    var amount = $(this).val();
-    $("#brightness_value").text(amount);
-  });
 
-  $("#range_contrast").blur(function() {
-    var amount = $(this).val();
-    $("#contrast_value").text(amount);
-  });
+  function update_brightness_value(new_value){
+    $("#brightness_value").text(new_value);
+  }
+  update_brightness_value($("#range_brightness").val());
+  $("#range_brightness").on('change', _.debounce(function() {
+    update_brightness_value($(this).val());
+  }, 250));
+
+  function update_contrast_value(new_value){
+    $("#contrast_value").text(new_value);
+  }
+  update_contrast_value($("#range_contrast").val());
+  $("#range_contrast").on('change', _.debounce(function() {
+    update_contrast_value($(this).val());
+  }, 250));
+
 
   function show_hide_original_and_histogram() {
     input_compare = document.getElementById("input_compare");
