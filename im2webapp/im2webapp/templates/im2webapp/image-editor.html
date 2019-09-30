@@ -21,8 +21,13 @@
         </div>
         <div class="col-md-12" id="div_output_image" style="display:block;">
           <h6>{% trans "Output Image" %}</h6>
-          <img src="{{image_object.original_image.url}}"
-               id="output_image">
+          <canvas id="canvas_output_image">
+            <p>
+              {% trans "Your browser does not support the HTML5 canvas tag. The following image is not the real output." %}
+            </p>
+            <img src="{{image_object.original_image.url}}"
+                 id="output_image">
+          </canvas>
         </div>
      </div>
      <div class="row text-center" id="row_historgram_output">
