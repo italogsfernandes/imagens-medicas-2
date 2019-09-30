@@ -92,31 +92,21 @@
 
 
 <div class="content-section">
-  {% if actions_history %}
-    <button href="#" class="btn btn-primary pull-right mr15"
-      title="{% trans 'Update Image Histogram' %}"
-      id="btn_update_image_histogram"
-      style="margin-right: 0px; font-size: 10px;">
-      <i class="fa fa-download" aria-hidden="true"></i>
-    </button>
-    <button href="#" class="btn btn-primary pull-right mr15"
-      title="{% trans 'Update Image Histogram' %}"
-      id="btn_update_image_histogram"
-      style="margin-right: 5px; font-size: 10px;">
-      <i class="fa fa-undo" aria-hidden="true"></i>
-    </button>
-  {% endif %}
+  <button href="#" class="btn btn-primary pull-right mr15"
+    title="{% trans 'Download History' %}"
+    id="btn_download_history"
+    style="margin-right: 0px; font-size: 10px;" disabled>
+    <i class="fa fa-download" aria-hidden="true"></i>
+  </button>
+  <button href="#" class="btn btn-primary pull-right mr15"
+    title="{% trans 'Undo Last Action' %}"
+    id="btn_undo_last_action"
+    style="margin-right: 5px; font-size: 10px;" disabled>
+    <i class="fa fa-undo" aria-hidden="true"></i>
+  </button>
 
   <h4><strong>{% trans "History" %}</strong></h4>
-  {% if actions_history %}
-    <ol>
-      <li>{% trans "Change Brightness and Contrast" %}</li>
-      <li>{% trans "Negative" %}</li>
-      <li>{% trans "Add Noise" %}</li>
-    </ol>
-  {% else %}
   <ul>
-    <li>{% trans "Your image has no modifications saved." %}</li>
+    <li>{% trans "Please login to use this feature." %}</li>
   </ul>
-  {% endif %}
 </div>
