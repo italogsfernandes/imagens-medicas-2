@@ -19,4 +19,5 @@ class ImageModelAdmin(admin.ModelAdmin):
     ]
     readonly_fields = ['created_date', 'modified_date']
 
+
 admin.site.register(ImageModel, ImageModelAdmin)
