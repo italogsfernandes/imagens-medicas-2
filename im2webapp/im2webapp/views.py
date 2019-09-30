@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View, DetailView, ListView
 from django.views.generic.edit import FormView
 from django.shortcuts import render
@@ -22,7 +23,7 @@ class AboutView(View):
         return render(request, 'im2webapp/about.html', {'title': 'About'})
 
 
-class ImageListView(ListView):
+class ImageListView(LoginRequiredMixin, ListView):
     template_name = 'im2webapp/images_list.html'
     model = ImageModel
     ordering = "-modified_date"
@@ -34,15 +35,12 @@ class ImageListView(ListView):
         return query
 
 
-
-# TODO: Dont allow user A see images from user B
-class ImageEditorView(DetailView):
+class ImageEditorView(LoginRequiredMixin, DetailView):
     template_name = 'im2webapp/image-editor.html'
     model = ImageModel
     query_pk_and_slug = True
     slug_url_kwarg = 'image_slug'
     context_object_name = 'image_object'
-
 
 
 class ImageEditorLiteView(View):
