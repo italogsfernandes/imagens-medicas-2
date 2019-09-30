@@ -12,8 +12,8 @@ $(document).ready(function() {
       0, 0, data_source_img.width, data_source_img.height);
   }
 
-  function generate_histogram(image_id, div_id, title) {
-    var image_data = get_image_data_obj(image_id);
+  function generate_histogram(image_id, div_id, title, image_data) {
+    image_data = image_data || get_image_data_obj(image_id);
     // Generate Histogram Trace
     var trace = {
       x: image_data.data,
@@ -57,7 +57,7 @@ $(document).ready(function() {
   });
 
 
-  function update_brightness_value(new_value){
+  function update_brightness_value(new_value) {
     $("#brightness_value").text(new_value);
   }
   update_brightness_value($("#range_brightness").val());
@@ -65,7 +65,7 @@ $(document).ready(function() {
     update_brightness_value($(this).val());
   }, 250));
 
-  function update_contrast_value(new_value){
+  function update_contrast_value(new_value) {
     $("#contrast_value").text(new_value);
   }
   update_contrast_value($("#range_contrast").val());
