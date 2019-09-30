@@ -2,11 +2,11 @@
 {% load static %}
 
 <div class="content-section">
-  <h3>{% trans "Image Modifiers" %}</h3>
+  <h4>{% trans "Image Modifiers" %}</h4>
   <nav class="nav nav-tabs">
-    <a data-toggle="tab" href="#tab_basics" class="nav-item nav-link active">{% trans "Basics" %}</a>
-    <a data-toggle="tab" href="#tab_noise" class="nav-item nav-link">{% trans "Noise" %}</a>
-    <a data-toggle="tab" href="#tab_filters" class="nav-item nav-link">{% trans "Filters" %}</a>
+    <a data-toggle="tab" href="#tab_basics" class="nav-item nav-link active" style="display: none;">{% trans "Basics" %}</a>
+    <a data-toggle="tab" href="#tab_noise" class="nav-item nav-link" style="display: none;">{% trans "Noise" %}</a>
+    <a data-toggle="tab" href="#tab_filters" class="nav-item nav-link" style="display: none;">{% trans "Filters" %}</a>
   </nav>
   <div class="tab-content">
     <div id="tab_basics" class="tab-pane fade active show">
@@ -15,19 +15,26 @@
         <p>
           {% trans "Brightness" %}
           <span id="brightness_value">
-            25
+            -
           <span>
         </p>
         <div class="slidecontainer">
-          <input type="range" min="0" max="100" value="0" class="slider" id="range_brightness">
+          <input type="range" min="0" max="255" value="0" class="slider" id="range_brightness">
         </div>
         <hr>
-        <p>{% trans "Contrast" %}</p>
+        <p>
+          {% trans "Contrast" %}
+          <span id="contrast_value">
+            -
+          <span>
+        </p>
         <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="50" class="slider" id="range_contrast">
+          <input type="range" min="100" max="300" value="100" class="slider" id="range_contrast">
         </div>
         <br>
-        <input type="submit" value="Submit">
+        <p class="text-right">
+          <input type="submit" value="Save">
+        </p>
       </form>
     </div>
     <div id="tab_noise" class="tab-pane fade">
@@ -69,14 +76,47 @@
 </div>
 
 <div class="content-section">
-  <h3>{% trans "Mini-Viewer" %}</h3>
-  <form action="" method="post">
+  <h4>{% trans "Mini-Viewer" %}</h4>
+  <form action="" method="post" style="display: none;">
     <input type="button" name="viewer-equalize" value="Equalize">
-    <input type="checkbox" name="viewer-compare" value="Compare">{% trans "Compare" %}
-    <input type="checkbox" name="viewer-histogram" value="Histogram">{% trans "Histogram" %}
   </form>
-  <h5 class="text-center">{% trans "Original Image" %}</h5>
+  <input type="checkbox" name="viewer-compare" value="Compare" id="input_compare">
+  {% trans "Compare" %}
+  <input type="checkbox" name="viewer-histogram" value="Histogram" id="input_histogram">
+  {% trans "Histogram" %}
+  <h6 class="text-center">{% trans "Original Image" %}</h6>
   <p class="text-center">
     <img src="{% static 'im2webapp/images/examples/mammography.jpg' %}" width="150px" height="auto">
   </p>
+</div>
+
+
+<div class="content-section">
+  {% if actions_history %}
+    <button href="#" class="btn btn-primary pull-right mr15"
+      title="{% trans 'Update Image Histogram' %}"
+      id="btn_update_image_histogram"
+      style="margin-right: 0px; font-size: 10px;">
+      <i class="fa fa-download" aria-hidden="true"></i>
+    </button>
+    <button href="#" class="btn btn-primary pull-right mr15"
+      title="{% trans 'Update Image Histogram' %}"
+      id="btn_update_image_histogram"
+      style="margin-right: 5px; font-size: 10px;">
+      <i class="fa fa-undo" aria-hidden="true"></i>
+    </button>
+  {% endif %}
+
+  <h4><strong>{% trans "History" %}</strong></h4>
+  {% if actions_history %}
+    <ol>
+      <li>{% trans "Change Brightness and Contrast" %}</li>
+      <li>{% trans "Negative" %}</li>
+      <li>{% trans "Add Noise" %}</li>
+    </ol>
+  {% else %}
+  <ul>
+    <li>{% trans "Your image has no modifications saved." %}</li>
+  </ul>
+  {% endif %}
 </div>
