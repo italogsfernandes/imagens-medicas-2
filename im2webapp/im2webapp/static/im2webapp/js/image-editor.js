@@ -9,7 +9,7 @@ $(document).ready(function() {
     var ctx = canvas.getContext("2d");
     ctx.drawImage(data_source_img, 0, 0);
     return ctx.getImageData(
-        0, 0, data_source_img.width, data_source_img.height);
+      0, 0, data_source_img.width, data_source_img.height);
   }
 
   function generate_histogram(image_id, div_id, title) {
@@ -66,12 +66,12 @@ $(document).ready(function() {
     $("#contrast_value").text(amount);
   });
 
-  function show_hide_original_and_histogram(){
+  function show_hide_original_and_histogram() {
     input_compare = document.getElementById("input_compare");
     input_histogram = document.getElementById("input_histogram");
 
-    if (input_histogram.checked){
-      if (input_compare.checked){
+    if (input_histogram.checked) {
+      if (input_compare.checked) {
         $("#div_output_original_image").show();
         $("#div_output_original_histogram").show();
         $("#div_output_histogram").show();
@@ -81,7 +81,7 @@ $(document).ready(function() {
         $("#div_output_histogram").show();
       }
     } else {
-      if (input_compare.checked){
+      if (input_compare.checked) {
         $("#div_output_original_image").show();
         $("#div_output_original_histogram").hide();
         $("#div_output_histogram").hide();
