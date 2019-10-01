@@ -15,7 +15,7 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('about/', AboutView.as_view(), name='about'),
     path('lite-editor/', ImageEditorLiteView.as_view(), name='lite-editor'),
-    url(
+    path(
         r'^image-editor/(?P<image_slug>[-0-9A-Za-z]+)/$',
         ImageEditorView.as_view(),
         name='image-editor'
