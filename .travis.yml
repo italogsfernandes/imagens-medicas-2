@@ -12,7 +12,6 @@ addons:
 
 env:
   global:
-  - PGPORT=5433
   - DJANGO_SETTINGS_MODULE="django_project.settings.tests"
   - PIP_USE_MIRRORS=true
   - BUILD_ON_TRAVIS=true
