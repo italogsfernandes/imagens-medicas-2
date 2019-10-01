@@ -89,28 +89,3 @@ class BeloHorizonteView(FormView):
     form_class = QuaternionForm
     quaternion = np.array([1, 0, 0, 0], dtype=float)
     success_url = 'belo-horizonte'
-
-    def form_valid(self, form):
-        self.quaternion[0] = float(form.cleaned_data['quaternion_w'])
-        self.quaternion[1] = float(form.cleaned_data['quaternion_x'])
-        self.quaternion[2] = float(form.cleaned_data['quaternion_y'])
-        self.quaternion[3] = float(form.cleaned_data['quaternion_z'])
-        return super().form_valid(form)
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['title'] = "Belo Horizonte"
-        context['quaternion'] = self.quaternion
-        return context
-
-    def get_initial(self, *args, **kwargs):
-        initial = {
-            'quaternion_w': self.quaternion[0],
-            'quaternion_x': self.quaternion[1],
-            'quaternion_y': self.quaternion[2],
-            'quaternion_z': self.quaternion[3],
-        }
-        return initial
-
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
