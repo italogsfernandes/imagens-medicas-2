@@ -82,6 +82,3 @@ class SimpleImageModifier(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True)
     applied_date = models.DateTimeField(auto_now=True)
-
-    def apply(self):
-        pass
