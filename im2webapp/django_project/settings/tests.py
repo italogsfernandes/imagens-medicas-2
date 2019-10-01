@@ -8,6 +8,6 @@ TEMPLATE_DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'im2webapp_test',
+        'NAME': 'im2webapp',
     }
 }
