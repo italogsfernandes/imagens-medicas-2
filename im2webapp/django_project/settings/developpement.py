@@ -4,7 +4,9 @@ from .base import *  # NOQA
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if os.environ.get('DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_PASSWORD'):
+DB_REQUIRES_PASSWORD = False
+if (os.environ.get('DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_PASSWORD') and
+   DB_REQUIRES_PASSWORD):
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',

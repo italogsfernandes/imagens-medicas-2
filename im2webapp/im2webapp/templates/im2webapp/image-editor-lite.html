@@ -1,0 +1,60 @@
+{% extends "im2webapp/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Image Editor" %}{% endblock %}
+
+{% block side_bar %}{% include 'im2webapp/_edit_image_side_bar_lite.html' %}{% endblock %}
+
+{% block content %}
+<div class="modal_loading_opencv"></div>
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <small class="text-muted">{% trans "Simulated Image" %}</small>
+    </div>
+      <div class="row text-center" id="row_image_output">
+        <div class="col-md-12" id="div_output_original_image" style="display:none;">
+          <h6>{% trans "Original Image" %}</h6>
+          <img src="{% static 'im2webapp/images/examples/simulated.bmp' %}"
+               id="output_original_image">
+        </div>
+        <div class="col-md-12" id="div_output_image" style="display:block;">
+          <h6>{% trans "Output Image" %}</h6>
+          <canvas id="canvas_output_image">
+            <p>
+              {% trans "Your browser does not support the HTML5 canvas tag. The following image is not the real output." %}
+            </p>
+            <img src="{% static 'im2webapp/images/examples/simulated.bmp' %}"
+                 id="output_image">
+          </canvas>
+        </div>
+     </div>
+     <div class="row text-center" id="row_historgram_output">
+        <div class="col-md-12" id="div_output_original_histogram" style="display:none;">
+          <div id="div_original_histogram_result_plot"></div>
+        </div>
+
+        <div class="col-md-12" id="div_output_histogram" style="display:block;">
+          <div id="div_output_histogram_result_plot"></div>
+          <button href="#" class="btn btn-primary pull-right mr15"
+            title="{% trans 'Update Image Histogram' %}"
+            id="btn_update_image_histogram"
+            style="margin-right: 15px; display: none;">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+        </div>
+     </div>
+    </p>
+  </div>
+</article>
+{% endblock content %}
+
+{% block extra_js %}
+  {{ block.super }}
+  {# <script async src="{% static 'im2webapp/js/opencv.js' %}" onload="onOpenCvReady();" type="text/javascript"></script> #}
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="{% static 'im2webapp/js/lodash.js' %}" type="text/javascript"></script>
+  <script src="{% static 'im2webapp/js/image-editor.js' %}" type="text/javascript"></script>
+{% endblock %}

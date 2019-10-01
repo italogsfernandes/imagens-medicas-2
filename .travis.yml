@@ -10,9 +10,11 @@ addons:
     - postgresql-10
     - postgresql-client-10
 
+# Allow the sudo command
+sudo: true
+
 env:
   global:
-  - PGPORT=5433
   - DJANGO_SETTINGS_MODULE="django_project.settings.tests"
   - PIP_USE_MIRRORS=true
   - BUILD_ON_TRAVIS=true
@@ -22,7 +24,8 @@ env:
 #commands to install dependencies
 before_install:
   - sudo apt-get install -qq gdal-bin
-  - sudo apt-get install -qq postgis
+  - sudo apt-get install -qq postgresql-10-postgis-2.4
+  - sudo apt-get install -qq postgis  
 
 install:
   - pip install -q -r requirements.txt

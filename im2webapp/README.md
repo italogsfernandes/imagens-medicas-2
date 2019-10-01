@@ -15,6 +15,12 @@
 * Installing requirements: `pip3 install -r requirements.txt`
 
 
+## Utils
+* `dropdb im2webapp`
+* `createdb im2webapp`
+* `./manage.py migrate`
+* `./manage.py createsuperuser`
+
 ## TODO
 1. Review README.md
 1. Review .gitignore

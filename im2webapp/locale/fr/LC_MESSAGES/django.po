@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-11 12:24+0000\n"
+"POT-Creation-Date: 2019-09-30 23:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -18,17 +18,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: django_project/settings/base.py:113
+#: django_project/settings/base.py:116
 msgid "Brazilian Portuguese"
 msgstr "Portugais Brésilien"
 
-#: django_project/settings/base.py:114
+#: django_project/settings/base.py:117
 msgid "English"
 msgstr "Anglais"
 
-#: django_project/settings/base.py:115
+#: django_project/settings/base.py:118
 msgid "French"
 msgstr "Français"
+
+#: im2webapp/admin.py:14
+msgid "Info"
+msgstr ""
+
+#: im2webapp/models.py:16
+msgid "Slug"
+msgstr ""
+
+#: im2webapp/models.py:58
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:16
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:16
+msgid "Brightness"
+msgstr "Luminosité"
+
+#: im2webapp/models.py:59
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:26
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:26
+msgid "Contrast"
+msgstr "Contraste"
+
+#: im2webapp/models.py:60
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:114
+msgid "Negative"
+msgstr ""
+
+#: im2webapp/models.py:61
+msgid "Identity"
+msgstr ""
+
+#: im2webapp/models.py:62
+msgid "Logarithmic"
+msgstr ""
+
+#: im2webapp/models.py:63
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:49
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:46
+msgid "Exponential"
+msgstr "Exponentiel"
+
+#: im2webapp/models.py:64
+msgid "Power"
+msgstr ""
+
+#: im2webapp/models.py:68
+msgid "Type of Modifier *"
+msgstr "Type de Modificateur *"
 
 #: im2webapp/templates/403.html:8
 msgid "Permission denied!"
@@ -55,110 +102,209 @@ msgstr "Erreur Interne du Serveur"
 msgid "Sorry, there seems to be an error. Please try again soon."
 msgstr "Désolé, il semble y avoir une erreur. Veuillez réessayer bientôt."
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:5
-msgid "Image Modifiers"
-msgstr "Modificateurs"
+#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:10
+msgid "Support: "
+msgstr "Support : "
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:7
-msgid "Basics"
-msgstr "Base"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:8
-msgid "Noise"
-msgstr "Bruit"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:9
-msgid "Filters"
-msgstr "Filtres"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:15
-msgid "Brightness"
-msgstr "Luminosité"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:20
-msgid "Contrast"
-msgstr "Contraste"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:32
-msgid "Noise type: "
-msgstr "Type de bruit : "
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:34
-msgid "Uniform"
-msgstr "Uniforme"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:35
-msgid "Gaussian"
-msgstr "Gaussien"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:36
-msgid "Rayleigh"
-msgstr "Rayleigh"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:37
-msgid "Exponential"
-msgstr "Exponentiel"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:38
-msgid "Gamma"
-msgstr "Gamma"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:39
-msgid "Salt and Pepper"
-msgstr "Sel et Poivre"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:43
-msgid "Amount"
-msgstr "Intensité"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:48
-msgid "Range: "
-msgstr "Intervalle : "
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:67
-msgid "Mini-Viewer"
-msgstr "Mini-Viseur"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:70
-msgid "Compare"
-msgstr "Comparer"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:71
-msgid "Histogram"
-msgstr "Histogramme"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:73
-msgid "Original Image"
-msgstr "Image Originale"
-
-#: im2webapp/templates/im2webapp/_footer.html:10
-msgid "Support IM2 Web App: "
-msgstr "Supporte IM2 Web App : "
-
+#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:14
 #: im2webapp/templates/im2webapp/_footer.html:14
 msgid "Found a bug or want to suggest a feature? "
 msgstr "Vous avez trouvé un bug ou souhaitez suggérer une fonctionnalité? "
 
+#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:16
 #: im2webapp/templates/im2webapp/_footer.html:16
 msgid "Report it here"
 msgstr "Signaler ici"
 
+#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:25
+#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:14
 #: im2webapp/templates/im2webapp/_footer.html:25
 #: im2webapp/templates/im2webapp/_top_menu.html:14
 msgid "About"
 msgstr "À propos"
 
+#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:26
 #: im2webapp/templates/im2webapp/_footer.html:26
 msgid "Terms of Use"
 msgstr "Conditions d'utilisation"
 
+#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:27
 #: im2webapp/templates/im2webapp/_footer.html:27
 msgid "Privacy Policy"
 msgstr "Politique de confidentialité"
 
+#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:29
 #: im2webapp/templates/im2webapp/_footer.html:29
 msgid "Language: "
 msgstr "Langue : "
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_side_bar.html:13
+msgid "Quaternion"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_side_bar.html:17
+msgid "Right Hand"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_side_bar.html:30
+msgid "Sizes (cm)"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:6
+msgid "Belo Horizonte"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:13
+#: im2webapp/templates/im2webapp/_top_menu.html:13
+msgid "Home"
+msgstr "Accueil"
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:16
+msgid "Image editor"
+msgstr "Éditeur d'image"
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:25
+#: im2webapp/templates/im2webapp/_top_menu.html:27
+msgid "My user account"
+msgstr "Mon compte"
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:26
+#: im2webapp/templates/im2webapp/_top_menu.html:28
+msgid " - Profile"
+msgstr " - Profil"
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:28
+#: im2webapp/templates/im2webapp/_top_menu.html:30
+msgid " - Logout"
+msgstr " - Déconnecter"
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:32
+#: im2webapp/templates/im2webapp/_top_menu.html:34
+#: users/templates/users/login.html:13
+msgid "Login"
+msgstr "S'identifier"
+
+#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:33
+#: im2webapp/templates/im2webapp/_top_menu.html:35
+msgid "Register"
+msgstr "S'inscrire"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:5
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:5
+msgid "Image Modifiers"
+msgstr "Modificateurs"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:7
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:7
+msgid "Basics"
+msgstr "Base"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:8
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:8
+msgid "Noise"
+msgstr "Bruit"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:9
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:9
+msgid "Filters"
+msgstr "Filtres"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:44
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:41
+msgid "Noise type: "
+msgstr "Type de bruit : "
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:46
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:43
+msgid "Uniform"
+msgstr "Uniforme"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:47
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:44
+msgid "Gaussian"
+msgstr "Gaussien"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:48
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:45
+msgid "Rayleigh"
+msgstr "Rayleigh"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:50
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:47
+msgid "Gamma"
+msgstr "Gamma"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:51
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:48
+msgid "Salt and Pepper"
+msgstr "Sel et Poivre"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:55
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:52
+msgid "Amount"
+msgstr "Intensité"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:60
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:57
+msgid "Range: "
+msgstr "Intervalle : "
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:79
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:76
+msgid "Mini-Viewer"
+msgstr "Mini-Viseur"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:84
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:81
+msgid "Compare"
+msgstr "Comparer"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:86
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:83
+msgid "Histogram"
+msgstr "Histogramme"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:87
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:84
+#: im2webapp/templates/im2webapp/image-editor-lite.html:18
+#: im2webapp/templates/im2webapp/image-editor.html:18
+msgid "Original Image"
+msgstr "Image Originale"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:97
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:93
+msgid "Download History"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:103
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:99
+msgid "Undo Last Action"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:110
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:105
+msgid "History"
+msgstr "Historique"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:113
+msgid "Change Brightness and Contrast"
+msgstr "Changement de la luminosité et du contraste"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:115
+msgid "Add Noise"
+msgstr "Ajouter du bruit"
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:119
+msgid "Your image has no modifications saved."
+msgstr "Votre image n'a aucune modification enregistrée."
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:107
+msgid "Please login to use this feature."
+msgstr "S'il vous plaît vous connecter pour utiliser cette fonctionnalité."
+
+#: im2webapp/templates/im2webapp/_footer.html:10
+msgid "Support IM2 Web App: "
+msgstr "Supporte IM2 Web App : "
 
 #: im2webapp/templates/im2webapp/_side_bar.html:3
 msgid "Our Sidebar"
@@ -188,42 +334,61 @@ msgstr "etc"
 msgid "Medical Images 2"
 msgstr "Images médicales 2"
 
-#: im2webapp/templates/im2webapp/_top_menu.html:13
-msgid "Home"
-msgstr "Accueil"
-
 #: im2webapp/templates/im2webapp/_top_menu.html:16
-msgid "Image editor"
-msgstr "Éditeur d'image"
+#: im2webapp/templates/im2webapp/images_list.html:12
+msgid "My images"
+msgstr "Mes images"
 
-#: im2webapp/templates/im2webapp/_top_menu.html:25
-msgid "My user account"
-msgstr "Mon compte"
-
-#: im2webapp/templates/im2webapp/_top_menu.html:26
-msgid " - Profile"
-msgstr " - Profil"
-
-#: im2webapp/templates/im2webapp/_top_menu.html:28
-msgid " - Logout"
-msgstr " - Déconnecter"
-
-#: im2webapp/templates/im2webapp/_top_menu.html:32
-#: users/templates/users/login.html:13
-msgid "Login"
-msgstr "S'identifier"
-
-#: im2webapp/templates/im2webapp/_top_menu.html:33
-msgid "Register"
-msgstr "S'inscrire"
+#: im2webapp/templates/im2webapp/_top_menu.html:18
+msgid "Lite editor"
+msgstr "Éditeur Lite"
 
 #: im2webapp/templates/im2webapp/about.html:10
 msgid "About Page"
 msgstr "À propos"
 
-#: im2webapp/templates/im2webapp/image-editor.html:13
-msgid "Image Output"
-msgstr "Image - Sortie"
+#: im2webapp/templates/im2webapp/belo-horizonte.html:17
+msgid "Result"
+msgstr "Résultat"
+
+#: im2webapp/templates/im2webapp/belo-horizonte.html:19
+msgid "Reconstruction"
+msgstr "Reconstruction"
+
+#: im2webapp/templates/im2webapp/image-editor-lite.html:5
+msgid "Image Editor"
+msgstr "Éditeur d'image"
+
+#: im2webapp/templates/im2webapp/image-editor-lite.html:14
+msgid "Simulated Image"
+msgstr "Image simulée"
+
+#: im2webapp/templates/im2webapp/image-editor-lite.html:23
+#: im2webapp/templates/im2webapp/image-editor.html:23
+msgid "Output Image"
+msgstr "Image de sortie"
+
+#: im2webapp/templates/im2webapp/image-editor-lite.html:26
+#: im2webapp/templates/im2webapp/image-editor.html:26
+msgid ""
+"Your browser does not support the HTML5 canvas tag. The following image is "
+"not the real output."
+msgstr ""
+"Votre navigateur ne supporte pas la balise de travail HTML5. L'image "
+"suivante n'est pas la vraie sortie."
+
+#: im2webapp/templates/im2webapp/image-editor-lite.html:41
+#: im2webapp/templates/im2webapp/image-editor.html:41
+msgid "Update Image Histogram"
+msgstr "Mettre à jour l'histogramme"
+
+#: im2webapp/templates/im2webapp/images_list.html:5
+msgid "My Images"
+msgstr "Mes Images"
+
+#: im2webapp/templates/im2webapp/images_list.html:31
+msgid "You have no images, please add one."
+msgstr "Vous n'avez pas d'images, veuillez en ajouter une."
 
 #: users/templates/users/login.html:9
 msgid "Log In"
