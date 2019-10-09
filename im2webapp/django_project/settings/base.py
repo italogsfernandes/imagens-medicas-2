@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -41,6 +42,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'django_project.urls'
+
+# A dictionary of urlconf module paths, keyed by their subdomain.
+SUBDOMAIN_URLCONFS = {
+    None: 'django_project.urls',
+    'www': 'django_project.urls',
+    'imagens-medicas-2': 'im2webapp.urls',
+}
+
 
 TEMPLATES = [
     {
