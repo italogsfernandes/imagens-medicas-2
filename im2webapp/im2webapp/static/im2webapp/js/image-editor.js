@@ -180,4 +180,25 @@ $(document).ready(function() {
   $("#input_histogram").change(function() {
     show_hide_original_and_histogram();
   });
+
+  $('#trigger_see_more_options').click(function(e) {
+    var div_to_show_hide = document.getElementById("show_hide_more_options");
+    if (div_to_show_hide.style.display == 'none') {
+      try {
+        $(div_to_show_hide).slideDown('fast');
+      } catch (error) {
+        div_to_show_hide.style.display = 'block';
+      }
+      $('#id_icon_to_show_hide').addClass('fa-caret-up');
+      $('#id_icon_to_show_hide').removeClass('fa-caret-down');
+    } else {
+      try {
+        $(div_to_show_hide).slideUp('fast');
+      } catch (error) {
+        div_to_show_hide.style.display = 'none';
+      }
+      $('#id_icon_to_show_hide').addClass('fa-caret-down');
+      $('#id_icon_to_show_hide').removeClass('fa-caret-up');
+    }
+  });
 });
