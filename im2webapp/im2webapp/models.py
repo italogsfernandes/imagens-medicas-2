@@ -38,6 +38,12 @@ class ImageModel(models.Model):
         options={'optimize': True}
     )
 
+    @property
+    def image_info(self):
+        # import pdb; pdb.set_trace()
+        # original_image
+        return "A implementar: na primeira abertura extrair caracteristicas da imagem e salvar no modelo L etc"
+
     def clean(self):
         if not self.slug:
             self.slug = slugify(self.name)
