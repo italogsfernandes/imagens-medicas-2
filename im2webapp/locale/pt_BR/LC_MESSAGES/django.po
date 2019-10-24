@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-24 11:56+0000\n"
+"POT-Creation-Date: 2019-10-24 12:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -213,7 +213,6 @@ msgid "Filters"
 msgstr "Filtros"
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:16
-#| msgid "Brightness"
 msgid "Brightness: "
 msgstr "Brilho: "
 
