@@ -96,7 +96,11 @@ $(document).ready(function() {
 
   function update_brightness_value(new_value, image_data) {
     new_value = parseInt(new_value);
-    $("#brightness_value").text(new_value);
+    if (new_value >= 0) {
+      $("#brightness_value").text("+" + new_value);
+    } else {
+      $("#brightness_value").text(new_value);
+    }
     var i;
     for (i = 0; i < image_data.data.length; i += 4) {
       image_data_output.data[i] = new_value + image_data.data[i];
