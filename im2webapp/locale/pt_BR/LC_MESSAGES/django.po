@@ -298,12 +298,12 @@ msgstr "Imagem Original"
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:151
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:93
 msgid "Download History"
-msgstr ""
+msgstr "Baixar Histórico"
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:157
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:99
 msgid "Undo Last Action"
-msgstr ""
+msgstr "Desfazer ultima ação"
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:164
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:105
@@ -361,7 +361,7 @@ msgstr "Imagens Médicas 2"
 #: im2webapp/templates/im2webapp/_top_menu.html:16
 #: im2webapp/templates/im2webapp/images_list.html:12
 msgid "My images"
-msgstr ""
+msgstr "Minhas Imagens"
 
 #: im2webapp/templates/im2webapp/_top_menu.html:18
 msgid "Lite editor"
