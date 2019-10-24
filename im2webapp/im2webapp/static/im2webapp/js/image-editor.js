@@ -152,21 +152,46 @@ $(document).ready(function() {
 
     if (input_histogram.checked) {
       if (input_compare.checked) {
+        $("#div_output_original_image").removeClass('col-md-12').addClass('col-md-6')
+        $("#div_output_image").removeClass('col-md-12').addClass('col-md-6')
+        // $("#div_output_original_histogram").removeClass('col-md-12').addClass('col-md-6')
+        $("#div_output_histogram").removeClass('col-md-12').addClass('col-md-6')
+
         $("#div_output_original_image").show();
+        $("#div_output_image").show();
         $("#div_output_original_histogram").show();
         $("#div_output_histogram").show();
       } else {
+        $("#div_output_original_image").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_image").removeClass('col-md-12').addClass('col-md-6')
+        // $("#div_output_original_histogram").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_histogram").removeClass('col-md-12').addClass('col-md-6')
+
         $("#div_output_original_image").hide();
+        $("#div_output_image").show();
         $("#div_output_original_histogram").hide();
         $("#div_output_histogram").show();
       }
     } else {
       if (input_compare.checked) {
+        $("#div_output_original_image").removeClass('col-md-12').addClass('col-md-6')
+        $("#div_output_image").removeClass('col-md-12').addClass('col-md-6')
+        // $("#div_output_original_histogram").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_histogram").removeClass('col-md-6').addClass('col-md-12')
+
+
         $("#div_output_original_image").show();
+        $("#div_output_image").show();
         $("#div_output_original_histogram").hide();
         $("#div_output_histogram").hide();
       } else {
+        $("#div_output_original_image").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_image").removeClass('col-md-6').addClass('col-md-12')
+        // $("#div_output_original_histogram").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_histogram").removeClass('col-md-6').addClass('col-md-12')
+
         $("#div_output_original_image").hide();
+        $("#div_output_image").show();
         $("#div_output_original_histogram").hide();
         $("#div_output_histogram").hide();
       }

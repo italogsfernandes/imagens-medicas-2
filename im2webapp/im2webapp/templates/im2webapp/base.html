@@ -34,13 +34,13 @@
 
     {% block layout %}{% endblock %}
 
-    <main role="main" class="container">
+    <main role="main" style="margin-right: 15px; margin-left: 15px;">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
           {% block side_bar %}{% endblock %}
         </div>
         {% block outside_content %}
-        <div class="col-md-8">
+        <div class="col-md-10">
             {% include 'im2webapp/_messages.html' %}
             {% block content %}{% endblock %}
         </div>
