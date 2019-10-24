@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-24 12:18+0000\n"
+"POT-Creation-Date: 2019-10-24 13:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -104,6 +104,10 @@ msgstr "Erro do Servidor Interno"
 #: im2webapp/templates/500.html:12
 msgid "Sorry, there seems to be an error. Please try again soon."
 msgstr "Desculpe, parece haver um erro. Por favor, tente novamente em breve."
+
+#: im2webapp/templates/im2webapp/_add_new_image_thumbnail.html:6
+msgid "Upload Image"
+msgstr "Adicionar Imagem"
 
 #: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:10
 msgid "Support: "
@@ -408,7 +412,7 @@ msgstr "Atualizar Hitograma da Imagem"
 msgid "My Images"
 msgstr "Minhas Imagens"
 
-#: im2webapp/templates/im2webapp/images_list.html:24
+#: im2webapp/templates/im2webapp/images_list.html:25
 msgid "You have no images, please add one."
 msgstr "Você não possui imagens, por favor adicione uma."
 

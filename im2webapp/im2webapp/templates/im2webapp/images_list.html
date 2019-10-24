@@ -16,6 +16,7 @@
 
   {% if object_list %}
     <div class="row">
+      {% include "im2webapp/_add_new_image_thumbnail.html" %}
       {% for image_object in object_list %}
         {% include "im2webapp/_image_list_thumbnail.html" %}
       {% endfor %}
