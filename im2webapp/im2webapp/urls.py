@@ -7,7 +7,7 @@ from .views import (
     ImageListView,
     ImageEditorView,
     ImageEditorLiteView,
-    BeloHorizonteView,
+    UploadImageView,
 )
 
 
@@ -21,5 +21,5 @@ urlpatterns = [
         name='image-editor'
     ),
     url('images/', ImageListView.as_view(), name='images_list'),
-    path('belo-horizonte', BeloHorizonteView.as_view(), name='belo-horizonte'),
+    path('upload-image/', UploadImageView.as_view(), name='view_upload_image'),
 ]

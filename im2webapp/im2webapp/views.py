@@ -1,12 +1,21 @@
+from django.forms import HiddenInput
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View, DetailView, ListView
-from django.views.generic.edit import FormView
+from django.views.generic import (
+    View,
+    DetailView,
+    ListView,
+    CreateView
+)
+from django.urls import reverse_lazy
 from django.shortcuts import render
-from django import forms
-import numpy as np
-from decimal import Decimal as D
 
-from .models import ImageModel
+from im2webapp.models import (
+    ImageModel,
+)
+
+from im2webapp.forms import (
+    ImageModelForm,
+)
 
 
 class HomeView(View):
@@ -52,40 +61,15 @@ class ImageEditorLiteView(View):
         )
 
 
-# BH
-class QuaternionForm(forms.Form):
-    quaternion_w = forms.DecimalField(
-        label='W',
-        initial="1.00",
-        min_value=D(-1.0),
-        max_value=D(1.0),
-        decimal_places=2,
-    )
-    quaternion_x = forms.DecimalField(
-        label='X',
-        initial="0.00",
-        min_value=D(-1.0),
-        max_value=D(1.0),
-        decimal_places=2,
-    )
-    quaternion_y = forms.DecimalField(
-        label='Y',
-        initial="0.00",
-        min_value=D(-1.0),
-        max_value=D(1.0),
-        decimal_places=2,
-    )
-    quaternion_z = forms.DecimalField(
-        label='Z',
-        initial="0.00",
-        min_value=D(-1.0),
-        max_value=D(1.0),
-        decimal_places=2,
-    )
+class UploadImageView(CreateView):
+    model = ImageModel
+    form_class = ImageModelForm
+    template_name = 'im2webapp/upload_image_view.html'
+    success_url = reverse_lazy('images_list')
 
-
-class BeloHorizonteView(FormView):
-    template_name = 'im2webapp/belo-horizonte.html'
-    form_class = QuaternionForm
-    quaternion = np.array([1, 0, 0, 0], dtype=float)
-    success_url = 'belo-horizonte'
+    def get_context_data(self, **kwargs):
+        context = super(UploadImageView, self).get_context_data(**kwargs)
+        # This sets the initial value for the field:
+        context['form'].fields['user'].initial = self.request.user.pk
+        context['form'].fields['user'].widget = HiddenInput()
+        return context

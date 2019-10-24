@@ -20,6 +20,8 @@ class ImageModel(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    comments = models.TextField(blank=True, default='')
+
     original_image = models.ImageField()
     original_image_thumbnail = ImageSpecField(
         source='original_image',
