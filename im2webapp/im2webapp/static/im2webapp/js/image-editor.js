@@ -114,7 +114,7 @@ $(document).ready(function() {
 
   function update_contrast_value(new_value, image_data) {
     new_value = parseInt(new_value) / 100.00;
-    $("#contrast_value").text(new_value);
+    $("#contrast_value").text("x"+new_value);
     var i;
     for (i = 0; i < image_data.data.length; i += 4) {
       image_data_output.data[i] = new_value * image_data.data[i];
