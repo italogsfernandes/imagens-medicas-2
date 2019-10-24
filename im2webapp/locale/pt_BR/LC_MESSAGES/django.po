@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-24 18:38+0000\n"
+"POT-Creation-Date: 2019-10-24 19:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -31,6 +31,7 @@ msgid "French"
 msgstr "Francês"
 
 #: im2webapp/admin.py:14
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:18
 msgid "Info"
 msgstr "Info"
 
@@ -49,15 +50,15 @@ msgid "Contrast"
 msgstr "Contraste"
 
 #: im2webapp/models.py:62
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:46
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:48
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:175
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:49
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:51
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:178
 msgid "Negative"
 msgstr "Negativo"
 
 #: im2webapp/models.py:63
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:52
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:55
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:58
 msgid "Identity"
 msgstr "Identidade"
 
@@ -66,14 +67,14 @@ msgid "Logarithmic"
 msgstr "Logarítmica"
 
 #: im2webapp/models.py:65
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:76
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:110
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:79
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:113
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:46
 msgid "Exponential"
 msgstr "Exponencial"
 
 #: im2webapp/models.py:66
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:86
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:89
 msgid "Power"
 msgstr "Potência"
 
@@ -217,113 +218,113 @@ msgstr "Ruídos"
 msgid "Filters"
 msgstr "Filtros"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:23
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:26
 msgid "Brightness: "
 msgstr "Brilho: "
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:27
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:30
 #: im2webapp/views.py:62
 msgid "shades"
 msgstr "tons"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:34
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:37
 msgid "Contrast: "
 msgstr "Contraste: "
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:60
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:63
 msgid "See more options"
 msgstr "Ver mais opções"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:66
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:69
 msgid "Logarithm"
 msgstr "Logarítmica"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:105
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:108
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:41
 msgid "Noise type: "
 msgstr "Tipo de Ruído: "
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:107
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:110
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:43
 msgid "Uniform"
 msgstr "Uniforme"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:108
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:111
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:44
 msgid "Gaussian"
 msgstr "Gaussiano"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:109
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:112
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:45
 msgid "Rayleigh"
 msgstr "Rayleigh"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:111
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:114
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:47
 msgid "Gamma"
 msgstr "Gamma"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:112
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:115
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:48
 msgid "Salt and Pepper"
 msgstr "Sal e Pimenta"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:116
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:119
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:52
 msgid "Amount"
 msgstr "Intensidade"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:121
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:124
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:57
 msgid "Range: "
 msgstr "Intervalo: "
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:140
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:143
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:76
 msgid "Mini-Viewer"
 msgstr "Mini-Visualizador"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:145
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:148
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:81
 msgid "Compare"
 msgstr "Comparar"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:147
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:150
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:83
 msgid "Histogram"
 msgstr "Histograma"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:148
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:151
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:84
 #: im2webapp/templates/im2webapp/image-editor-lite.html:18
 #: im2webapp/templates/im2webapp/image-editor.html:18
 msgid "Original Image"
 msgstr "Imagem Original"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:158
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:161
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:93
 msgid "Download History"
 msgstr "Baixar Histórico"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:164
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:167
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:99
 msgid "Undo Last Action"
 msgstr "Desfazer ultima ação"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:171
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:174
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:105
 msgid "History"
 msgstr "Histórico"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:174
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:177
 msgid "Change Brightness and Contrast"
 msgstr "Mudança de Brilho e contraste"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:176
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:179
 msgid "Add Noise"
 msgstr "Adicionar Ruído"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:180
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:183
 msgid "Your image has no modifications saved."
 msgstr "Sua imagem não tem modificações salvas."
 
@@ -418,7 +419,7 @@ msgstr "Atualizar Hitograma da Imagem"
 msgid "My Images"
 msgstr "Minhas Imagens"
 
-#: im2webapp/templates/im2webapp/images_list.html:24
+#: im2webapp/templates/im2webapp/images_list.html:26
 msgid "You have no images, please add one."
 msgstr "Você não possui imagens, por favor adicione uma."
 

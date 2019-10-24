@@ -7,7 +7,7 @@
 
 {% block outside_content %}
 
-  <div style="margin-right: 150px; margin-left: 150px;">
+  <div style="margin-right: 150px; margin-left: 150px; width: 100%;">
     <a id="top"></a>
     <h1 class="text-center">{% trans 'My images' %}</h1>
 
@@ -21,7 +21,14 @@
       {% endfor %}
     </div>
   {% else %}
-    <p>{% trans 'You have no images, please add one.' %}</p>
+    <div class="row">
+      <div class="col-md-12">
+        <p class="text-center">{% trans 'You have no images, please add one.' %}</p>
+      </div>
+      <div class="col-md-4">
+      </div>
+      {% include "im2webapp/_add_new_image_thumbnail.html" %}
+    </div>
   {% endif %}
   </div>
 
