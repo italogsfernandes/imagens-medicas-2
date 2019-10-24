@@ -1,4 +1,5 @@
 from django.forms import HiddenInput
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     View,
@@ -11,10 +12,12 @@ from django.shortcuts import render
 
 from im2webapp.models import (
     ImageModel,
+    ItensityImageModifier,
 )
 
 from im2webapp.forms import (
     ImageModelForm,
+    AddIntensityModifierForm,
 )
 
 
@@ -50,6 +53,18 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
     query_pk_and_slug = True
     slug_url_kwarg = 'image_slug'
     context_object_name = 'image_object'
+
+    def get_context_data(self, **kwargs):
+        context = super(ImageEditorView, self).get_context_data(**kwargs)
+        context['brightness_modifier_form'] = AddIntensityModifierForm(
+            initial=dict(
+                type_of_modifier=ItensityImageModifier.BRIGHTNESS,
+                argument_name=_("shades"),
+                argument_value=0,
+                imagem=context['image_object'].pk,
+            )
+        )
+        return context
 
 
 class ImageEditorLiteView(View):
