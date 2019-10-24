@@ -180,4 +180,50 @@ $(document).ready(function() {
   $("#input_histogram").change(function() {
     show_hide_original_and_histogram();
   });
+
+  $('#trigger_see_more_options').click(function(e) {
+    var div_to_show_hide = document.getElementById("show_hide_more_options");
+    if (div_to_show_hide.style.display == 'none') {
+      try {
+        $(div_to_show_hide).slideDown('fast');
+      } catch (error) {
+        div_to_show_hide.style.display = 'block';
+      }
+      $('#id_icon_to_show_hide').addClass('fa-caret-up');
+      $('#id_icon_to_show_hide').removeClass('fa-caret-down');
+    } else {
+      try {
+        $(div_to_show_hide).slideUp('fast');
+      } catch (error) {
+        div_to_show_hide.style.display = 'none';
+      }
+      $('#id_icon_to_show_hide').addClass('fa-caret-down');
+      $('#id_icon_to_show_hide').removeClass('fa-caret-up');
+    }
+  });
+
+
+  function update_negative_modifier(image_data) {
+    var i;
+    for (i = 0; i < image_data.data.length; i += 4) {
+      image_data_output.data[i] = 255 - image_data.data[i];
+      image_data_output.data[i + 1] = 255 - image_data.data[i + 1];
+      image_data_output.data[i + 2] = 255 - image_data.data[i + 2];
+      image_data_output.data[i + 3] = 255;
+    }
+    generate_histogram(
+      "div_output_histogram_result_plot",
+      "Output Histogram",
+      image_data_output
+    );
+    ctx_output.putImageData(image_data_output, 0, 0);
+  }
+
+  $("#btn_negative").click(function() {
+    update_negative_modifier(image_data_output);
+  });
+
+  $("#btn_identity").click(function() {
+    alert("Identity now working yet, Italo is working on it.");
+  });
 });

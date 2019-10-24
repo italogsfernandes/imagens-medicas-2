@@ -31,7 +31,60 @@
         <div class="slidecontainer">
           <input type="range" min="100" max="300" value="100" class="slider" id="range_contrast">
         </div>
-        <br>
+        <hr>
+        <p class="text-center">
+          <button class="btn btn-primary"
+            type="button"
+            title="{% trans 'Negative' %}"
+            id="btn_negative">
+            {% trans 'Negative' %}
+          </button>
+          <button class="btn btn-primary"
+            type="button"
+            title="{% trans 'Identity' %}"
+            id="btn_identity"
+            style="display: none;">
+            {% trans 'Identity' %}
+          </button>
+        </p>
+        <hr>
+        <a href="javascript:void(0);" id="trigger_see_more_options">
+          {% trans "See more options" %}
+          <i class="fa fa-caret-down" aria-hidden="true" id="id_icon_to_show_hide"></i>
+        </a>
+        <div id="show_hide_more_options" style="display: none;">
+          <br>
+          <p>
+            {% trans "Logarithm" %}
+            <span id="logarithm_value">
+              -
+            <span>
+          </p>
+          <div class="slidecontainer">
+            <input type="range" min="0" max="255" value="0" class="slider" id="range_logarithm">
+          </div>
+          <hr>
+          <p>
+            {% trans "Exponential" %}
+            <span id="exponential_value">
+              -
+            <span>
+          </p>
+          <div class="slidecontainer">
+            <input type="range" min="100" max="300" value="100" class="slider" id="range_exponential">
+          </div>
+          <hr>
+          <p>
+            {% trans "Power" %}
+            <span id="power_value">
+              -
+            <span>
+          </p>
+          <div class="slidecontainer">
+            <input type="range" min="100" max="300" value="100" class="slider" id="range_power">
+          </div>
+        </div>
+        <hr>
         <p class="text-right">
           <input type="submit" value="Save">
         </p>
@@ -93,13 +146,13 @@
 
 <div class="content-section">
   {% if actions_history %}
-    <button href="#" class="btn btn-primary pull-right mr15"
+    <button class="btn btn-primary pull-right mr15"
       title="{% trans 'Download History' %}"
       id="btn_download_history"
       style="margin-right: 0px; font-size: 10px;">
       <i class="fa fa-download" aria-hidden="true"></i>
     </button>
-    <button href="#" class="btn btn-primary pull-right mr15"
+    <button class="btn btn-primary pull-right mr15"
       title="{% trans 'Undo Last Action' %}"
       id="btn_undo_last_action"
       style="margin-right: 5px; font-size: 10px;">

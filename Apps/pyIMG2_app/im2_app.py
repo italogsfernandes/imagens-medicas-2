@@ -10,6 +10,7 @@
 # ------------------------------------------------------------------------------
 # Description:
 # ------------------------------------------------------------------------------
+import scipy_toolbox  # Custom toolbox with image processing functions
 import sys
 
 import matplotlib.pyplot as plt  # Showing images
@@ -25,13 +26,12 @@ from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 # ------------------------------------------------------------------------------
 from matplotlib.figure import Figure
-from imageio import imread # Opening images
+from imageio import imread  # Opening images
 
 from controllers import image_handler as ih
 #from views import base_qt4 as base
 # ------------------------------------------------------------------------------
 sys.path.append('../../toolbox/python')
-import scipy_toolbox  # Custom toolbox with image processing functions
 # ------------------------------------------------------------------------------
 
 
@@ -50,7 +50,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.original_image_canvas = FigureCanvas(self.original_image_fig)
         self.edited_image_fig = Figure(figsize=(0.1, 0.1))
         self.edited_image_canvas = FigureCanvas(self.edited_image_fig)
-        self.edited_image_toolbar = NavigationToolbar(self.edited_image_canvas, self, coordinates=True)
+        self.edited_image_toolbar = NavigationToolbar(
+            self.edited_image_canvas, self, coordinates=True)
         # endregion
         # region Ui setup
         self.pos_setup_ui()
@@ -69,12 +70,14 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.replace_edited_image.setParent(None)
         self.replace_original_image.setParent(None)
 
-        self.original_image_canvas.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.MinimumExpanding)
+        self.original_image_canvas.setSizePolicy(
+            QSizePolicy.Minimum, QSizePolicy.MinimumExpanding)
         self.original_image_canvas.updateGeometry()
         self.h_layout_original_image.addWidget(self.original_image_canvas)
         self.original_image_canvas.draw()
 
-        self.edited_image_canvas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.edited_image_canvas.setSizePolicy(
+            QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.edited_image_canvas.updateGeometry()
         self.v_layout_edited_image.addWidget(self.edited_image_canvas)
         self.edited_image_canvas.draw()
@@ -100,7 +103,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.cb_filter.addItems(scipy_toolbox.filter_names)
         self.sl_filter_size.setRange(1, 50)
 
-        self.cb_morph_type.addItems(scipy_toolbox.mathematical_morphologies_names)
+        self.cb_morph_type.addItems(
+            scipy_toolbox.mathematical_morphologies_names)
         self.sl_morph_size.setRange(1, 50)
 
         self.sl_segmentation_th.setRange(0, 255)
@@ -116,7 +120,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         # region Basics Menu
         self.cb_format.currentIndexChanged.connect(self.cb_img_format_changed)
         self.btn_format.clicked.connect(self.btn_apply_img_format_clicked)
-        self.sl_brightness.valueChanged.connect(self.sl_brightness_value_changed)
+        self.sl_brightness.valueChanged.connect(
+            self.sl_brightness_value_changed)
         self.btn_brightness.clicked.connect(self.btn_apply_brightness_clicked)
         self.sl_contrast.valueChanged.connect(self.sl_contrast_value_changed)
         self.btn_contrast.clicked.connect(self.btn_apply_contrast_clicked)
@@ -132,17 +137,23 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.btn_insert_filter.clicked.connect(self.btn_insert_filter_clicked)
         # endregion
         # region Mathematical Morphologies Menu
-        self.cb_morph_type.currentIndexChanged.connect(self.cb_morph_type_changed)
-        self.radio_morph_binary.toggled.connect(self.radio_morph_binary_gray_toggled)
+        self.cb_morph_type.currentIndexChanged.connect(
+            self.cb_morph_type_changed)
+        self.radio_morph_binary.toggled.connect(
+            self.radio_morph_binary_gray_toggled)
         # self.radio_morph_grey.toggled.connect(self.radio_morph_binary_gray_toggled)
-        self.sl_morph_size.valueChanged.connect(self.sl_morph_size_value_changed)
+        self.sl_morph_size.valueChanged.connect(
+            self.sl_morph_size_value_changed)
         self.btn_morph.clicked.connect(self.btn_apply_morph_clicked)
         # endregion
         # region Segmentation Menu
-        self.sl_segmentation_th.valueChanged.connect(self.sl_segmentation_threshold_value_changed)
+        self.sl_segmentation_th.valueChanged.connect(
+            self.sl_segmentation_threshold_value_changed)
         self.radio_seg_mean_th.toggled.connect(self.radio_mean_median_toggled)
-        self.radio_seg_median_th.toggled.connect(self.radio_mean_median_toggled)
-        self.btn_hist_segmentation.clicked.connect(self.btn_apply_segmentation_clicked)
+        self.radio_seg_median_th.toggled.connect(
+            self.radio_mean_median_toggled)
+        self.btn_hist_segmentation.clicked.connect(
+            self.btn_apply_segmentation_clicked)
         # endregion
         # region Misc Menu
         self.btn_labels.clicked.connect(self.btn_labels_clicked)
@@ -156,8 +167,10 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.actionAbrir.triggered.connect(self.action_open_triggered)
         self.actionReset.triggered.connect(self.action_reset_triggered)
         self.actionUndo.triggered.connect(self.action_undo_triggered)
-        self.actionVer_Historico.triggered.connect(self.action_see_history_triggered)
-        self.actionSalvar_em_docx.triggered.connect(self.action_save_in_doc_triggered)
+        self.actionVer_Historico.triggered.connect(
+            self.action_see_history_triggered)
+        self.actionSalvar_em_docx.triggered.connect(
+            self.action_save_in_doc_triggered)
         self.menuSobre.addAction('&About', self.about)
         # endregion
 
@@ -183,14 +196,16 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.lbl_brightness.setText("Brilho: %d" % self.sl_brightness.value())
 
     def btn_apply_brightness_clicked(self):
-        mod = ih.ImageModifier('basic', 'brightness', {'level': self.sl_brightness.value()})
+        mod = ih.ImageModifier('basic', 'brightness', {
+                               'level': self.sl_brightness.value()})
         self.apply_modifier(mod)
 
     def sl_contrast_value_changed(self):
         self.lbl_contrast.setText('Contrast: %d' % self.sl_contrast.value())
 
     def btn_apply_contrast_clicked(self):
-        mod = ih.ImageModifier('basic', 'contrast', {'level': self.sl_contrast.value()})
+        mod = ih.ImageModifier('basic', 'contrast', {
+                               'level': self.sl_contrast.value()})
         self.apply_modifier(mod)
 
     # endregion
@@ -205,7 +220,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         self.sl_noise_amount.setValue(noise_amount * 1000)
         self.lbl_noise_params.setText('Params: %s' %
                                       ', '.join([str(p) for p in noise_params.keys()]))
-        self.edit_noise_params.setText(', '.join([str(p) for p in noise_params.values()]))
+        self.edit_noise_params.setText(
+            ', '.join([str(p) for p in noise_params.values()]))
 
     def sl_noise_amount_changed(self):
         noise_amount = self.sl_noise_amount.value() / 1000.0
@@ -218,7 +234,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         else:
             keys = []
 
-        values = [float(param) for param in self.edit_noise_params.text().split(', ')]
+        values = [float(param)
+                  for param in self.edit_noise_params.text().split(', ')]
 
         keys.append('amount')
         values.append(self.sl_noise_amount.value() / 1000.0)
@@ -250,8 +267,10 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         if not filter_params == {}:
             self.lbl_filter_params.show()
             self.edit_filter_params.show()
-            self.lbl_filter_params.setText('Params: %s' % ', '.join([str(p) for p in filter_params.keys()]))
-            self.edit_filter_params.setText(', '.join([str(p) for p in filter_params.values()]))
+            self.lbl_filter_params.setText('Params: %s' % ', '.join(
+                [str(p) for p in filter_params.keys()]))
+            self.edit_filter_params.setText(
+                ', '.join([str(p) for p in filter_params.values()]))
         else:
             self.lbl_filter_params.hide()
             self.edit_filter_params.hide()
@@ -269,7 +288,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
                 keys = [k for k in keys[1].split(', ')]
             else:
                 keys = []
-            values = [float(param) for param in self.edit_filter_params.text().split(', ')]
+            values = [float(param)
+                      for param in self.edit_filter_params.text().split(', ')]
 
         if not self.sl_filter_size.isHidden():
             keys.append('size')
@@ -287,13 +307,15 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
 
     # region Mathematical Morphologies Menu
     def cb_morph_type_changed(self):
-        self.label_morph_type.setText("Morph: %s" % self.cb_morph_type.currentText())
+        self.label_morph_type.setText(
+            "Morph: %s" % self.cb_morph_type.currentText())
 
     def radio_morph_binary_gray_toggled(self):
         pass
 
     def sl_morph_size_value_changed(self):
-        self.lbl_morph_size.setText("Size(px): %d" % self.sl_morph_size.value())
+        self.lbl_morph_size.setText("Size(px): %d" %
+                                    self.sl_morph_size.value())
 
     def btn_apply_morph_clicked(self):
         morph_name = self.cb_morph_type.currentText()
@@ -308,7 +330,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
 
     # region Segmentation Menu
     def sl_segmentation_threshold_value_changed(self):
-        self.lbl_seg_threshold.setText('Limiar: %d' % self.sl_segmentation_th.value())
+        self.lbl_seg_threshold.setText(
+            'Limiar: %d' % self.sl_segmentation_th.value())
         self.radio_seg_median_th.setChecked(False)
         self.radio_seg_mean_th.setChecked(False)
 
@@ -316,7 +339,8 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         if self.radio_seg_mean_th.isChecked():
             self.sl_segmentation_th.setValue(self.edited_image.mean())
         elif self.radio_seg_median_th.isChecked():
-            self.sl_segmentation_th.setValue(self.edited_image.max() - self.edited_image.min())
+            self.sl_segmentation_th.setValue(
+                self.edited_image.max() - self.edited_image.min())
 
     def btn_apply_segmentation_clicked(self):
         mod = ih.ImageModifier('segmentation', 'histogram',
@@ -368,7 +392,7 @@ class IM2APP(QMainWindow, base.Ui_MainWindow):
         file_name = dlg.getOpenFileName(self, 'Open File')
         file_name = str(file_name[0])
         self.original_image = imread(file_name).astype(np.float64)
-        rgb2gray = lambda x: np.dot(x[...,:3], [0.299, 0.587, 0.114])
+        def rgb2gray(x): return np.dot(x[..., :3], [0.299, 0.587, 0.114])
         self.original_image = rgb2gray(self.original_image)
         print(self.original_image.dtype)
         self.edited_image = np.copy(self.original_image)
@@ -448,13 +472,15 @@ se de alguma maneira ele foi útil a você, agradeça com um café, ou uma cerve
             else:
                 o_min_value = np.iinfo(self.original_image.dtype).min
                 o_max_value = np.iinfo(self.original_image.dtype).max
-            self.edited_image_fig.add_subplot(1 + self.radio_hist.isChecked(), 2, 1)
+            self.edited_image_fig.add_subplot(
+                1 + self.radio_hist.isChecked(), 2, 1)
             im_original = self.update_edited_figure_image(o_min_value, o_max_value,
                                                           title='Original Image',
                                                           img=self.original_image)
             if self.radio_hist.isChecked():
                 self.edited_image_fig.add_subplot(2, 2, 3)
-                self.update_edited_figure_hist(im_original, o_min_value, o_max_value, img=self.original_image)
+                self.update_edited_figure_hist(
+                    im_original, o_min_value, o_max_value, img=self.original_image)
 
         if self.edited_image.dtype == np.float64:
             min_value = min(self.edited_image.ravel())
