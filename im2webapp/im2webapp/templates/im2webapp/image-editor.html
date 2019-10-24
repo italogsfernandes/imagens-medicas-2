@@ -13,39 +13,37 @@
     <div class="article-metadata">
       <small class="text-muted">{{image_object.name}}</small>
     </div>
-      <div class="row text-center" id="row_image_output">
-        <div class="col-md-12" id="div_output_original_image" style="display:none;">
-          <h6>{% trans "Original Image" %}</h6>
+    <div class="row text-center" id="row_image_output">
+      <div class="col-md-12" id="div_output_original_image" style="display:none;">
+        <h6>{% trans "Original Image" %}</h6>
+        <img src="{{image_object.original_image.url}}"
+             id="output_original_image"
+             style="max-width: 512px;">
+      </div>
+      <div class="col-md-12" id="div_output_image" style="display:block;">
+        <h6>{% trans "Output Image" %}</h6>
+        <canvas id="canvas_output_image"
+          style="max-width: 512px;">
+          <p>
+            {% trans "Your browser does not support the HTML5 canvas tag. The following image is not the real output." %}
+          </p>
           <img src="{{image_object.original_image.url}}"
-               id="output_original_image">
-        </div>
-        <div class="col-md-12" id="div_output_image" style="display:block;">
-          <h6>{% trans "Output Image" %}</h6>
-          <canvas id="canvas_output_image">
-            <p>
-              {% trans "Your browser does not support the HTML5 canvas tag. The following image is not the real output." %}
-            </p>
-            <img src="{{image_object.original_image.url}}"
-                 id="output_image">
-          </canvas>
-        </div>
-     </div>
-     <div class="row text-center" id="row_historgram_output">
-        <div class="col-md-12" id="div_output_original_histogram" style="display:none;">
-          <div id="div_original_histogram_result_plot"></div>
-        </div>
-
-        <div class="col-md-12" id="div_output_histogram" style="display:block;">
-          <div id="div_output_histogram_result_plot"></div>
-          <button href="#" class="btn btn-primary pull-right mr15"
-            title="{% trans 'Update Image Histogram' %}"
-            id="btn_update_image_histogram"
-            style="margin-right: 15px; display: none;">
-            <i class="fa fa-refresh" aria-hidden="true"></i>
-          </button>
-        </div>
-     </div>
-    </p>
+               id="output_image">
+        </canvas>
+      </div>
+      <div class="col-md-6" id="div_output_original_histogram" style="display:none;">
+        <div id="div_original_histogram_result_plot"></div>
+      </div>
+      <div class="col-md-6" id="div_output_histogram" style="display:block;">
+        <div id="div_output_histogram_result_plot"></div>
+        {# <button href="#" class="btn btn-primary pull-right mr15" #}
+          {# title="{% trans 'Update Image Histogram' %}" #}
+          {# id="btn_update_image_histogram" #}
+          {# style="margin-right: 15px; display: none;"> #}
+          {# <i class="fa fa-refresh" aria-hidden="true"></i> #}
+        {# </button> #}
+      </div>
+    </div>
   </div>
 </article>
 {% endblock content %}

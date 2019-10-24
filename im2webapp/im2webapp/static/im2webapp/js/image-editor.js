@@ -96,7 +96,11 @@ $(document).ready(function() {
 
   function update_brightness_value(new_value, image_data) {
     new_value = parseInt(new_value);
-    $("#brightness_value").text(new_value);
+    if (new_value >= 0) {
+      $("#brightness_value").text("+" + new_value);
+    } else {
+      $("#brightness_value").text(new_value);
+    }
     var i;
     for (i = 0; i < image_data.data.length; i += 4) {
       image_data_output.data[i] = new_value + image_data.data[i];
@@ -114,7 +118,7 @@ $(document).ready(function() {
 
   function update_contrast_value(new_value, image_data) {
     new_value = parseInt(new_value) / 100.00;
-    $("#contrast_value").text(new_value);
+    $("#contrast_value").text("x"+new_value);
     var i;
     for (i = 0; i < image_data.data.length; i += 4) {
       image_data_output.data[i] = new_value * image_data.data[i];
@@ -152,21 +156,46 @@ $(document).ready(function() {
 
     if (input_histogram.checked) {
       if (input_compare.checked) {
+        $("#div_output_original_image").removeClass('col-md-12').addClass('col-md-6')
+        $("#div_output_image").removeClass('col-md-12').addClass('col-md-6')
+        // $("#div_output_original_histogram").removeClass('col-md-12').addClass('col-md-6')
+        $("#div_output_histogram").removeClass('col-md-12').addClass('col-md-6')
+
         $("#div_output_original_image").show();
+        $("#div_output_image").show();
         $("#div_output_original_histogram").show();
         $("#div_output_histogram").show();
       } else {
+        $("#div_output_original_image").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_image").removeClass('col-md-12').addClass('col-md-6')
+        // $("#div_output_original_histogram").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_histogram").removeClass('col-md-12').addClass('col-md-6')
+
         $("#div_output_original_image").hide();
+        $("#div_output_image").show();
         $("#div_output_original_histogram").hide();
         $("#div_output_histogram").show();
       }
     } else {
       if (input_compare.checked) {
+        $("#div_output_original_image").removeClass('col-md-12').addClass('col-md-6')
+        $("#div_output_image").removeClass('col-md-12').addClass('col-md-6')
+        // $("#div_output_original_histogram").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_histogram").removeClass('col-md-6').addClass('col-md-12')
+
+
         $("#div_output_original_image").show();
+        $("#div_output_image").show();
         $("#div_output_original_histogram").hide();
         $("#div_output_histogram").hide();
       } else {
+        $("#div_output_original_image").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_image").removeClass('col-md-6').addClass('col-md-12')
+        // $("#div_output_original_histogram").removeClass('col-md-6').addClass('col-md-12')
+        $("#div_output_histogram").removeClass('col-md-6').addClass('col-md-12')
+
         $("#div_output_original_image").hide();
+        $("#div_output_image").show();
         $("#div_output_original_histogram").hide();
         $("#div_output_histogram").hide();
       }
@@ -179,5 +208,51 @@ $(document).ready(function() {
 
   $("#input_histogram").change(function() {
     show_hide_original_and_histogram();
+  });
+
+  $('#trigger_see_more_options').click(function(e) {
+    var div_to_show_hide = document.getElementById("show_hide_more_options");
+    if (div_to_show_hide.style.display == 'none') {
+      try {
+        $(div_to_show_hide).slideDown('fast');
+      } catch (error) {
+        div_to_show_hide.style.display = 'block';
+      }
+      $('#id_icon_to_show_hide').addClass('fa-caret-up');
+      $('#id_icon_to_show_hide').removeClass('fa-caret-down');
+    } else {
+      try {
+        $(div_to_show_hide).slideUp('fast');
+      } catch (error) {
+        div_to_show_hide.style.display = 'none';
+      }
+      $('#id_icon_to_show_hide').addClass('fa-caret-down');
+      $('#id_icon_to_show_hide').removeClass('fa-caret-up');
+    }
+  });
+
+
+  function update_negative_modifier(image_data) {
+    var i;
+    for (i = 0; i < image_data.data.length; i += 4) {
+      image_data_output.data[i] = 255 - image_data.data[i];
+      image_data_output.data[i + 1] = 255 - image_data.data[i + 1];
+      image_data_output.data[i + 2] = 255 - image_data.data[i + 2];
+      image_data_output.data[i + 3] = 255;
+    }
+    generate_histogram(
+      "div_output_histogram_result_plot",
+      "Output Histogram",
+      image_data_output
+    );
+    ctx_output.putImageData(image_data_output, 0, 0);
+  }
+
+  $("#btn_negative").click(function() {
+    update_negative_modifier(image_data_output);
+  });
+
+  $("#btn_identity").click(function() {
+    alert("Identity now working yet, Italo is working on it.");
   });
 });
