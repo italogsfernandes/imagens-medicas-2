@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<div class="col-md-4 thumb text-center bordered">
+  <a href="{% url 'image-editor' image_object.slug %}">
+    <h5>{{image_object.name}}</h5>
+    <p class="text-center">
+      <img src="{{image_object.original_image.url}}" width="150px" height="auto">
+    </p>
+  <a>
+    {# <a href="{% url 'winegrower_url' winegrower.slug %}"> #}
+      {# <div class="wg_content"> #}
+        {# <div> #}
+          {# <h4>{{ winegrower.name }}</h4> #}
+          {# {% if winegrower.region %}<h5>{{ winegrower.region }}</h5>{% endif %} #}
+        {# </div> #}
+      {# </div> #}
+{# </a> #}
+
+</div>

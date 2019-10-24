@@ -12,20 +12,13 @@
     <h1 class="text-center">{% trans 'My images' %}</h1>
   </div>
 
-  <hr />
+  <hr>
 
   {% if object_list %}
     <div class="row">
-      <ul>
       {% for image_object in object_list %}
-        {# {% include "im2webapp/_image_model_thumb.html" %} #}
-        <li>
-          <a href="{% url 'image-editor' image_object.slug %}">
-            {{image_object.name}}
-          <a>
-        </li>
+        {% include "im2webapp/_image_list_thumbnail.html" %}
       {% endfor %}
-      <ul>
     </div>
   {% else %}
     <p>{% trans 'You have no images, please add one.' %}</p>
