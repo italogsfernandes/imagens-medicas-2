@@ -18,6 +18,7 @@ from im2webapp.models import (
 from im2webapp.forms import (
     ImageModelForm,
     AddIntensityModifierForm,
+    AddNoiseModifierForm,
 )
 
 
@@ -56,6 +57,7 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ImageEditorView, self).get_context_data(**kwargs)
+        # Brightness
         brightness_form = AddIntensityModifierForm(
             initial=dict(
                 type_of_modifier=ItensityImageModifier.BRIGHTNESS,
@@ -68,7 +70,15 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
         brightness_form.fields['argument_value'].widget = NumberInput(
          attrs={'type': 'range', 'min': '-255', 'step': '1', 'max': '255'},
         )
+        # Noise
+        noise_form = AddNoiseModifierForm(
+            initial=dict(
+                imagem=context['image_object'].pk,
+            )
+        )
+        # Context
         context['brightness_form'] = brightness_form
+        context['noise_form'] = noise_form
         return context
 
 
