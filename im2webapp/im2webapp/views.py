@@ -1,4 +1,4 @@
-from django.forms import HiddenInput
+from django.forms import HiddenInput, NumberInput
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
@@ -56,7 +56,7 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ImageEditorView, self).get_context_data(**kwargs)
-        context['brightness_modifier_form'] = AddIntensityModifierForm(
+        brightness_form = AddIntensityModifierForm(
             initial=dict(
                 type_of_modifier=ItensityImageModifier.BRIGHTNESS,
                 argument_name=_("shades"),
@@ -64,6 +64,11 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
                 imagem=context['image_object'].pk,
             )
         )
+        brightness_form.fields['argument_value'].label = _('Brightness: ')
+        brightness_form.fields['argument_value'].widget = NumberInput(
+         attrs={'type': 'range', 'min': '-255', 'step': '1', 'max': '255'},
+        )
+        context['brightness_form'] = brightness_form
         return context
 
 

@@ -26,3 +26,8 @@ class AddIntensityModifierForm(forms.ModelForm):
             'argument_value',
             'imagem'
         ]
+        widgets = {
+            'type_of_modifier': forms.HiddenInput(),
+            'argument_name': forms.HiddenInput(),
+            'imagem': forms.HiddenInput(),
+        }
