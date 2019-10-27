@@ -1,3 +1,5 @@
+from PIL import Image
+
 from django.db import models
 
 from django.template.defaultfilters import slugify
@@ -39,10 +41,60 @@ class ImageModel(models.Model):
     )
 
     @property
-    def image_info(self):
-        # import pdb; pdb.set_trace()
-        # original_image
-        return "A implementar: na primeira abertura extrair caracteristicas da imagem e salvar no modelo L etc"
+    def get_image_informations(self):
+        '''
+        Example:
+            >>> img.width
+            190
+            >>> img.height
+            185
+            >>> img.text
+            {'Description':
+                '\n\nOriginal filename: Blood cells'
+                '\n\nCopyright J. C. Russ, The Image Processing Handbook'
+                '\nSecond Edition, 1994, CRC Press, Boca Raton,
+                '\nISBN 0-8493-2516-1. Used with permission.\n'}
+            >>> img.size
+            (190, 185)
+            >>> img.mode
+            'L'
+            >>> img.info
+            {'Description':
+                '\n\nOriginal filename: Blood cells'
+                '\n\nCopyright J. C. Russ, The Image Processing Handbook'
+                '\nSecond Edition, 1994, CRC Press, Boca Raton,
+                '\nISBN 0-8493-2516-1. Used with permission.\n',
+             'gamma': 0.45455
+            }
+            >>> img.getextrema()
+            (46, 255)
+            >>> img.getbbox()
+            (0, 0, 190, 185)
+            >>> img.get_format_mimetype()
+            'image/png'
+            >>> img.format_description
+            'Portable network graphics'
+            >>> img.format
+            'PNG'
+            >>> img.entropy()
+            6.361345355074605
+        '''
+        img = Image.open(self.original_image.path)
+        image_info_dict = {
+            "width": img.width,
+            "height": img.height,
+            "size": img.size,
+            "mode": img.mode,
+            "info": img.info,
+            "getextrema": img.getextrema(),
+            "getbbox": img.getbbox(),
+            "get_format_mimetype": img.get_format_mimetype(),
+            "format_description": img.format_description,
+            "format": img.format,
+            "entropy": img.entropy(),
+        }
+        img.close()
+        return image_info_dict
 
     def clean(self):
         if not self.slug:
