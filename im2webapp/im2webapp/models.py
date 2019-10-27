@@ -308,9 +308,6 @@ class NoiseImageModifier(models.Model):
         =================  =====================================
         This details also are defined in this module as a argument.
         """
-        if self.noise_type not in self.NOISE_MODIFIER_CHOICES:
-            raise NotImplementedError
-
         if self.noise_type == 'uniform':
             output_image = self.insert_uniform_noise(
                 input_image,
