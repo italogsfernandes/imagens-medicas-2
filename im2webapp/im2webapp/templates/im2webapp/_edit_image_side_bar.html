@@ -5,7 +5,10 @@
 <div class="content-section">
   <h4>{% trans "Image Modifiers" %}</h4>
   <nav class="nav nav-tabs">
-    <a data-toggle="tab" href="#tab_intensity" class="nav-item nav-link active">
+    <a data-toggle="tab" href="#tab_preview" class="nav-item nav-link active">
+      {% trans "Preview" %}
+    </a>
+    <a data-toggle="tab" href="#tab_intensity" class="nav-item nav-link">
       {% trans "Intensity" %}
     </a>
     <a data-toggle="tab" href="#tab_noise" class="nav-item nav-link">
@@ -19,7 +22,7 @@
     </a>
   </nav>
   <div class="tab-content">
-    <div id="tab_intensity" class="tab-pane fade active show">
+    <div id="tab_preview" class="tab-pane fade active show">
       <form action="" method="post">
         <br>
         <p>
@@ -101,6 +104,10 @@
         </p>
       </form>
     </div>
+    <div id="tab_intensity" class="tab-pane fade">
+      {# {% bootstrap_form brightness_form layout='vertical' %} #}
+      {% bootstrap_form intensity_form layout='vertical' %}
+    </div>
     <div id="tab_noise" class="tab-pane fade">
       <br>
       <form action="" method="post">
@@ -112,7 +119,7 @@
       </form>
     </div>
     <div id="tab_filters" class="tab-pane fade">
-      {% bootstrap_form brightness_form layout='vertical' %}
+      {% bootstrap_form filters_form layout='vertical' %}
     </div>
     <div id="tab_morph" class="tab-pane fade">
       <p>Some content in Morph.</p>
