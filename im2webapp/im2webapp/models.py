@@ -176,7 +176,7 @@ class NoiseImageModifier(models.Model):
         decimal_places=2, max_digits=12, default=0
     )
 
-    c = models.CharField(max_length=255)
+    argument2_name = models.CharField(max_length=255)
     argument2_value = models.DecimalField(
         decimal_places=2, max_digits=12, default=0
     )
