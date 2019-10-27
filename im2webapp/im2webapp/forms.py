@@ -46,3 +46,6 @@ class AddNoiseModifierForm(forms.ModelForm):
             'amount_value',
             'imagem'
         ]
+        widgets = {
+            'imagem': forms.HiddenInput(),
+        }
