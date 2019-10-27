@@ -137,7 +137,21 @@
       <p>Some content in Segmentation.</p>
     </div>
     <div id="tab_info" class="tab-pane fade">
-      <p>{{image_object.image_info}}</p>
+      <ul>
+        {% for key, value in image_object.get_image_informations.items %}
+          {% if key == 'info' %}
+            <li>{{key}}:
+              <ul>
+                {% for key2, value2 in value.items %}
+                  <li>{{key2}}: {{value2}}</li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% else %}
+            <li>{{key}}: {{value}}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
     </div>
   </div>
 </div>
