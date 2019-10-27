@@ -36,11 +36,11 @@
 
     <main role="main" style="margin-right: 15px; margin-left: 15px;">
       <div class="row">
-        <div class="col-md-2"> {# 2 pq a thaynara falou q ficava melhor col-md-2 do que col-md-3 #}
+        <div class="col-md-3"> {# 2 pq a thaynara falou q ficava melhor col-md-2 do que col-md-3 #}
           {% block side_bar %}{% endblock %}
         </div>
         {% block outside_content %}
-        <div class="col-md-10">
+        <div class="col-md-9">
             {% include 'im2webapp/_messages.html' %}
             {% block content %}{% endblock %}
         </div>
