@@ -70,6 +70,12 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
         brightness_form.fields['argument_value'].widget = NumberInput(
          attrs={'type': 'range', 'min': '-255', 'step': '1', 'max': '255'},
         )
+        # Intensity
+        intensity_form = AddIntensityModifierForm(
+            initial=dict(
+                imagem=context['image_object'].pk,
+            )
+        )
         # Noise
         noise_form = AddNoiseModifierForm(
             initial=dict(
@@ -78,6 +84,7 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
         )
         # Context
         context['brightness_form'] = brightness_form
+        context['intensity_form'] = intensity_form
         context['noise_form'] = noise_form
         return context
 
