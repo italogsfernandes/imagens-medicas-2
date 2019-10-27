@@ -166,23 +166,30 @@ class NoiseImageModifier(models.Model):
     )
 
     noise_type = models.CharField(
-        verbose_name=_('Type of Noise *'),
+        verbose_name=_('Noise Type: '),
         max_length=max([len(e[0]) for e in NOISE_MODIFIER_CHOICES]),
         choices=NOISE_MODIFIER_CHOICES,
+        blank=False,
+        null=False,
     )
 
-    argument1_name = models.CharField(max_length=255)
+    argument1_name = models.CharField(max_length=255, blank=False, null=False)
     argument1_value = models.DecimalField(
-        decimal_places=2, max_digits=12, default=0
+        decimal_places=2, max_digits=12, default=0,
+        blank=False, null=False,
     )
 
-    argument2_name = models.CharField(max_length=255)
+    argument2_name = models.CharField(max_length=255, blank=True, null=True)
     argument2_value = models.DecimalField(
-        decimal_places=2, max_digits=12, default=0
+        decimal_places=2, max_digits=12, default=0,
+        blank=True, null=True,
     )
 
+    # TODO: min 0 to max 1
     amount_value = models.DecimalField(
-        decimal_places=2, max_digits=12, default=0
+        verbose_name=_('Amount: '),
+        decimal_places=2, max_digits=12, default=0,
+        blank=False, null=False,
     )
 
     imagem = models.ForeignKey(
