@@ -102,29 +102,13 @@
       </form>
     </div>
     <div id="tab_noise" class="tab-pane fade">
+      <br>
       <form action="" method="post">
-        <br>
-        <p>
-          {% trans "Noise type: " %}
-          <select>
-            <option value="uniform">{% trans "Uniform" %}</option>
-            <option value="gaussian">{% trans "Gaussian" %}</option>
-            <option value="rayleight">{% trans "Rayleigh" %}</option>
-            <option value="exponential">{% trans "Exponential" %}</option>
-            <option value="gamma">{% trans "Gamma" %}</option>
-            <option value="salt_and_pepper">{% trans "Salt and Pepper" %}</option>
-          </select>
+        {% csrf_token %}
+        {% bootstrap_form noise_form layout='vertical' %}
+        <p class="text-right">
+          <button type="submit" class="btn btn-success">{% trans "Confirm" %}</button>
         </p>
-        <hr>
-        <p>{% trans "Amount" %}</p>
-        <p class="slidecontainer">
-          <input type="range" min="1" max="100" value="50" class="slider" id="range_amount">
-        </p>
-        <p>
-          {% trans "Range: " %}
-          <input type="text" name="range">
-        </p>
-        <input type="submit" value="Submit">
       </form>
     </div>
     <div id="tab_filters" class="tab-pane fade">
