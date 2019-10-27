@@ -149,11 +149,11 @@ class ItensityImageModifier(models.Model):
 
 
 class NoiseImageModifier(models.Model):
-    UNIFORM = 'uniform',
-    GAUSSIAN = 'gaussian',
-    RAYLEIGHT = 'rayleight',
-    EXPONENTIAL = 'exponential',
-    GAMMA = 'gamma',
+    UNIFORM = 'uniform'
+    GAUSSIAN = 'gaussian'
+    RAYLEIGHT = 'rayleight'
+    EXPONENTIAL = 'exponential'
+    GAMMA = 'gamma'
     SALT_AND_PEPPER = 'salt_and_pepper'
 
     NOISE_MODIFIER_CHOICES = (
