@@ -19,6 +19,7 @@ from im2webapp.forms import (
     ImageModelForm,
     AddIntensityModifierForm,
     AddNoiseModifierForm,
+    AddFilterModifierForm,
 )
 
 
@@ -82,10 +83,17 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
                 imagem=context['image_object'].pk,
             )
         )
+        # Filters
+        filters_form = AddFilterModifierForm(
+            initial=dict(
+                imagem=context['image_object'].pk,
+            )
+        )
         # Context
         context['brightness_form'] = brightness_form
         context['intensity_form'] = intensity_form
         context['noise_form'] = noise_form
+        context['filters_form'] = filters_form
         return context
 
 
