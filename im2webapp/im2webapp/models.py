@@ -128,6 +128,19 @@ class ItensityImageModifier(models.Model):
         (POWER, _('Power')),
     )
 
+    # As they are saved in the db is not a good thing to save the translation
+    # but it's used only to present to the user a name before the arg_value
+    # and there should not be queries depending on the argument name
+    ARGUMENT_NAMES = {
+        BRIGHTNESS: _("shades"),
+        CONTRAST: _("factor"),
+        NEGATIVE: _("percentage"),
+        IDENTITY: _("identity"),
+        LOGARITHMIC: _("c"),
+        EXPONENTIAL: _("gamma"),
+        POWER: _("fator"),
+    }
+
     type_of_modifier = models.CharField(
         verbose_name=_('Type of Modifier *'),
         max_length=max([len(e[0]) for e in SIMPLE_MODIFER_CHOICES]),
