@@ -96,11 +96,16 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
                 imagem=context['image_object'].pk,
             )
         )
+        # actions_history
+        actions_history = (
+            context['image_object'].itensityimagemodifier_set.all()
+        )
         # Context
         context['brightness_form'] = brightness_form
         context['intensity_form'] = intensity_form
         context['noise_form'] = noise_form
         context['filters_form'] = filters_form
+        context['actions_history'] = actions_history
         return context
 
 
