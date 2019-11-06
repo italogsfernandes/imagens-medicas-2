@@ -1,6 +1,13 @@
+from django.template.loader import render_to_string
 from django.forms import HiddenInput, NumberInput
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import FormView
+from django.http import JsonResponse
+from django.contrib import messages
+from im2webapp.utils import redirect_to_referrer, safe_referrer
+from django.utils.http import is_safe_url
+
 from django.views.generic import (
     View,
     DetailView,
@@ -118,3 +125,67 @@ class UploadImageView(CreateView):
         context['form'].fields['user'].initial = self.request.user.pk
         context['form'].fields['user'].widget = HiddenInput()
         return context
+
+
+class ImageAddIntensityModifierView(CreateView):
+    form_class = AddIntensityModifierForm
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        import pdb; pdb.set_trace()
+        post_return_value = super(ImageAddIntensityModifierView, self).post(
+            request, *args, **kwargs
+        )
+        if request.is_ajax():
+            return self.post_ajax(request, *args, **kwargs)
+        # return redirect_to_referrer(self.request, 'images_list')
+        return post_return_value
+
+    def post_ajax(self, request, *args, **kwargs):
+        # context = {
+        # 'coisa_da_imagem': 'ihuuul'
+        # }
+        # history_content = render_to_string(
+        #     'lepinard/winegrower/_mini_basket.html',
+        #     context=context,
+        #     request=request,
+        # )
+        m = render_to_string('im2webapp/_messages.html', request=request)
+        return JsonResponse({
+         'idontknowyet': 'im thinking about',
+         'messages': m
+        })
+
+    def form_invalid(self, form):
+        msgs = []
+        for error in form.errors.values():
+            msgs.append(error.as_text())
+        clean_msgs = [m.replace('* ', '') for m in msgs if m.startswith('* ')]
+        messages.error(self.request, ",".join(clean_msgs))
+
+        return redirect_to_referrer(self.request, 'images_list')
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            self.get_success_message(form),
+            extra_tags='safe noicon'
+        )  # NOTE: Is this extra tags really usefull?
+        return super(ImageAddIntensityModifierView, self).form_valid(form)
+
+    def get_success_message(self, form):
+        return "Funfou Negão! # Remove this line before deploy"
+        # return render_to_string(
+        #     'basket/messages/addition.html',
+        #     {
+        #         'product': form.product,
+        #         'quantity': form.cleaned_data['quantity']
+        #     }
+        # )
+
+    def get_success_url(self):
+        post_url = self.request.POST.get('next')
+        host = self.request.get_host()
+        if post_url and is_safe_url(url=post_url, allowed_hosts=[host]):
+            return post_url
+        return safe_referrer(self.request, 'images_list')

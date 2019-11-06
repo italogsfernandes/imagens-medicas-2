@@ -8,6 +8,7 @@ from .views import (
     ImageEditorView,
     ImageEditorLiteView,
     UploadImageView,
+    ImageAddIntensityModifierView,
 )
 
 
@@ -22,4 +23,9 @@ urlpatterns = [
     ),
     url('images/', ImageListView.as_view(), name='images_list'),
     path('upload-image/', UploadImageView.as_view(), name='view_upload_image'),
+    url(
+        'add_intensity_modifier/',
+        ImageAddIntensityModifierView.as_view(),
+        name='add_intensity_modifier'
+    )
 ]
