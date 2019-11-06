@@ -19,7 +19,7 @@ from django.shortcuts import render
 
 from im2webapp.models import (
     ImageModel,
-    ItensityImageModifier,
+    IntensityImageModifier,
 )
 
 from im2webapp.forms import (
@@ -68,7 +68,7 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
         # Brightness
         brightness_form = AddIntensityModifierForm(
             initial=dict(
-                type_of_modifier=ItensityImageModifier.BRIGHTNESS,
+                type_of_modifier=IntensityImageModifier.BRIGHTNESS,
                 argument_name=_("shades"),
                 argument_value=0,
                 imagem=context['image_object'].pk,
@@ -98,7 +98,7 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
         )
         # actions_history
         actions_history = (
-            context['image_object'].itensityimagemodifier_set.all()
+            context['image_object'].Intensityimagemodifier_set.all()
         )
         # Context
         context['brightness_form'] = brightness_form

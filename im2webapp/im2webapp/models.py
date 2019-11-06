@@ -109,7 +109,7 @@ class ImageModel(models.Model):
         return self.name
 
 
-class ItensityImageModifier(models.Model):
+class IntensityImageModifier(models.Model):
     BRIGHTNESS = 'BRIGHTNESS'
     CONTRAST = 'CONTRAST'
     NEGATIVE = 'NEGATIVE'

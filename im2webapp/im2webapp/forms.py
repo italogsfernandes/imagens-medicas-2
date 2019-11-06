@@ -2,7 +2,7 @@ from django import forms
 
 from im2webapp.models import (
     ImageModel,
-    ItensityImageModifier,
+    IntensityImageModifier,
     NoiseImageModifier,
     FilterImageModifier,
 )
@@ -21,16 +21,27 @@ class ImageModelForm(forms.ModelForm):
 
 class AddIntensityModifierForm(forms.ModelForm):
     class Meta:
-        model = ItensityImageModifier
+        model = IntensityImageModifier
         fields = [
             'type_of_modifier',
-            'argument_name',
             'argument_value',
             'imagem'
         ]
         widgets = {
             'imagem': forms.HiddenInput(),
         }
+
+    def save(self, commit=True):
+        m = super(AddIntensityModifierForm, self).save(commit=False)
+        # Auto argument name
+        if not m.argument_name:
+            m.argument_name = (
+                IntensityImageModifier.ARGUMENT_NAMES[m.type_of_modifier]
+            )
+        # do custom stuff
+        if commit:
+            m.save()
+        return m
 
 
 class AddNoiseModifierForm(forms.ModelForm):
