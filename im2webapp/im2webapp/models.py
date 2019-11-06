@@ -161,11 +161,11 @@ class IntensityImageModifier(models.Model):
     applied_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return _("Intensity {} ({}: {})".format(
+        return _("Intensity {} ({}: {})").format(
             self.get_type_of_modifier_display(),
             self.argument_name,
             self.argument_value,
-        ))
+        )
 
 
 class NoiseImageModifier(models.Model):

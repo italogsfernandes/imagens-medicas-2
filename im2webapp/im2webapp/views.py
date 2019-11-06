@@ -98,7 +98,7 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
         )
         # actions_history
         actions_history = (
-            context['image_object'].Intensityimagemodifier_set.all()
+            context['image_object'].intensityimagemodifier_set.all()
         )
         # Context
         context['brightness_form'] = brightness_form
