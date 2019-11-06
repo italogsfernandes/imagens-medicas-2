@@ -106,12 +106,17 @@
     </div>
     <div id="tab_intensity" class="tab-pane fade">
       {# {% bootstrap_form brightness_form layout='vertical' %} #}
-      {% bootstrap_form intensity_form layout='vertical' %}
+      <br>
+      <form action="" method="post">{% csrf_token %}
+        {% bootstrap_form intensity_form layout='vertical' %}
+        <p class="text-right">
+          <button type="submit" class="btn btn-success">{% trans "Confirm" %}</button>
+        </p>
+      </form>
     </div>
     <div id="tab_noise" class="tab-pane fade">
       <br>
-      <form action="" method="post">
-        {% csrf_token %}
+      <form action="" method="post">{% csrf_token %}
         {% bootstrap_form noise_form layout='vertical' %}
         <p class="text-right">
           <button type="submit" class="btn btn-success">{% trans "Confirm" %}</button>
@@ -119,7 +124,12 @@
       </form>
     </div>
     <div id="tab_filters" class="tab-pane fade">
-      {% bootstrap_form filters_form layout='vertical' %}
+      <br>
+      <form action="" method="post">{% csrf_token %}
+        {% bootstrap_form filters_form layout='vertical' %}
+        <p class="text-right">
+          <button type="submit" class="btn btn-success">{% trans "Confirm" %}</button>
+        </p>
     </div>
     <div id="tab_morph" class="tab-pane fade">
       <p>Some content in Morph.</p>
