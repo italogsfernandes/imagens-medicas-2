@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 18:13+0000\n"
+"POT-Creation-Date: 2019-11-06 19:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -52,7 +52,6 @@ msgstr "Contraste"
 #: im2webapp/models.py:124
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:52
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:54
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:196
 msgid "Negative"
 msgstr ""
 
@@ -66,7 +65,7 @@ msgstr ""
 msgid "Logarithmic"
 msgstr ""
 
-#: im2webapp/models.py:127 im2webapp/models.py:163
+#: im2webapp/models.py:127 im2webapp/models.py:183
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:82
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:46
 msgid "Exponential"
@@ -77,73 +76,105 @@ msgstr "Exponentiel"
 msgid "Power"
 msgstr ""
 
-#: im2webapp/models.py:132
+#: im2webapp/models.py:135
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:33
+#: im2webapp/views.py:72
+msgid "shades"
+msgstr ""
+
+#: im2webapp/models.py:136
+msgid "factor"
+msgstr ""
+
+#: im2webapp/models.py:137
+msgid "percentage"
+msgstr ""
+
+#: im2webapp/models.py:138
+msgid "identity"
+msgstr ""
+
+#: im2webapp/models.py:139
+msgid "c"
+msgstr ""
+
+#: im2webapp/models.py:140
+#, fuzzy
+#| msgid "Gamma"
+msgid "gamma"
+msgstr "Gamma"
+
+#: im2webapp/models.py:141
+msgid "fator"
+msgstr ""
+
+#: im2webapp/models.py:145
 msgid "Type of Modifier *"
 msgstr "Type de Modificateur *"
 
-#: im2webapp/models.py:160 im2webapp/models.py:385
+#: im2webapp/models.py:180 im2webapp/models.py:405
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:43
 msgid "Uniform"
 msgstr "Uniforme"
 
-#: im2webapp/models.py:161 im2webapp/models.py:384
+#: im2webapp/models.py:181 im2webapp/models.py:404
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:44
 msgid "Gaussian"
 msgstr "Gaussien"
 
-#: im2webapp/models.py:162
+#: im2webapp/models.py:182
 #, fuzzy
 #| msgid "Rayleigh"
 msgid "Rayleight"
 msgstr "Rayleigh"
 
-#: im2webapp/models.py:164
+#: im2webapp/models.py:184
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:47
 msgid "Gamma"
 msgstr "Gamma"
 
-#: im2webapp/models.py:165
+#: im2webapp/models.py:185
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:48
 msgid "Salt and Pepper"
 msgstr "Sel et Poivre"
 
-#: im2webapp/models.py:169 im2webapp/models.py:396
+#: im2webapp/models.py:189 im2webapp/models.py:416
 #, fuzzy
 #| msgid "Noise type: "
 msgid "Noise Type: "
 msgstr "Type de bruit : "
 
-#: im2webapp/models.py:190 im2webapp/models.py:411
+#: im2webapp/models.py:210 im2webapp/models.py:431
 #, fuzzy
 #| msgid "Amount"
 msgid "Amount: "
 msgstr "Intensité"
 
-#: im2webapp/models.py:386
+#: im2webapp/models.py:406
 msgid "Median"
 msgstr ""
 
-#: im2webapp/models.py:387
+#: im2webapp/models.py:407
 msgid "Maximum"
 msgstr ""
 
-#: im2webapp/models.py:388
+#: im2webapp/models.py:408
 msgid "Minimum"
 msgstr ""
 
-#: im2webapp/models.py:389
+#: im2webapp/models.py:409
 msgid "Sharpening"
 msgstr ""
 
-#: im2webapp/models.py:390
+#: im2webapp/models.py:410
 msgid "Percentile"
 msgstr ""
 
-#: im2webapp/models.py:391
+#: im2webapp/models.py:411
 msgid "Wiener"
 msgstr ""
 
-#: im2webapp/models.py:392
+#: im2webapp/models.py:412
 msgid "Sobel"
 msgstr ""
 
@@ -291,16 +322,11 @@ msgid "Filters"
 msgstr "Filtres"
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:29
-#: im2webapp/views.py:70
+#: im2webapp/views.py:77
 #, fuzzy
 #| msgid "Brightness"
 msgid "Brightness: "
 msgstr "Luminosité"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:33
-#: im2webapp/views.py:65
-msgid "shades"
-msgstr ""
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:40
 #, fuzzy
@@ -359,14 +385,6 @@ msgstr ""
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:105
 msgid "History"
 msgstr "Historique"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:195
-msgid "Change Brightness and Contrast"
-msgstr "Changement de la luminosité et du contraste"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:197
-msgid "Add Noise"
-msgstr "Ajouter du bruit"
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:201
 msgid "Your image has no modifications saved."
@@ -558,3 +576,9 @@ msgstr "Vous avez déjà un compte?"
 #: users/templates/users/register.html:18
 msgid "Sign In"
 msgstr "Se connecter"
+
+#~ msgid "Change Brightness and Contrast"
+#~ msgstr "Changement de la luminosité et du contraste"
+
+#~ msgid "Add Noise"
+#~ msgstr "Ajouter du bruit"
