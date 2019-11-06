@@ -107,7 +107,7 @@
     <div id="tab_intensity" class="tab-pane fade">
       {# {% bootstrap_form brightness_form layout='vertical' %} #}
       <br>
-      <form action="" method="post">{% csrf_token %}
+      <form action="{% url 'add_intensity_modifier' %}" method="post">{% csrf_token %}
         {% bootstrap_form intensity_form layout='vertical' %}
         <p class="text-right">
           <button type="submit" class="btn btn-success">{% trans "Confirm" %}</button>
@@ -192,9 +192,9 @@
   <h4><strong>{% trans "History" %}</strong></h4>
   {% if actions_history %}
     <ol>
-      <li>{% trans "Change Brightness and Contrast" %}</li>
-      <li>{% trans "Negative" %}</li>
-      <li>{% trans "Add Noise" %}</li>
+      {% for action in actions_history %}
+        <li>{{ action }}</li>
+      {% endfor %}
     </ol>
   {% else %}
   <ul>

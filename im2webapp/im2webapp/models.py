@@ -138,7 +138,7 @@ class ItensityImageModifier(models.Model):
         IDENTITY: _("identity"),
         LOGARITHMIC: _("c"),
         EXPONENTIAL: _("gamma"),
-        POWER: _("fator"),
+        POWER: _("factor"),
     }
 
     type_of_modifier = models.CharField(
@@ -159,6 +159,13 @@ class ItensityImageModifier(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True)
     applied_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return _("Intensity {} ({}: {})".format(
+            self.get_type_of_modifier_display(),
+            self.argument_name,
+            self.argument_value,
+        ))
 
 
 class NoiseImageModifier(models.Model):
