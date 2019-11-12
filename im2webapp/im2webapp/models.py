@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 
 import numpy as np  # Image manipulation as nparray
 from scipy import misc  # Open images
-
+import imageio
 
 User = get_user_model()
 
@@ -105,6 +105,22 @@ class ImageModel(models.Model):
             self.slug = slugify(self.name)
         return super(ImageModel, self).clean()
 
+    def reset_edited_image(self):
+        complete_file_name = self.original_image.path
+        file_name = complete_file_name.split('/')[-1]
+        file_path = complete_file_name.split('/')[:-1]
+        new_file_name = 'EDITED-' + file_name
+        file_path.append(new_file_name)
+        edited_image_file_path = '/'.join(file_path)
+        # Open the image file
+        original_image = imageio.imread(complete_file_name)
+        # Save the result
+        imageio.imwrite(edited_image_file_path, original_image)
+        self.edited_image = new_file_name
+        self.save()
+
+
+    # TODO: add delete storage. self.image.storage.delete
     def __str__(self):
         return self.name
 
@@ -166,6 +182,92 @@ class IntensityImageModifier(models.Model):
             self.argument_name,
             self.argument_value,
         )
+
+    def apply_brightness(self, input_image, shades):
+        output_image = input_image.astype(np.float64) + float(shades)
+        output_image[output_image > 255] = 255
+        output_image[output_image < 0] = 0
+        output_image = output_image.astype(input_image.dtype)
+        return output_image
+
+    def apply_contrast(self, input_image, factor):
+        output_image = input_image.astype(np.float64) * float(factor)
+        output_image[output_image > 255] = 255
+        output_image[output_image < 0] = 0
+        output_image = output_image.astype(input_image.dtype)
+        return output_image
+
+    def apply_negative(self, input_image, percentage):
+        output_image = 255 - input_image.astype(np.float64)
+        output_image[output_image > 255] = 255
+        output_image[output_image < 0] = 0
+        output_image = (
+            input_image.astype(np.float64) * (1.0 - percentage) +
+            output_image * percentage
+        )
+        output_image[output_image > 255] = 255
+        output_image[output_image < 0] = 0
+        output_image = output_image.astype(input_image.dtype)
+        return output_image
+
+    def apply_identity(self, input_image):
+        return input_image.copy()
+
+    def apply_logarithmic(self, input_image, c):
+        output_image = float(c) * np.log10(1 + input_image.astype(np.float64))
+        output_image[output_image > 255] = 255
+        output_image[output_image < 0] = 0
+        output_image = output_image.astype(input_image.dtype)
+        return output_image
+
+    def apply_exponential(self, input_image, gamma):
+        output_image = np.power(input_image.astype(np.float64), float(gamma))
+        output_image[output_image > 255] = 255
+        output_image[output_image < 0] = 0
+        output_image = output_image.astype(input_image.dtype)
+        return output_image
+
+    def apply_power(self, input_image, factor):
+        return input_image
+
+    def apply_modifier(self):
+        complete_file_name = self.imagem.edited_image.path
+        # Open the image file
+        input_image = imageio.imread(complete_file_name)
+        # Save the result
+        if self.type_of_modifier == self.BRIGHTNESS:
+            output_image = self.apply_brightness(
+                input_image, float(self.argument_value)
+            )
+        elif self.type_of_modifier == self.CONTRAST:
+            output_image = self.apply_contrast(
+                input_image, float(self.argument_value)
+            )
+        elif self.type_of_modifier == self.NEGATIVE:
+            output_image = self.apply_negative(
+                input_image, float(self.argument_value)
+            )
+        elif self.type_of_modifier == self.IDENTITY:
+            output_image = self.apply_identity(
+                input_image
+            )
+        elif self.type_of_modifier == self.LOGARITHMIC:
+            output_image = self.apply_logarithmic(
+                input_image, float(self.argument_value)
+            )
+        elif self.type_of_modifier == self.EXPONENTIAL:
+            output_image = self.apply_exponential(
+                input_image, float(self.argument_value)
+            )
+        elif self.type_of_modifier == self.POWER:
+            output_image = self.apply_power(
+                input_image, float(self.argument_value)
+            )
+        else:
+            raise NotImplementedError()
+
+        imageio.imwrite(complete_file_name, output_image)
+        return output_image
 
 
 class NoiseImageModifier(models.Model):
@@ -378,7 +480,7 @@ class NoiseImageModifier(models.Model):
     def apply_modifier(self, input_image):
         complete_file_name = self.image.edited_image.path
         # Open the image file
-        input_image = misc.imread(complete_file_name)
+        input_image = imageio.imread(complete_file_name)
         # Apply the Modifier
         arguments = {
             self.argument1_name: self.argument1_value,
@@ -387,7 +489,7 @@ class NoiseImageModifier(models.Model):
         }
         output_image = self.insert_noise(input_image, **arguments)
         # Save the result
-        misc.imsave(complete_file_name, output_image)
+        imageio.imwrite(complete_file_name, output_image)
 
 
 class FilterImageModifier(models.Model):
@@ -599,7 +701,7 @@ class FilterImageModifier(models.Model):
     def apply_modifier(self, input_image):
         complete_file_name = self.image.edited_image.path
         # Open the image file
-        input_image = misc.imread(complete_file_name)
+        input_image = imageio.imread(complete_file_name)
         # Apply the Modifier
         arguments = {
             self.argument1_name: self.argument1_value,
@@ -608,4 +710,4 @@ class FilterImageModifier(models.Model):
         }
         output_image = self.insert_noise(input_image, **arguments)
         # Save the result
-        misc.imsave(complete_file_name, output_image)
+        imageio.imwrite(complete_file_name, output_image)

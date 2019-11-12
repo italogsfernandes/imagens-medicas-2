@@ -9,6 +9,7 @@ from .views import (
     ImageEditorLiteView,
     UploadImageView,
     ImageAddIntensityModifierView,
+    ResetImageRedirectView,
 )
 
 
@@ -27,5 +28,10 @@ urlpatterns = [
         'add_intensity_modifier/',
         ImageAddIntensityModifierView.as_view(),
         name='add_intensity_modifier'
+    ),
+    path(
+        'reset_image/<image_slug>/',
+        ResetImageRedirectView.as_view(),
+        name='reset_image_url'
     )
 ]

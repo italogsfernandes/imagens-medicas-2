@@ -22,14 +22,9 @@
       </div>
       <div class="col-md-12" id="div_output_image" style="display:block;">
         <h6>{% trans "Output Image" %}</h6>
-        <canvas id="canvas_output_image"
-          style="max-width: 512px;">
-          <p>
-            {% trans "Your browser does not support the HTML5 canvas tag. The following image is not the real output." %}
-          </p>
-          <img src="{{image_object.original_image.url}}"
-               id="output_image">
-        </canvas>
+        <img src="{{image_object.edited_image.url}}"
+             id="output_image"
+             style="max-width: 512px;">
       </div>
       <div class="col-md-6" id="div_output_original_histogram" style="display:none;">
         <div id="div_original_histogram_result_plot"></div>

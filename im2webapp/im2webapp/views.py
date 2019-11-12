@@ -2,11 +2,15 @@ from django.template.loader import render_to_string
 from django.forms import HiddenInput, NumberInput
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import FormView
+from django.views.generic import (
+    FormView,
+    RedirectView
+)
 from django.http import JsonResponse
 from django.contrib import messages
 from im2webapp.utils import redirect_to_referrer, safe_referrer
 from django.utils.http import is_safe_url
+from django.shortcuts import get_object_or_404
 
 from django.views.generic import (
     View,
@@ -56,6 +60,16 @@ class ImageListView(LoginRequiredMixin, ListView):
         return query
 
 
+class ResetImageRedirectView(RedirectView):
+    def get(self, request, *args, **kwargs):
+        self.image_model = get_object_or_404(
+            ImageModel, slug=kwargs['image_slug']
+        )
+        self.image_model.intensityimagemodifier_set.all().delete()
+        self.image_model.reset_edited_image()
+        return redirect_to_referrer(request, 'images_list')
+
+
 class ImageEditorView(LoginRequiredMixin, DetailView):
     template_name = 'im2webapp/image-editor.html'
     model = ImageModel
@@ -100,12 +114,23 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
         actions_history = (
             context['image_object'].intensityimagemodifier_set.all()
         )
+        # Edited image
+        edited_image = (
+            context['image_object'].edited_image
+        )
+        if not edited_image:
+            context['image_object'].reset_edited_image()
+            edited_image = (
+                context['image_object'].edited_image
+            )
+
         # Context
         context['brightness_form'] = brightness_form
         context['intensity_form'] = intensity_form
         context['noise_form'] = noise_form
         context['filters_form'] = filters_form
         context['actions_history'] = actions_history
+        context['edited_image'] = edited_image
         return context
 
 
@@ -137,28 +162,36 @@ class ImageAddIntensityModifierView(CreateView):
     http_method_names = ['post']
 
     def post(self, request, *args, **kwargs):
-        import pdb; pdb.set_trace()
         post_return_value = super(ImageAddIntensityModifierView, self).post(
             request, *args, **kwargs
         )
+        self.object.apply_modifier()
+
         if request.is_ajax():
             return self.post_ajax(request, *args, **kwargs)
-        # return redirect_to_referrer(self.request, 'images_list')
+
         return post_return_value
 
     def post_ajax(self, request, *args, **kwargs):
-        # context = {
-        # 'coisa_da_imagem': 'ihuuul'
-        # }
-        # history_content = render_to_string(
-        #     'lepinard/winegrower/_mini_basket.html',
-        #     context=context,
-        #     request=request,
-        # )
+        image_object = self.object.imagem
+
+        actions_history = (
+            image_object.intensityimagemodifier_set.all()
+        )
+        context = {
+            'actions_history': actions_history,
+            'image_object': image_object,
+        }
+        history_content = render_to_string(
+            'im2webapp/_block_image_history.html',
+            context=context,
+            request=request,
+        )
         m = render_to_string('im2webapp/_messages.html', request=request)
         return JsonResponse({
-         'idontknowyet': 'im thinking about',
-         'messages': m
+         'history_content_div': history_content,
+         'messages': m,
+         'edited_image_url': image_object.edited_image.url,
         })
 
     def form_invalid(self, form):

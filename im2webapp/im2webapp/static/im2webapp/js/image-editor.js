@@ -1,7 +1,7 @@
 $(document).ready(function() {
   // Setting up canvas variables
   var canvas_original = document.createElement("canvas");
-  var canvas_output = document.getElementById("canvas_output_image");
+  var canvas_output = document.createElement("canvas");
 
   var original_image_obj = document.getElementById("output_original_image");
   canvas_original.width = original_image_obj.width;
@@ -20,18 +20,6 @@ $(document).ready(function() {
   var image_data_output = ctx_output.getImageData(
     0, 0, output_image_obj.width, output_image_obj.height
   );
-
-  function get_image_data_obj(image_id) {
-    // Get image data as array
-    var canvas = document.createElement("canvas");
-    var data_source_img = document.getElementById(image_id);
-    canvas.width = data_source_img.width;
-    canvas.height = data_source_img.height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(data_source_img, 0, 0);
-    return ctx.getImageData(
-      0, 0, data_source_img.width, data_source_img.height);
-  }
 
   function generate_histogram(div_id, title, image_data) {
     var r_values = [];
@@ -93,63 +81,6 @@ $(document).ready(function() {
     );
   });
 
-
-  function update_brightness_value(new_value, image_data) {
-    new_value = parseInt(new_value);
-    if (new_value >= 0) {
-      $("#brightness_value").text("+" + new_value);
-    } else {
-      $("#brightness_value").text(new_value);
-    }
-    var i;
-    for (i = 0; i < image_data.data.length; i += 4) {
-      image_data_output.data[i] = new_value + image_data.data[i];
-      image_data_output.data[i + 1] = new_value + image_data.data[i + 1];
-      image_data_output.data[i + 2] = new_value + image_data.data[i + 2];
-      image_data_output.data[i + 3] = 255;
-    }
-    generate_histogram(
-      "div_output_histogram_result_plot",
-      "Output Histogram",
-      image_data_output
-    );
-    ctx_output.putImageData(image_data_output, 0, 0);
-  }
-
-  function update_contrast_value(new_value, image_data) {
-    new_value = parseInt(new_value) / 100.00;
-    $("#contrast_value").text("x"+new_value);
-    var i;
-    for (i = 0; i < image_data.data.length; i += 4) {
-      image_data_output.data[i] = new_value * image_data.data[i];
-      image_data_output.data[i + 1] = new_value * image_data.data[i + 1];
-      image_data_output.data[i + 2] = new_value * image_data.data[i + 2];
-      image_data_output.data[i + 3] = 255;
-    }
-    generate_histogram(
-      "div_output_histogram_result_plot",
-      "Output Histogram",
-      image_data_output
-    );
-    ctx_output.putImageData(image_data_output, 0, 0);
-  }
-
-  function update_brightness_then_contrast(brightness_value, contrast_value) {
-    update_brightness_value(brightness_value, image_data_original);
-    update_contrast_value(contrast_value, image_data_output);
-  }
-
-  update_brightness_then_contrast($("#range_brightness").val(), $("#range_contrast").val());
-
-  $("#range_brightness").on('change', _.debounce(function() {
-    update_brightness_then_contrast($(this).val(), $("#range_contrast").val());
-  }, 250));
-
-  $("#range_contrast").on('change', _.debounce(function() {
-    update_brightness_then_contrast($("#range_brightness").val(), $(this).val());
-  }, 250));
-
-
   function show_hide_original_and_histogram() {
     input_compare = document.getElementById("input_compare");
     input_histogram = document.getElementById("input_histogram");
@@ -202,6 +133,7 @@ $(document).ready(function() {
     }
   }
   show_hide_original_and_histogram();
+
   $("#input_compare").change(function() {
     show_hide_original_and_histogram();
   });
@@ -210,49 +142,134 @@ $(document).ready(function() {
     show_hide_original_and_histogram();
   });
 
-  $('#trigger_see_more_options').click(function(e) {
-    var div_to_show_hide = document.getElementById("show_hide_more_options");
-    if (div_to_show_hide.style.display == 'none') {
-      try {
-        $(div_to_show_hide).slideDown('fast');
-      } catch (error) {
-        div_to_show_hide.style.display = 'block';
-      }
-      $('#id_icon_to_show_hide').addClass('fa-caret-up');
-      $('#id_icon_to_show_hide').removeClass('fa-caret-down');
+
+
+  function update_argument_range_min_max() {
+    var selected_value = $("#id_type_of_modifier").val();
+    var new_step;
+    var new_min;
+    var new_max;
+    if (selected_value == 'BRIGHTNESS'){
+      new_step = 1;
+      new_min = -255;
+      new_max = 255;
+    } else if (selected_value == 'CONTRAST'){
+      new_step = 0.01;
+      new_min = 0.01;
+      new_max = 3;
+    } else if (selected_value == 'NEGATIVE'){
+      new_step = 0.01;
+      new_min = 0;
+      new_max = 1;
+    } else if (selected_value == 'IDENTITY'){
+      new_step = 0.01;
+      new_min = 0;
+      new_max = 1;
+    } else if (selected_value == 'LOGARITHMIC'){
+      new_step = 0.01;
+      new_min = 0;
+      new_max = 1;
+    } else if (selected_value == 'EXPONENTIAL'){
+      new_step = 0.1;
+      new_min = 0;
+      new_max = 100;
+    } else if (selected_value == 'POWER'){
+      new_step = 0.1;
+      new_min = 0;
+      new_max = 100;
     } else {
-      try {
-        $(div_to_show_hide).slideUp('fast');
-      } catch (error) {
-        div_to_show_hide.style.display = 'none';
-      }
-      $('#id_icon_to_show_hide').addClass('fa-caret-down');
-      $('#id_icon_to_show_hide').removeClass('fa-caret-up');
+      argument_text = "Value";
     }
-  });
 
+    $("#id_range_input_intensity_argument_value").attr("step", new_step);
+    $("#id_range_input_intensity_argument_value").attr("min", new_min);
+    $("#id_range_input_intensity_argument_value").attr("max", new_max);
 
-  function update_negative_modifier(image_data) {
-    var i;
-    for (i = 0; i < image_data.data.length; i += 4) {
-      image_data_output.data[i] = 255 - image_data.data[i];
-      image_data_output.data[i + 1] = 255 - image_data.data[i + 1];
-      image_data_output.data[i + 2] = 255 - image_data.data[i + 2];
-      image_data_output.data[i + 3] = 255;
-    }
-    generate_histogram(
-      "div_output_histogram_result_plot",
-      "Output Histogram",
-      image_data_output
-    );
-    ctx_output.putImageData(image_data_output, 0, 0);
   }
 
-  $("#btn_negative").click(function() {
-    update_negative_modifier(image_data_output);
+
+  function update_argument_value_label() {
+    var selected_value = $("#id_type_of_modifier").val();
+    var argument_text = "";
+    var new_value = $("#id_range_input_intensity_argument_value").val();
+
+    if (selected_value == 'BRIGHTNESS'){
+      argument_text = "Shades";
+    } else if (selected_value == 'CONTRAST'){
+      argument_text = "Factor";
+    } else if (selected_value == 'NEGATIVE'){
+      argument_text = "Percentage";
+    } else if (selected_value == 'IDENTITY'){
+      argument_text = "Value";
+    } else if (selected_value == 'LOGARITHMIC'){
+      argument_text = "C";
+    } else if (selected_value == 'EXPONENTIAL'){
+      argument_text = "Gamma";
+    } else if (selected_value == 'POWER'){
+      argument_text = "Factor";
+    } else {
+      argument_text = "Value";
+    }
+
+    // Particular case, show hide field
+    if (selected_value != 'IDENTITY'){
+      $("label[for='id_argument_value']").show();
+      $("#id_argument_value").show();
+      $("#id_range_input_intensity_argument_value").show();
+    } else {
+      $("label[for='id_argument_value']").hide();
+      $("#id_argument_value").hide();
+      $("#id_range_input_intensity_argument_value").hide();
+    }
+
+    $("label[for='id_argument_value']").text(argument_text + ": ");
+    $("#id_argument_value").val(new_value);
+  }
+
+  update_argument_range_min_max();
+
+  update_argument_value_label();
+
+  $("#id_type_of_modifier").change(function() {
+    update_argument_range_min_max();
+    update_argument_value_label();
   });
 
-  $("#btn_identity").click(function() {
-    alert("Identity now working yet, Italo is working on it.");
+  $("#id_range_input_intensity_argument_value").on('change', _.debounce(function() {
+    update_argument_value_label();
+  }, 250));
+
+  function show_images_from_response(data) {
+    $("#image_history_content_section").html(data.history_content_div);
+    $("#div_output_image").html(data.output_image_block_div);
+    $('#messages').replaceWith(data.messages);
+
+    // Update image data
+    var timestamp = new Date().getTime();
+    $('#output_image').attr('src', data.edited_image_url + '?timestamp=' + timestamp);
+
+    var img = new window.Image();
+    img.addEventListener("load", function () {
+      ctx_output.clearRect(0, 0, canvas_output.width, canvas_output.height);
+      ctx_output.drawImage(img, 0, 0);
+      var new_image_data_output = ctx_output.getImageData(
+        0, 0, img.width, img.height
+      );
+      generate_histogram(
+        "div_output_histogram_result_plot",
+        "Output Histogram",
+        new_image_data_output
+      );
+    });
+    img.setAttribute("src", data.edited_image_url + '?timestamp=' + timestamp);
+  }
+
+  $(".form_submit_using_ajax").submit(function(event) {
+    // Stop form from submitting normally
+    event.preventDefault();
+    // Serialize data and call using ajax
+    var payload = $(this).serializeArray();
+    $.post($(this).attr('action'), payload, show_images_from_response, 'json');
+    return false;
   });
 });

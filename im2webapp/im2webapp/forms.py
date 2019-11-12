@@ -38,7 +38,6 @@ class AddIntensityModifierForm(forms.ModelForm):
             m.argument_name = (
                 IntensityImageModifier.ARGUMENT_NAMES[m.type_of_modifier]
             )
-        # do custom stuff
         if commit:
             m.save()
         return m
