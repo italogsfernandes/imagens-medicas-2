@@ -9,12 +9,13 @@
     style="margin-right: 0px; font-size: 10px;">
     <i class="fa fa-download" aria-hidden="true"></i>
   </button>
-  <button class="btn btn-primary pull-right mr15"
+  <a class="btn btn-primary pull-right mr15"
     title="{% trans 'Undo Last Action' %}"
+    href="{% url 'undo_modifier_url' image_object.slug %}"
     id="btn_undo_last_action"
     style="margin-right: 5px; font-size: 10px;">
     <i class="fa fa-undo" aria-hidden="true"></i>
-  </button>
+  </a>
   <a class="btn btn-warning pull-right mr15"
     title="{% trans 'Reset Image' %}"
     href="{% url 'reset_image_url' image_object.slug %}"

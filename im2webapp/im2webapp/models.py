@@ -8,6 +8,7 @@ from imagekit.processors import ResizeToFit
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth import get_user_model
+from django.db.models import CharField, Value
 
 import numpy as np  # Image manipulation as nparray
 from scipy import misc  # Open images
@@ -120,7 +121,21 @@ class ImageModel(models.Model):
         self.save()
 
     def apply_all_modifiers(self):
-        pass
+        modifiers_query = self.get_modifiers_list().order_by('created_date')
+        for modifier in modifiers_query:
+            if modifier['modifier'] == 'intensity':
+                modifier_obj = self.intensityimagemodifier_set.get(
+                    pk=modifier['pk']
+                )
+            elif modifier['modifier'] == 'noise':
+                modifier_obj = self.noiseimagemodifier_set.get(
+                    pk=modifier['pk']
+                )
+            elif modifier['modifier'] == 'filter':
+                modifier_obj = self.filterimagemodifier_set.get(
+                    pk=modifier['pk']
+                )
+            modifier_obj.apply_modifier()
 
     def get_modifiers_list(self):
         intensities = self.intensityimagemodifier_set.all().values(
@@ -133,11 +148,17 @@ class ImageModel(models.Model):
             'saved_name',
             'created_date',
         )
-        filters = self.noiseimagemodifier_set.all().values(
+        filters = self.filterimagemodifier_set.all().values(
             'pk',
             'saved_name',
             'created_date',
         )
+        intensities = intensities.annotate(modifier=Value(
+            'intensity', output_field=CharField()))
+        noises = noises.annotate(modifier=Value(
+            'noise', output_field=CharField()))
+        filters = filters.annotate(modifier=Value(
+            'filter', output_field=CharField()))
         all_modifiers = intensities.union(noises)
         all_modifiers = all_modifiers.union(filters)
         all_modifiers = all_modifiers.order_by('-created_date')

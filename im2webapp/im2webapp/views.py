@@ -77,7 +77,23 @@ class UndoModifierRedirectView(RedirectView):
         self.image_model = get_object_or_404(
             ImageModel, slug=kwargs['image_slug']
         )
-        self.image_model.get_last_modifier().delete()
+        modifier_to_be_undone = self.image_model.get_modifiers_list().first()
+        if modifier_to_be_undone['modifier'] == 'intensity':
+            obj_to_delete = self.image_model.intensityimagemodifier_set.get(
+                pk=modifier_to_be_undone['pk']
+            )
+            obj_to_delete.delete()
+        elif modifier_to_be_undone['modifier'] == 'noise':
+            obj_to_delete = self.image_model.noiseimagemodifier_set.get(
+                pk=modifier_to_be_undone['pk']
+            )
+            obj_to_delete.delete()
+        elif modifier_to_be_undone['modifier'] == 'filter':
+            obj_to_delete = self.image_model.filterimagemodifier_set.get(
+                pk=modifier_to_be_undone['pk']
+            )
+            obj_to_delete.delete()
+
         self.image_model.reset_edited_image()
         self.image_model.apply_all_modifiers()
         return redirect_to_referrer(request, 'images_list')
