@@ -166,9 +166,9 @@ $(document).ready(function() {
       new_min = 0;
       new_max = 1;
     } else if (selected_value == 'LOGARITHMIC'){
-      new_step = 0.01;
+      new_step = 0;
       new_min = 0;
-      new_max = 1;
+      new_max = 150;
     } else if (selected_value == 'EXPONENTIAL'){
       new_step = 0.1;
       new_min = 0;
@@ -243,6 +243,7 @@ $(document).ready(function() {
     $("#image_history_content_section").html(data.history_content_div);
     $("#div_output_image").html(data.output_image_block_div);
     $('#messages').replaceWith(data.messages);
+    close_messages();
 
     // Update image data
     var timestamp = new Date().getTime();
