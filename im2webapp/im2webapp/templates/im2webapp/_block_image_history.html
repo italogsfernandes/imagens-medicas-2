@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% if actions_history %}
+  <button class="btn btn-primary pull-right mr15"
+    title="{% trans 'Download History' %}"
+    id="btn_download_history"
+    style="margin-right: 0px; font-size: 10px;">
+    <i class="fa fa-download" aria-hidden="true"></i>
+  </button>
+  <button class="btn btn-primary pull-right mr15"
+    title="{% trans 'Undo Last Action' %}"
+    id="btn_undo_last_action"
+    style="margin-right: 5px; font-size: 10px;">
+    <i class="fa fa-undo" aria-hidden="true"></i>
+  </button>
+  <a class="btn btn-warning pull-right mr15"
+    title="{% trans 'Reset Image' %}"
+    href="{% url 'reset_image_url' image_object.slug %}"
+    id="btn_reset_all_actions"
+    style="margin-right: 5px; font-size: 10px;">
+    {% trans 'Reset Image' %}
+    <i class="fa fa-refresh" aria-hidden="true"></i>
+  </a>
+{% endif %}
+
+<h4><strong>{% trans "History" %}</strong></h4>
+{% if actions_history %}
+  <ol>
+    {% for action in actions_history %}
+      <li>{{ action }}</li>
+    {% endfor %}
+  </ol>
+{% else %}
+<ul>
+  <li>{% trans "Your image has no modifications saved." %}</li>
+</ul>
+{% endif %}
