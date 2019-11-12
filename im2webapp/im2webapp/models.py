@@ -123,7 +123,25 @@ class ImageModel(models.Model):
         pass
 
     def get_modifiers_list(self):
-        pass
+        intensities = self.intensityimagemodifier_set.all().values(
+            'pk',
+            'saved_name',
+            'created_date',
+        )
+        noises = self.noiseimagemodifier_set.all().values(
+            'pk',
+            'saved_name',
+            'created_date',
+        )
+        filters = self.noiseimagemodifier_set.all().values(
+            'pk',
+            'saved_name',
+            'created_date',
+        )
+        all_modifiers = intensities.union(noises)
+        all_modifiers = all_modifiers.union(filters)
+        all_modifiers = all_modifiers.order_by('-created_date')
+        return all_modifiers
 
     # TODO: add delete storage. self.image.storage.delete
     def __str__(self):
@@ -180,6 +198,8 @@ class IntensityImageModifier(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True)
     applied_date = models.DateTimeField(auto_now=True)
+
+    saved_name = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return _("Intensity {} ({}: {})").format(
@@ -292,6 +312,23 @@ class NoiseImageModifier(models.Model):
         (SALT_AND_PEPPER, _('Salt and Pepper')),
     )
 
+    ARGUMENT1_NAMES = {
+        UNIFORM: "low",
+        GAUSSIAN: "mean",
+        RAYLEIGHT: "scale",
+        EXPONENTIAL: "scale",
+        GAMMA: "shape",
+        SALT_AND_PEPPER: "s_vs_p",
+    }
+    ARGUMENT2_NAMES = {
+        UNIFORM: "high",
+        GAUSSIAN: "std",
+        RAYLEIGHT: "rayleight",
+        EXPONENTIAL: "exponential",
+        GAMMA: "scale",
+        SALT_AND_PEPPER: "salt_and_pepper",
+    }
+
     noise_type = models.CharField(
         verbose_name=_('Noise Type: '),
         max_length=max([len(e[0]) for e in NOISE_MODIFIER_CHOICES]),
@@ -327,7 +364,9 @@ class NoiseImageModifier(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     applied_date = models.DateTimeField(auto_now=True)
 
-    def insert_uniform_noise(input_image, low=0, high=80, amount=1.0):
+    saved_name = models.CharField(max_length=255, blank=True, null=True)
+
+    def insert_uniform_noise(self, input_image, low=0, high=80, amount=1.0):
         return (
             input_image +
             amount * np.random.uniform(
@@ -336,7 +375,7 @@ class NoiseImageModifier(models.Model):
             )
         )
 
-    def insert_gaussian_noise(input_image, mean=5, std=30, amount=1.0):
+    def insert_gaussian_noise(self, input_image, mean=5, std=30, amount=1.0):
         return (
             input_image +
             amount * np.random.normal(
@@ -345,7 +384,7 @@ class NoiseImageModifier(models.Model):
             )
         )
 
-    def insert_rayleight_noise(input_image, scale=20, amount=1.0):
+    def insert_rayleight_noise(self, input_image, scale=20, amount=1.0):
         return (
             input_image +
             amount * np.random.rayleigh(
@@ -354,7 +393,7 @@ class NoiseImageModifier(models.Model):
             )
         )
 
-    def insert_exponential_noise(input_image, scale=5, amount=1.0):
+    def insert_exponential_noise(self, input_image, scale=5, amount=1.0):
         return (
             input_image +
             amount * np.random.exponential(
@@ -363,7 +402,7 @@ class NoiseImageModifier(models.Model):
             )
         )
 
-    def insert_gamma_noise(input_image, shape=1, scale=8, amount=1.0):
+    def insert_gamma_noise(self, input_image, shape=1, scale=8, amount=1.0):
         return (
             input_image +
             amount * np.random.gamma(
@@ -372,7 +411,8 @@ class NoiseImageModifier(models.Model):
             )
         )
 
-    def insert_salt_and_pepper_noise(input_image, s_vs_p=0.5, amount=0.004):
+    def insert_salt_and_pepper_noise(self,
+                                     input_image, s_vs_p=0.5, amount=0.004):
         min_value = 0
         max_value = 255
 
@@ -398,7 +438,7 @@ class NoiseImageModifier(models.Model):
 
         return (output_image)
 
-    def insert_noise(self, input_image, *args, **kwargs):
+    def apply_modifier(self):
         """
         Insert a selected noise to a image.
 
@@ -442,59 +482,64 @@ class NoiseImageModifier(models.Model):
         =================  =====================================
         This details also are defined in this module as a argument.
         """
-        if self.noise_type == 'uniform':
-            output_image = self.insert_uniform_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'gaussian':
-            output_image = self.insert_gaussian_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'rayleight':
-            output_image = self.insert_rayleight_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'exponential':
-            output_image = self.insert_exponential_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'gamma':
-            output_image = self.insert_gamma_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'salt_and_pepper':
-            output_image = self.insert_salt_and_pepper_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-
-        output_image = output_image.astype(input_image.dtype)  # input format
-        return output_image
-
-    def apply_modifier(self, input_image):
-        complete_file_name = self.image.edited_image.path
+        complete_file_name = self.imagem.edited_image.path
         # Open the image file
         input_image = imageio.imread(complete_file_name)
-        # Apply the Modifier
-        arguments = {
-            self.argument1_name: self.argument1_value,
-            self.argument2_name: self.argument2_value,
-            'amount': self.amount_value,
-        }
-        output_image = self.insert_noise(input_image, **arguments)
         # Save the result
+        if self.noise_type == self.UNIFORM:
+            output_image = self.insert_uniform_noise(
+                input_image,
+                float(self.argument1_value),
+                float(self.argument2_value),
+                float(self.amount_value),
+            )
+        elif self.noise_type == self.GAUSSIAN:
+            output_image = self.insert_gaussian_noise(
+                input_image,
+                float(self.argument1_value),
+                float(self.argument2_value),
+                float(self.amount_value),
+            )
+        elif self.noise_type == self.RAYLEIGHT:
+            output_image = self.insert_rayleight_noise(
+                input_image,
+                float(self.argument1_value),
+                float(self.amount_value),
+            )
+        elif self.noise_type == self.EXPONENTIAL:
+            output_image = self.insert_exponential_noise(
+                input_image,
+                float(self.argument1_value),
+                float(self.amount_value),
+            )
+        elif self.noise_type == self.GAMMA:
+            output_image = self.insert_gamma_noise(
+                input_image,
+                float(self.argument1_value),
+                float(self.argument2_value),
+                float(self.amount_value),
+            )
+        elif self.noise_type == self.SALT_AND_PEPPER:
+            output_image = self.insert_salt_and_pepper_noise(
+                input_image,
+                float(self.argument1_value),
+                float(self.amount_value),
+            )
+        else:
+            raise NotImplementedError()
+
         imageio.imwrite(complete_file_name, output_image)
+        return output_image
+
+    def __str__(self):
+        return _("Noise {} ({}: {}, {}: {}, Amount: {})").format(
+            self.get_noise_type_display(),
+            self.argument1_name,
+            self.argument1_value,
+            self.argument2_name,
+            self.argument2_value,
+            self.amount_value,
+        )
 
 
 class FilterImageModifier(models.Model):
@@ -547,6 +592,8 @@ class FilterImageModifier(models.Model):
 
     created_date = models.DateTimeField(auto_now_add=True)
     applied_date = models.DateTimeField(auto_now=True)
+
+    saved_name = models.CharField(max_length=255, blank=True, null=True)
 
     def insert_uniform_noise(input_image, low=0, high=80, amount=1.0):
         return (

@@ -106,7 +106,9 @@
     </div>
     <div id="tab_intensity" class="tab-pane fade active show">
       <br>
-      <form class="form_submit_using_ajax" action="{% url 'add_intensity_modifier' %}" method="post">{% csrf_token %}
+      <form class="form_submit_using_ajax"
+            action="{% url 'add_intensity_modifier' %}"
+            method="post">{% csrf_token %}
         {% bootstrap_form intensity_form layout='vertical' %}
         <p>
           <input type="range" min="0" max="200" value="100" class="slider"
@@ -121,7 +123,9 @@
     </div>
     <div id="tab_noise" class="tab-pane fade">
       <br>
-      <form action="" method="post">{% csrf_token %}
+      <form class="form_submit_using_ajax"
+            action="{% url 'add_noise_modifier' %}"
+            method="post">{% csrf_token %}
         {% bootstrap_form noise_form layout='vertical' %}
         <p>
           <input type="range" min="0" max="1" value="1" step="0.01" class="slider"

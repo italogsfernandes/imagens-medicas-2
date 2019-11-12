@@ -38,6 +38,7 @@ class AddIntensityModifierForm(forms.ModelForm):
             m.argument_name = (
                 IntensityImageModifier.ARGUMENT_NAMES[m.type_of_modifier]
             )
+        m.saved_name = str(m)
         if commit:
             m.save()
         return m
@@ -56,6 +57,22 @@ class AddNoiseModifierForm(forms.ModelForm):
         widgets = {
             'imagem': forms.HiddenInput(),
         }
+
+    def save(self, commit=True):
+        m = super(AddNoiseModifierForm, self).save(commit=False)
+        # Auto argument name
+        if not m.argument1_name:
+            m.argument1_name = (
+                NoiseImageModifier.ARGUMENT1_NAMES[m.noise_type]
+            )
+        if not m.argument2_name:
+            m.argument2_name = (
+                NoiseImageModifier.ARGUMENT2_NAMES[m.noise_type]
+            )
+        m.saved_name = str(m)
+        if commit:
+            m.save()
+        return m
 
 
 class AddFilterModifierForm(forms.ModelForm):

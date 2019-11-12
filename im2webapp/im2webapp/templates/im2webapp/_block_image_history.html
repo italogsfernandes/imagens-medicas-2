@@ -27,11 +27,13 @@
 
 <h4><strong>{% trans "History" %}</strong></h4>
 {% if actions_history %}
-  <ol>
+  <ul>
     {% for action in actions_history %}
-      <li>{{ action }}</li>
+      <li>{{ action.saved_name }}
+        {# <br> {{ action.created_date|date:"SHORT_DATE_FORMAT" }} {{ action.created_date|time:"H:i:s" }} #}
+      </li>
     {% endfor %}
-  </ol>
+  </ul>
 {% else %}
 <ul>
   <li>{% trans "Your image has no modifications saved." %}</li>
