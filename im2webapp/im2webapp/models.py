@@ -119,6 +119,11 @@ class ImageModel(models.Model):
         self.edited_image = new_file_name
         self.save()
 
+    def apply_all_modifiers(self):
+        pass
+
+    def get_modifiers_list(self):
+        pass
 
     # TODO: add delete storage. self.image.storage.delete
     def __str__(self):

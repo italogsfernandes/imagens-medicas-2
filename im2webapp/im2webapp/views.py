@@ -66,7 +66,20 @@ class ResetImageRedirectView(RedirectView):
             ImageModel, slug=kwargs['image_slug']
         )
         self.image_model.intensityimagemodifier_set.all().delete()
+        self.image_model.noiseimagemodifier_set.all().delete()
+        self.image_model.filterimagemodifier_set.all().delete()
         self.image_model.reset_edited_image()
+        return redirect_to_referrer(request, 'images_list')
+
+
+class UndoModifierRedirectView(RedirectView):
+    def get(self, request, *args, **kwargs):
+        self.image_model = get_object_or_404(
+            ImageModel, slug=kwargs['image_slug']
+        )
+        self.image_model.get_last_modifier().delete()
+        self.image_model.reset_edited_image()
+        self.image_model.apply_all_modifiers()
         return redirect_to_referrer(request, 'images_list')
 
 

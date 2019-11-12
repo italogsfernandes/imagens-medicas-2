@@ -10,6 +10,7 @@ from .views import (
     UploadImageView,
     ImageAddIntensityModifierView,
     ResetImageRedirectView,
+    UndoModifierRedirectView,
 )
 
 
@@ -33,5 +34,10 @@ urlpatterns = [
         'reset_image/<image_slug>/',
         ResetImageRedirectView.as_view(),
         name='reset_image_url'
+    ),
+    path(
+        'undo_modifier/<image_slug>/',
+        UndoModifierRedirectView.as_view(),
+        name='undo_modifier_url'
     )
 ]
