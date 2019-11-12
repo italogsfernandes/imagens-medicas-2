@@ -203,24 +203,6 @@ class ImageAddIntensityModifierView(CreateView):
 
         return redirect_to_referrer(self.request, 'images_list')
 
-    def form_valid(self, form):
-        messages.success(
-            self.request,
-            self.get_success_message(form),
-            extra_tags='safe noicon'
-        )  # NOTE: Is this extra tags really usefull?
-        return super(ImageAddIntensityModifierView, self).form_valid(form)
-
-    def get_success_message(self, form):
-        return "Funfou Negão! # Remove this line before deploy"
-        # return render_to_string(
-        #     'basket/messages/addition.html',
-        #     {
-        #         'product': form.product,
-        #         'quantity': form.cleaned_data['quantity']
-        #     }
-        # )
-
     def get_success_url(self):
         post_url = self.request.POST.get('next')
         host = self.request.get_host()
