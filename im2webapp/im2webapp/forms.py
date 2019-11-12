@@ -48,9 +48,7 @@ class AddNoiseModifierForm(forms.ModelForm):
         model = NoiseImageModifier
         fields = [
             'noise_type',
-            'argument1_name',
             'argument1_value',
-            'argument2_name',
             'argument2_value',
             'amount_value',
             'imagem'
