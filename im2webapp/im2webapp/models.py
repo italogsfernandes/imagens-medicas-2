@@ -608,7 +608,6 @@ class FilterImageModifier(models.Model):
         null=False,
     )
 
-    # TODO terminar esses filtros
     argument1_name = models.CharField(max_length=255, blank=False, null=False)
     argument1_value = models.DecimalField(
         decimal_places=2, max_digits=12, default=0,
