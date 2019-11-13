@@ -11,7 +11,6 @@ from django.contrib.auth import get_user_model
 from django.db.models import CharField, Value
 
 import numpy as np  # Image manipulation as nparray
-from scipy import misc  # Open images
 from scipy import ndimage  # Filters
 from scipy import signal  # Filters
 import imageio

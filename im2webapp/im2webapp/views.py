@@ -3,7 +3,6 @@ from django.forms import HiddenInput, NumberInput
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
-    FormView,
     RedirectView
 )
 from django.http import JsonResponse
