@@ -12,6 +12,8 @@ from django.db.models import CharField, Value
 
 import numpy as np  # Image manipulation as nparray
 from scipy import misc  # Open images
+from scipy import ndimage  # Filters
+from scipy import signal  # Filters
 import imageio
 
 User = get_user_model()
@@ -549,6 +551,7 @@ class NoiseImageModifier(models.Model):
         else:
             raise NotImplementedError()
 
+        output_image = output_image.astype(input_image.dtype)
         imageio.imwrite(complete_file_name, output_image)
         return output_image
 
@@ -585,6 +588,18 @@ class FilterImageModifier(models.Model):
         (SOBEL, _('Sobel')),
     )
 
+    ARGUMENT1_NAMES = {
+        GAUSSIAN: "sigma",
+        UNIFORM: "uniform",
+        MEDIAN: "median",
+        MAXIMUM: "maximum",
+        MINIMUM: "minimum",
+        MINIMUM: "minimum",
+        SHARPENING: "alpha",
+        PERCENTILE: "percentile",
+        WIENER: "noise_power",
+        SOBEL: "sobel",
+    }
     filter_type = models.CharField(
         verbose_name=_('Noise Type: '),
         max_length=max([len(e[0]) for e in FILTER_MODIFIER_CHOICES]),
@@ -616,171 +631,126 @@ class FilterImageModifier(models.Model):
 
     saved_name = models.CharField(max_length=255, blank=True, null=True)
 
-    def insert_uniform_noise(input_image, low=0, high=80, amount=1.0):
-        return (
-            input_image +
-            amount * np.random.uniform(
-                low, high,
-                input_image.shape
-            )
-        )
+    def sharpenning_filter(self, input_image,
+                           alpha=30, filter_sigma=1):
+        filter_blurred_f = ndimage.gaussian_filter(input_image, filter_sigma)
+        sharpened = input_image + alpha * (input_image - filter_blurred_f)
+        return sharpened
 
-    def insert_gaussian_noise(input_image, mean=5, std=30, amount=1.0):
-        return (
-            input_image +
-            amount * np.random.normal(
-                mean, std,
-                input_image.shape
-            )
-        )
+    def sobel_filter(self, input_image):
+        sx = ndimage.sobel(input_image, axis=0, mode='constant')
+        sy = ndimage.sobel(input_image, axis=1, mode='constant')
+        sob = np.hypot(sx, sy)
+        return sob
 
-    def insert_rayleight_noise(input_image, scale=20, amount=1.0):
-        return (
-            input_image +
-            amount * np.random.rayleigh(
-                scale,
-                input_image.shape
-            )
-        )
-
-    def insert_exponential_noise(input_image, scale=5, amount=1.0):
-        return (
-            input_image +
-            amount * np.random.exponential(
-                scale,
-                input_image.shape
-            )
-        )
-
-    def insert_gamma_noise(input_image, shape=1, scale=8, amount=1.0):
-        return (
-            input_image +
-            amount * np.random.gamma(
-                shape, scale,
-                input_image.shape
-            )
-        )
-
-    def insert_salt_and_pepper_noise(input_image, s_vs_p=0.5, amount=0.004):
-        min_value = 0
-        max_value = 255
-
-        output_image = np.copy(input_image)
-
-        # Salt mode
-        num_salt = np.ceil(amount * input_image.size * s_vs_p)
-        coords = [
-            np.random.randint(
-                0, i - 1, int(num_salt)
-            ) for i in input_image.shape
-        ]
-        output_image[coords] = max_value
-
-        # Pepper mode
-        num_pepper = np.ceil(amount * input_image.size * (1. - s_vs_p))
-        coords = [
-            np.random.randint(
-                0, i - 1, int(num_pepper)
-            ) for i in input_image.shape
-        ]
-        output_image[coords] = min_value
-
-        return (output_image)
-
-    def insert_noise(self, input_image, *args, **kwargs):
+    def apply_modifier(self, input_image):
         """
-        Insert a selected noise to a image.
+        Apply a selected filter to a image.
 
         Parameters
         ----------
         input_image : nparray
-            Represents the image that you want to add noise.
+            Represents the image to be filtered
         filter_type: str
             Must in one of:
-                    'uniform',
                     'gaussian',
-                    'rayleight',
-                    'exponential',
-                    'gamma',
-                    'salt_and_pepper'
-        show_result: Boolean
-                If True, the result is plotted using matplotlib,
-                 default is False.
-        *args: Arguments of the selected noise,
-                see details for more information.
-        **kwargs: The key arguments of the selected noise
-                    see details for more information.
+                    'uniform',
+                    'median',
+                    'maximum',
+                    'minimum',
+                    'sharpening',
+                    'percentile',
+                    'wiener',
+                    'sobel'
+        *args: Arguments of the selected filter,
+            see details for more information.
+        **kwargs: The key arguments of the selected filter,
+            see details for more information.
 
         Returns
         -------
         nparray
-            The image with the noise as the same format of the input.
+            The filtered image as the same format of the input.
 
         Details
         -------
-        Arguments for the noise and the default values:
-        =================  =====================================
-        Filter             Kwargs
-        =================  =====================================
-        'uniform'          'low':0.0,'high':80.0,'amount':1.0
-        'gaussian'         'mean':5.0,'str':30.0,'amount':1.0
-        'rayleight'        'scale':20.0,'amount':1.0
-        'exponential'      'scale':5.0,'amount':1.0
-        'gamma'            'shape':1.0,'scale':8.0,'amount':1.0
-        'salt_and_pepper'  's_vs_p':0.5,'amount':0.004
-        =================  =====================================
+        Arguments for the filters and the default values:
+        =============  ===========================
+        Filter         Kwargs
+        =============  ===========================
+        'gaussian'     sigma: 3
+        'uniform'      size: 3
+        'median'       size: 3
+        'maximum'      size: 3
+        'minimum'      size: 3
+        'sharpening'   alpha: 30, filter_sigma: 1
+        'percentile'   percentile: 75, size: 3
+        'wiener'       noise power and size
+        'sobel'        None
+        =============  ===========================
         This details also are defined in this module as a argument.
         """
-        if self.noise_type == 'uniform':
-            output_image = self.insert_uniform_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'gaussian':
-            output_image = self.insert_gaussian_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'rayleight':
-            output_image = self.insert_rayleight_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'exponential':
-            output_image = self.insert_exponential_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'gamma':
-            output_image = self.insert_gamma_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-        elif self.noise_type == 'salt_and_pepper':
-            output_image = self.insert_salt_and_pepper_noise(
-                input_image,
-                *args,
-                **kwargs
-            )
-
-        output_image = output_image.astype(input_image.dtype)  # input format
-        return output_image
-
-    def apply_modifier(self, input_image):
         complete_file_name = self.image.edited_image.path
         # Open the image file
         input_image = imageio.imread(complete_file_name)
         # Apply the Modifier
-        arguments = {
-            self.argument1_name: self.argument1_value,
-            self.argument2_name: self.argument2_value,
-            'amount': self.amount_value,
-        }
-        output_image = self.insert_noise(input_image, **arguments)
+        if self.filter_type == self.GAUSSIAN:
+            output_image = ndimage.gaussian_filter(
+                input_image,
+                sigma=float(self.argument1_value),
+            )
+        elif self.filter_type == self.UNIFORM:
+            output_image = ndimage.uniform_filter(
+                input_image,
+                size=int(self.size_value),
+            )
+        elif self.filter_type == self.MEDIAN:
+            output_image = ndimage.median_filter(
+                input_image,
+                size=int(self.size_value),
+            )
+        elif self.filter_type == self.MAXIMUM:
+            output_image = ndimage.maximum_filter(
+                input_image,
+                size=int(self.size_value),
+            )
+        elif self.filter_type == self.MINIMUM:
+            output_image = ndimage.minimum_filter(
+                input_image,
+                size=int(self.size_value),
+            )
+        elif self.filter_type == self.SHARPENING:
+            output_image = self.sharpenning_filter(
+                input_image,
+                alpha=float(self.argument1_value),
+                filter_sigma=float(self.size)
+            )
+        elif self.filter_type == self.PERCENTILE:
+            output_image = ndimage.percentile_filter(
+                input_image,
+                percentile=int(self.argument_1_value),
+                size=int(self.size_value),
+            )
+        elif self.filter_type == self.WIENER:
+            output_image = signal.wiener(
+                input_image,
+                mysize=int(self.size_value),  # TODO: Should be odd, add clean
+                noise=float(self.argument1_value),
+            )
+        elif self.filter_type == self.SOBEL:
+            output_image = self.sobel_filter(
+                input_image
+            )
+
         # Save the result
+        output_image = output_image.astype(input_image.dtype)
         imageio.imwrite(complete_file_name, output_image)
+        return output_image
+
+        def __str__(self):
+            return _("Filter {} ({}: {}, Size: {})").format(
+                self.get_filter_type_display(),
+                self.argument1_name,
+                self.argument1_value,
+                self.size_value,
+            )
