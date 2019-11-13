@@ -80,7 +80,6 @@ class AddFilterModifierForm(forms.ModelForm):
         model = FilterImageModifier
         fields = [
             'filter_type',
-            'argument1_name',
             'argument1_value',
             'size_value',
             'imagem'
@@ -88,3 +87,15 @@ class AddFilterModifierForm(forms.ModelForm):
         widgets = {
             'imagem': forms.HiddenInput(),
         }
+
+    def save(self, commit=True):
+        m = super(AddFilterModifierForm, self).save(commit=False)
+        # Auto argument name
+        if not m.argument1_name:
+            m.argument1_name = (
+                FilterImageModifier.ARGUMENT1_NAMES[m.noise_type]
+            )
+        m.saved_name = str(m)
+        if commit:
+            m.save()
+        return m
