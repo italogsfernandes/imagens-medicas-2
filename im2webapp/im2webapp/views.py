@@ -292,3 +292,57 @@ class ImageAddNoiseModifierView(CreateView):
         if post_url and is_safe_url(url=post_url, allowed_hosts=[host]):
             return post_url
         return safe_referrer(self.request, 'images_list')
+
+
+class ImageAddFilterModifierView(CreateView):
+    form_class = AddFilterModifierForm
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        post_return_value = super(ImageAddFilterModifierView, self).post(
+            request, *args, **kwargs
+        )
+        self.object.apply_modifier()
+
+        if request.is_ajax():
+            return self.post_ajax(request, *args, **kwargs)
+
+        return post_return_value
+
+    def post_ajax(self, request, *args, **kwargs):
+        image_object = self.object.imagem
+
+        actions_history = (
+            image_object.get_modifiers_list()
+        )
+        context = {
+            'actions_history': actions_history,
+            'image_object': image_object,
+        }
+        history_content = render_to_string(
+            'im2webapp/_block_image_history.html',
+            context=context,
+            request=request,
+        )
+        m = render_to_string('im2webapp/_messages.html', request=request)
+        return JsonResponse({
+         'history_content_div': history_content,
+         'messages': m,
+         'edited_image_url': image_object.edited_image.url,
+        })
+
+    def form_invalid(self, form):
+        msgs = []
+        for error in form.errors.values():
+            msgs.append(error.as_text())
+        clean_msgs = [m.replace('* ', '') for m in msgs if m.startswith('* ')]
+        messages.error(self.request, ",".join(clean_msgs))
+
+        return redirect_to_referrer(self.request, 'images_list')
+
+    def get_success_url(self):
+        post_url = self.request.POST.get('next')
+        host = self.request.get_host()
+        if post_url and is_safe_url(url=post_url, allowed_hosts=[host]):
+            return post_url
+        return safe_referrer(self.request, 'images_list')
