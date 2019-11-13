@@ -440,4 +440,168 @@ $(document).ready(function() {
     update_noise_arguments_value_label();
   }, 250));
 
+  /////////////////////
+  // Filter Modifiers //
+  /////////////////////
+
+  function update_filter_arguments_range() {
+    var selected_value = $("#id_filter_type").val();
+    var new_arg_step;
+    var new_arg_min;
+    var new_arg_max;
+    var default_arg;
+
+    if (selected_value == 'gaussian'){
+      default_arg = 3;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    } else if (selected_value == 'uniform'){
+      default_arg = 3;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    } else if (selected_value == 'median'){
+      default_arg = 3;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    } else if (selected_value == 'maximum'){
+      default_arg = 3;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    } else if (selected_value == 'minimum'){
+      default_arg = 3;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    } else if (selected_value == 'sharpening'){
+      default_arg = 30;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    } else if (selected_value == 'percentile'){
+      default_arg = 75;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    } else if (selected_value == 'wiener'){
+      default_arg = 0;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    } else if (selected_value == 'sobel'){
+      default_arg = 3;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    } else {
+      default_arg = 3;
+      new_arg_step = 0.1;
+      new_arg_max = 100;
+      new_arg_min = 0;
+    }
+
+    $("#id_range_input_filter_arg_value").attr("step", new_arg_step);
+    $("#id_range_input_filter_arg_value").attr("min", new_arg_min);
+    $("#id_range_input_filter_arg_value").attr("max", new_arg_max);
+    $("#id_range_input_filter_arg_value").val(default_arg);
+
+    if (selected_value == 'sharpening'){
+      $("#id_range_input_filter_size_value").attr("step", 0.1);
+      $("#id_range_input_filter_size_value").attr("min", 0);
+      $("#id_range_input_filter_size_value").attr("max", 10);
+    } else {
+      $("#id_range_input_filter_size_value").attr("step", 2);
+      $("#id_range_input_filter_size_value").attr("min", 3);
+      $("#id_range_input_filter_size_value").attr("max", 15);
+      $("#id_range_input_filter_size_value").val(3);
+    }
+  }
+
+  function update_filter_arguments_value_label() {
+    var selected_value = $("#id_filter_type").val();
+    var argument_text = "";
+    var new_arg_value = $("#id_range_input_filter_arg_value").val();
+    var new_size_value = $("#id_range_input_filter_size_value").val();
+
+    if (selected_value == 'gaussian'){
+      argument_text = 'Sigma';
+      size_text = 'Size';
+    } else if (selected_value == 'uniform'){
+      argument_text = '';
+      size_text = 'Size';
+    } else if (selected_value == 'median'){
+      argument_text = '';
+      size_text = 'Size';
+    } else if (selected_value == 'maximum'){
+      argument_text = '';
+      size_text = 'Size';
+    } else if (selected_value == 'minimum'){
+      argument_text = '';
+      size_text = 'Size';
+    } else if (selected_value == 'sharpening'){
+      argument_text = 'Alpha';
+      size_text = 'Sigma';
+    } else if (selected_value == 'percentile'){
+      argument_text = 'Percentile';
+      size_text = 'Size';
+    } else if (selected_value == 'wiener'){
+      argument_text = 'Noise Power';
+      size_text = 'Size';
+    } else if (selected_value == 'sobel'){
+      argument_text = '';
+      size_text = '';
+    } else {
+      argument_text = 'Value 1';
+      size_text = 'Size';
+    }
+
+
+
+    if (selected_value == 'sobel'){
+      $("label[for='id_filter_argument_value']").hide();
+      $("#id_filter_argument_value").hide();
+      $("#id_range_input_filter_arg_value").hide();
+      $("label[for='id_size_value']").hide();
+      $("#id_size_value").hide();
+      $("#id_range_input_filter_size_value").hide();
+    } else {
+      $("label[for='id_size_value']").show();
+      $("#id_size_value").show();
+      $("#id_range_input_filter_size_value").show();
+      // Particular case, show hide field
+      if (selected_value == 'uniform' ||
+          selected_value == 'median' ||
+          selected_value == 'maximum' ||
+          selected_value == 'minimum'){
+        $("label[for='id_filter_argument_value']").hide();
+        $("#id_filter_argument_value").hide();
+        $("#id_range_input_filter_arg_value").hide();
+      } else {
+        $("label[for='id_filter_argument_value']").show();
+        $("#id_filter_argument_value").show();
+        $("#id_range_input_filter_arg_value").show();
+      }
+    }
+
+    $("label[for='id_filter_argument_value']").text(argument_text + ": ");
+    $("label[for='id_size_value']").text(size_text + ": ");
+    $("#id_filter_argument_value").val(new_arg_value);
+    $("#id_size_value").val(new_size_value);
+  }
+
+  update_filter_arguments_range();
+
+  update_filter_arguments_value_label();
+
+  $("#id_filter_type").change(function() {
+    update_filter_arguments_range();
+    update_filter_arguments_value_label();
+  });
+
+  $('input[id^="id_range_input_filter_"][id$="_value"]').on('change', _.debounce(function() {
+    update_filter_arguments_value_label();
+  }, 250));
 });

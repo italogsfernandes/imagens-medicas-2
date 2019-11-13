@@ -588,7 +588,7 @@ class FilterImageModifier(models.Model):
         (SOBEL, _('Sobel')),
     )
 
-    ARGUMENT1_NAMES = {
+    ARGUMENT_NAMES = {
         GAUSSIAN: "sigma",
         UNIFORM: "uniform",
         MEDIAN: "median",
@@ -601,21 +601,22 @@ class FilterImageModifier(models.Model):
         SOBEL: "sobel",
     }
     filter_type = models.CharField(
-        verbose_name=_('Noise Type: '),
+        verbose_name=_('Filter Type: '),
         max_length=max([len(e[0]) for e in FILTER_MODIFIER_CHOICES]),
         choices=FILTER_MODIFIER_CHOICES,
         blank=False,
         null=False,
     )
 
-    argument1_name = models.CharField(max_length=255, blank=False, null=False)
-    argument1_value = models.DecimalField(
+    filter_argument_name = models.CharField(
+        max_length=255, blank=False, null=False)
+    filter_argument_value = models.DecimalField(
         decimal_places=2, max_digits=12, default=0,
         blank=False, null=False,
     )
 
     size_value = models.DecimalField(
-        verbose_name=_('Amount: '),
+        verbose_name=_('Size: '),
         decimal_places=2, max_digits=12, default=0,
         blank=False, null=False,
     )
@@ -642,7 +643,7 @@ class FilterImageModifier(models.Model):
         sob = np.hypot(sx, sy)
         return sob
 
-    def apply_modifier(self, input_image):
+    def apply_modifier(self):
         """
         Apply a selected filter to a image.
 
@@ -689,14 +690,14 @@ class FilterImageModifier(models.Model):
         =============  ===========================
         This details also are defined in this module as a argument.
         """
-        complete_file_name = self.image.edited_image.path
+        complete_file_name = self.imagem.edited_image.path
         # Open the image file
         input_image = imageio.imread(complete_file_name)
         # Apply the Modifier
         if self.filter_type == self.GAUSSIAN:
             output_image = ndimage.gaussian_filter(
                 input_image,
-                sigma=float(self.argument1_value),
+                sigma=float(self.filter_argument_value),
             )
         elif self.filter_type == self.UNIFORM:
             output_image = ndimage.uniform_filter(
@@ -721,20 +722,23 @@ class FilterImageModifier(models.Model):
         elif self.filter_type == self.SHARPENING:
             output_image = self.sharpenning_filter(
                 input_image,
-                alpha=float(self.argument1_value),
-                filter_sigma=float(self.size)
+                alpha=float(self.filter_argument_value),
+                filter_sigma=float(self.size_value)
             )
         elif self.filter_type == self.PERCENTILE:
             output_image = ndimage.percentile_filter(
                 input_image,
-                percentile=int(self.argument_1_value),
+                percentile=int(self.filter_argument_value),
                 size=int(self.size_value),
             )
         elif self.filter_type == self.WIENER:
+            noise = None
+            if self.filter_argument_value >= 0:
+                noise = float(self.filter_argument_value)
             output_image = signal.wiener(
                 input_image,
                 mysize=int(self.size_value),  # TODO: Should be odd, add clean
-                noise=float(self.argument1_value),
+                noise=noise,
             )
         elif self.filter_type == self.SOBEL:
             output_image = self.sobel_filter(
@@ -746,10 +750,26 @@ class FilterImageModifier(models.Model):
         imageio.imwrite(complete_file_name, output_image)
         return output_image
 
-        def __str__(self):
+    def __str__(self):
+        if (self.filter_type == self.UNIFORM or
+           self.filter_type == self.MEDIAN or
+           self.filter_type == self.MAXIMUM or
+           self.filter_type == self.MINIMUM):
+            return _("Filter {} (Size: {})").format(
+                self.get_filter_type_display(),
+                self.size_value,
+            )
+        elif (self.filter_type == self.SHARPENING):
+            return _("Filter {} ({}: {}, sigma: {})").format(
+                self.get_filter_type_display(),
+                self.filter_argument_name,
+                self.filter_argument_value,
+                self.size_value,
+            )
+        else:
             return _("Filter {} ({}: {}, Size: {})").format(
                 self.get_filter_type_display(),
-                self.argument1_name,
-                self.argument1_value,
+                self.filter_argument_name,
+                self.filter_argument_value,
                 self.size_value,
             )

@@ -10,6 +10,7 @@ from .views import (
     UploadImageView,
     ImageAddIntensityModifierView,
     ImageAddNoiseModifierView,
+    ImageAddFilterModifierView,
     ResetImageRedirectView,
     UndoModifierRedirectView,
 )
@@ -35,6 +36,11 @@ urlpatterns = [
         'add_noise_modifier/',
         ImageAddNoiseModifierView.as_view(),
         name='add_noise_modifier'
+    ),
+    url(
+        'add_filter_modifier/',
+        ImageAddFilterModifierView.as_view(),
+        name='add_filter_modifier'
     ),
     path(
         'reset_image/<image_slug>/',
