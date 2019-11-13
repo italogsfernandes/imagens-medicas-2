@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 19:23+0000\n"
+"POT-Creation-Date: 2019-11-13 16:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -35,140 +35,164 @@ msgstr "Francês"
 msgid "Info"
 msgstr "Info"
 
-#: im2webapp/models.py:22
+#: im2webapp/models.py:25
 msgid "Slug"
 msgstr ""
 
-#: im2webapp/models.py:122
+#: im2webapp/models.py:184
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:16
 msgid "Brightness"
 msgstr "Brilho"
 
-#: im2webapp/models.py:123
+#: im2webapp/models.py:185
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:26
 msgid "Contrast"
 msgstr "Contraste"
 
-#: im2webapp/models.py:124
+#: im2webapp/models.py:186
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:52
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:54
 msgid "Negative"
 msgstr "Negativo"
 
-#: im2webapp/models.py:125
+#: im2webapp/models.py:187
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:58
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:61
 msgid "Identity"
 msgstr "Identidade"
 
-#: im2webapp/models.py:126
+#: im2webapp/models.py:188
 msgid "Logarithmic"
 msgstr "Logarítmica"
 
-#: im2webapp/models.py:127 im2webapp/models.py:183
+#: im2webapp/models.py:189 im2webapp/models.py:333
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:82
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:46
 msgid "Exponential"
 msgstr "Exponencial"
 
-#: im2webapp/models.py:128
+#: im2webapp/models.py:190
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:92
 msgid "Power"
 msgstr "Potência"
 
-#: im2webapp/models.py:135
+#: im2webapp/models.py:197
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:33
-#: im2webapp/views.py:72
+#: im2webapp/views.py:115
 msgid "shades"
 msgstr "tons"
 
-#: im2webapp/models.py:136 im2webapp/models.py:141
+#: im2webapp/models.py:198 im2webapp/models.py:203
 msgid "factor"
 msgstr "fator"
 
-#: im2webapp/models.py:137
+#: im2webapp/models.py:199
 msgid "percentage"
 msgstr "porcentagem"
 
-#: im2webapp/models.py:138
+#: im2webapp/models.py:200
 msgid "identity"
 msgstr "identidade"
 
-#: im2webapp/models.py:139
+#: im2webapp/models.py:201
 msgid "c"
 msgstr "c"
 
-#: im2webapp/models.py:140
+#: im2webapp/models.py:202
 msgid "gamma"
 msgstr "gamma"
 
-#: im2webapp/models.py:145
+#: im2webapp/models.py:207
 msgid "Type of Modifier *"
 msgstr "Tipo de Modificador *"
 
-#: im2webapp/models.py:164
+#: im2webapp/models.py:228
 msgid "Intensity {} ({}: {})"
 msgstr "Intensidade {} ({}: {})"
 
-#: im2webapp/models.py:180 im2webapp/models.py:405
+#: im2webapp/models.py:330 im2webapp/models.py:581
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:43
 msgid "Uniform"
 msgstr "Uniforme"
 
-#: im2webapp/models.py:181 im2webapp/models.py:404
+#: im2webapp/models.py:331 im2webapp/models.py:580
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:44
 msgid "Gaussian"
 msgstr "Gaussiano"
 
-#: im2webapp/models.py:182
+#: im2webapp/models.py:332
 msgid "Rayleight"
 msgstr "Rayleigh"
 
-#: im2webapp/models.py:184
+#: im2webapp/models.py:334
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:47
 msgid "Gamma"
 msgstr "Gamma"
 
-#: im2webapp/models.py:185
+#: im2webapp/models.py:335
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:48
 msgid "Salt and Pepper"
 msgstr "Sal e Pimenta"
 
-#: im2webapp/models.py:189 im2webapp/models.py:416
+#: im2webapp/models.py:356
 msgid "Noise Type: "
 msgstr "Tipo de Ruído: "
 
-#: im2webapp/models.py:210 im2webapp/models.py:431
+#: im2webapp/models.py:377
 msgid "Amount: "
 msgstr "Quantidade: "
 
-#: im2webapp/models.py:406
+#: im2webapp/models.py:559
+msgid "Noise {} ({}: {}, {}: {}, Amount: {})"
+msgstr "Ruído {} ({}: {}, {}: {}, Quantidade: {})"
+
+#: im2webapp/models.py:582
 msgid "Median"
 msgstr "Mediana"
 
-#: im2webapp/models.py:407
+#: im2webapp/models.py:583
 msgid "Maximum"
 msgstr "Máximo"
 
-#: im2webapp/models.py:408
+#: im2webapp/models.py:584
 msgid "Minimum"
 msgstr "Mínimo"
 
-#: im2webapp/models.py:409
+#: im2webapp/models.py:585
 msgid "Sharpening"
 msgstr ""
 
-#: im2webapp/models.py:410
+#: im2webapp/models.py:586
 msgid "Percentile"
 msgstr "Porcentagem"
 
-#: im2webapp/models.py:411
+#: im2webapp/models.py:587
 msgid "Wiener"
 msgstr "Wiener"
 
-#: im2webapp/models.py:412
+#: im2webapp/models.py:588
 msgid "Sobel"
 msgstr "Sobel"
+
+#: im2webapp/models.py:604
+msgid "Filter Type: "
+msgstr "Tipo de Ruído: "
+
+#: im2webapp/models.py:619
+msgid "Size: "
+msgstr "Tamanho: "
+
+#: im2webapp/models.py:758
+msgid "Filter {} (Size: {})"
+msgstr "Filtro {} (Tamanho: {})"
+
+#: im2webapp/models.py:763
+msgid "Filter {} ({}: {}, sigma: {})"
+msgstr "Filtro {} ({}: {}, sigma: {})"
+
+#: im2webapp/models.py:770
+msgid "Filter {} ({}: {}, Size: {})"
+msgstr "Filter {} ({}: {}, Tamanho: {})"
 
 #: im2webapp/templates/403.html:8
 msgid "Permission denied!"
@@ -287,6 +311,30 @@ msgstr "Entrar"
 msgid "Register"
 msgstr "Inscrever"
 
+#: im2webapp/templates/im2webapp/_block_image_history.html:7
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:93
+msgid "Download History"
+msgstr "Baixar Histórico"
+
+#: im2webapp/templates/im2webapp/_block_image_history.html:13
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:99
+msgid "Undo Last Action"
+msgstr "Desfazer ultima ação"
+
+#: im2webapp/templates/im2webapp/_block_image_history.html:20
+#: im2webapp/templates/im2webapp/_block_image_history.html:24
+msgid "Reset Image"
+msgstr "Resetar Imagem"
+
+#: im2webapp/templates/im2webapp/_block_image_history.html:29
+#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:105
+msgid "History"
+msgstr "Histórico"
+
+#: im2webapp/templates/im2webapp/_block_image_history.html:40
+msgid "Your image has no modifications saved."
+msgstr "Sua imagem não tem modificações salvas."
+
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:6
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:5
 msgid "Image Modifiers"
@@ -311,7 +359,7 @@ msgid "Filters"
 msgstr "Filtros"
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:29
-#: im2webapp/views.py:77
+#: im2webapp/views.py:120
 msgid "Brightness: "
 msgstr "Brilho: "
 
@@ -327,53 +375,34 @@ msgstr "Ver mais opções"
 msgid "Logarithm"
 msgstr "Logarítmica"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:113
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:122
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:131
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:119
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:139
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:156
 #: im2webapp/templates/im2webapp/upload_image_view.html:19
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:161
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:186
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:76
 msgid "Mini-Viewer"
 msgstr "Mini-Visualizador"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:166
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:191
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:81
 msgid "Compare"
 msgstr "Comparar"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:168
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:193
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:83
 msgid "Histogram"
 msgstr "Histograma"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:169
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:194
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:84
 #: im2webapp/templates/im2webapp/image-editor-lite.html:18
 #: im2webapp/templates/im2webapp/image-editor.html:18
 msgid "Original Image"
 msgstr "Imagem Original"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:179
-#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:93
-msgid "Download History"
-msgstr "Baixar Histórico"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:185
-#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:99
-msgid "Undo Last Action"
-msgstr "Desfazer ultima ação"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:192
-#: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:105
-msgid "History"
-msgstr "Histórico"
-
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:201
-msgid "Your image has no modifications saved."
-msgstr "Sua imagem não tem modificações salvas."
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:7
 msgid "Basics"
@@ -466,7 +495,6 @@ msgid "Output Image"
 msgstr "Imagem Resultado"
 
 #: im2webapp/templates/im2webapp/image-editor-lite.html:26
-#: im2webapp/templates/im2webapp/image-editor.html:28
 msgid ""
 "Your browser does not support the HTML5 canvas tag. The following image is "
 "not the real output."
