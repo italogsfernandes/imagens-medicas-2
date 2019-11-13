@@ -187,6 +187,9 @@
   <form action="" method="post" style="display: none;">
     <input type="button" name="viewer-equalize" value="Equalize" style="display: none;">
   </form>
+  <a class='btn btn-primary' href="{% url 'url_equalize' image_object.slug %}">
+    {% trans "Equalize" %}
+  </a>
   <input type="checkbox" name="viewer-compare" value="Compare" id="input_compare">
   {% trans "Compare" %}
   <input type="checkbox" name="viewer-histogram" value="Histogram" id="input_histogram">

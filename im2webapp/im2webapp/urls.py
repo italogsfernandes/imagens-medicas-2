@@ -13,6 +13,7 @@ from .views import (
     ImageAddFilterModifierView,
     ResetImageRedirectView,
     UndoModifierRedirectView,
+    EqualizeImageModifierView,
 )
 
 
@@ -51,5 +52,10 @@ urlpatterns = [
         'undo_modifier/<image_slug>/',
         UndoModifierRedirectView.as_view(),
         name='undo_modifier_url'
+    ),
+    path(
+        'equalize_img/<image_slug>/',
+        EqualizeImageModifierView.as_view(),
+        name='url_equalize'
     )
 ]

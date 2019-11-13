@@ -71,6 +71,16 @@ class ResetImageRedirectView(RedirectView):
         return redirect_to_referrer(request, 'images_list')
 
 
+class EqualizeImageModifierView(RedirectView):
+    def get(self, request, *args, **kwargs):
+        self.image_model = get_object_or_404(
+            ImageModel, slug=kwargs['image_slug']
+        )
+        self.image_model.do_equalize()
+        messages.success(request, "Imagem Equalizada!")
+        return redirect_to_referrer(request, 'images_list')
+
+
 class UndoModifierRedirectView(RedirectView):
     def get(self, request, *args, **kwargs):
         self.image_model = get_object_or_404(

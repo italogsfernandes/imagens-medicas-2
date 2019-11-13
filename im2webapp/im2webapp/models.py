@@ -1,5 +1,5 @@
 from PIL import Image
-
+import math
 from django.db import models
 
 from django.template.defaultfilters import slugify
@@ -100,6 +100,7 @@ class ImageModel(models.Model):
             "entropy": img.entropy(),
         }
         img.close()
+        image_info_dict.update(self.get_image_metrics())
         return image_info_dict
 
     def clean(self):
@@ -164,6 +165,69 @@ class ImageModel(models.Model):
         all_modifiers = all_modifiers.union(filters)
         all_modifiers = all_modifiers.order_by('-created_date')
         return all_modifiers
+
+    def get_psnr(self, img1, img2):
+        mse = np.mean((img1 - img2) ** 2)
+        if mse == 0:
+            return 100
+        PIXEL_MAX = 255.0
+        return 20 * math.log10(PIXEL_MAX / math.sqrt(mse))
+
+    def get_image_metrics(self):
+        """
+            return dict with image metrics
+        """
+        original_image = imageio.imread(self.original_image.path)
+        edited_image = imageio.imread(self.edited_image.path)
+        metrics = {}
+        metrics['std_original'] = np.std(original_image)
+        metrics['std_processada'] = np.std(edited_image)
+        metrics['var_original'] = np.var(original_image)
+        metrics['var_processada'] = np.var(edited_image)
+        metrics['PSNR'] = self.get_psnr(original_image, edited_image)
+        return metrics
+
+    def image_histogram_equalization(self, image, number_bins=256):
+        # from http://www.janeriksolem.net/2009/06/histogram-equalization-with-python-and.html
+        # get image histogram
+        image_histogram, bins = np.histogram(
+            image.flatten(), number_bins, density=True)
+        cdf = image_histogram.cumsum()  # cumulative distribution function
+        cdf = 255 * cdf / cdf[-1]  # normalize
+
+        # use linear interpolation of cdf to find new pixel values
+        image_equalized = np.interp(image.flatten(), bins[:-1], cdf)
+
+        return image_equalized.reshape(image.shape)
+
+    def _equalize_image(self, input_image):
+        """input_image show be uint8 ou float64"""
+        if input_image.dtype == np.uint8:
+            max_value = 255
+            min_value = 0
+        elif input_image.dtype == np.float64:
+            max_value = 0
+            min_value = 255
+
+        img_max = input_image.max()
+        img_min = input_image.min()
+
+        corrected_image = input_image.astype(np.float64)
+        corrected_image = (
+            min_value + corrected_image*(max_value-min_value)/(img_max-img_min)
+        )
+        corrected_image = corrected_image.astype(input_image.dtype)
+
+        return corrected_image
+
+    def do_equalize(self):
+        input_image = imageio.imread(self.edited_image.path)
+        output_image = self.image_histogram_equalization(input_image)
+        # Save the result
+        output_image = output_image.astype(input_image.dtype)
+        imageio.imwrite(self.edited_image.path, output_image)
+        return output_image
+
 
     # TODO: add delete storage. self.image.storage.delete
     def __str__(self):
