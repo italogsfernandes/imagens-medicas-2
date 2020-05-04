@@ -101,7 +101,6 @@ class ResetImageRedirectView(RedirectView):
         })
 
 
-
 class EqualizeImageModifierView(RedirectView):
     def get(self, request, *args, **kwargs):
         self.image_model = get_object_or_404(
@@ -139,7 +138,7 @@ class UndoModifierRedirectView(RedirectView):
         if request.is_ajax():
             return self.get_ajax(request, *args, **kwargs)
         return redirect_to_referrer(request, 'images_list')
-    
+
     def get_ajax(self, request, *args, **kwargs):
         image_object = self.image_model
 
@@ -167,7 +166,6 @@ class UndoModifierRedirectView(RedirectView):
             'messages': m,
             'edited_image_url': image_object.edited_image.url,
         })
-
 
 
 class ImageEditorView(LoginRequiredMixin, DetailView):
@@ -238,7 +236,8 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
             user=self.request.user
         )
         return super().get_queryset()
-    
+
+
 class ImageEditorLiteView(View):
     def get(self, request, *args, **kwargs):
         return render(

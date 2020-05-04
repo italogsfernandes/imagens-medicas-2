@@ -25,8 +25,10 @@ class ImageModelForm(forms.ModelForm):
     def clean(self):
         data = self.cleaned_data
         slug = slugify(data['name'])
-        same_name_query = ImageModel.objects.filter(slug=slug, user=data['user'])
-        
+        same_name_query = ImageModel.objects.filter(
+            slug=slug, user=data['user']
+        )
+
         if same_name_query.exists():
             raise ValidationError(_("Can't have duplicate image names"))
 

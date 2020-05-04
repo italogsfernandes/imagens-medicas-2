@@ -191,7 +191,8 @@ class ImageModel(models.Model):
         return metrics
 
     def image_histogram_equalization(self, image, number_bins=256):
-        # from http://www.janeriksolem.net/2009/06/histogram-equalization-with-python-and.html
+        # from http://www.janeriksolem.net/2009/06/
+        # histogram-equalization-with-python-and.html
         # get image histogram
         image_histogram, bins = np.histogram(
             image.flatten(), number_bins, density=True)
@@ -230,7 +231,6 @@ class ImageModel(models.Model):
         output_image = output_image.astype(input_image.dtype)
         imageio.imwrite(self.edited_image.path, output_image)
         return output_image
-
 
     # TODO: add delete storage. self.image.storage.delete
     def __str__(self):
