@@ -1,25 +1,35 @@
 {% extends "im2webapp/base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-{% block content %}
-    <div class="content-section">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">{% trans 'Log In' %}</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">{% trans 'Login' %}</button>
-                <small class="text-muted ml-2">
-                    <a href="{% url 'password_reset' %}">{% trans 'Forgot Password?' %}</a>
-                </small>
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+{% block outside_side_bar %}
+    <div class="row" style="padding-top: 50px; padding-bottom: 100px;">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            {% include 'im2webapp/_messages.html' %}
+            <div class="content-section">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">{% trans 'Log In' %}</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit">{% trans 'Login' %}</button>
+                        <small class="text-muted ml-2">
+                            <a href="{% url 'password_reset' %}">{% trans 'Forgot Password?' %}</a>
+                        </small>
+                    </div>
+                </form>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        {% trans 'Need An Account?' %} <a class="ml-2" href="{% url 'register' %}">{% trans 'Sign Up Now' %}</a>
+                    </small>
+                </div>
             </div>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                {% trans 'Need An Account?' %} <a class="ml-2" href="{% url 'register' %}">{% trans 'Sign Up Now' %}</a>
-            </small>
         </div>
     </div>
-{% endblock content %}
+{% endblock outside_side_bar %}

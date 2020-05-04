@@ -6,7 +6,7 @@
 <footer class="page-footer">
     <hr>
     <div class="text-center">
-    <p>
+      <p>
         {% trans 'Support IM2 Web App: ' %}
         <a href="mailto:italogsfernandes@gmail.com">
             italogsfernandes@gmail.com
@@ -15,27 +15,27 @@
         <a href="https://github.com/italogsfernandes/imagens-medicas-2/issues/new/choose">
             {% trans 'Report it here' %}
         </a>
-    </p>
-    <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-    <p>
-        <a href="http://italogsfernandes.com/">
-            &copy; <script> document.write(new Date().getFullYear()) </script>
-            Italo G S Fernandes
-        </a> |
-        <a href="{% url 'about' %}">{% trans "About" %}</a> |
-        <a href="#">{% trans "Terms of Use" %}</a> |
-        <a href="#">{% trans "Privacy Policy" %}</a> |
-        <input name="next" type="hidden" value="{{ redirect_to }}">
-        <span>{% trans "Language: "%}</span>
-        <select name="language" onchange="this.form.submit()">
-          {% for language in languages %}
-            <option value="{{ language.code }}"
-            {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-              {{ language.code }}
-            </option>
-          {% endfor %}
-        </select>
-    </p>
-    </form>
+      </p>
+      <form class="form" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+        <p>
+          <a href="http://italogsfernandes.com/">
+              &copy; <script> document.write(new Date().getFullYear()) </script>
+              Italo G S Fernandes
+          </a> |
+          <a href="{% url 'about' %}">{% trans "About" %}</a> |
+          <a href="#">{% trans "Terms of Use" %}</a> |
+          <a href="#">{% trans "Privacy Policy" %}</a> |
+          <input name="next" type="hidden" value="{{ redirect_to }}">
+          <span>{% trans "Language: "%}</span>
+          <select name="language" onchange="this.form.submit()">
+            {% for language in languages %}
+              <option value="{{ language.code }}"
+              {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                {{ language.code }}
+              </option>
+            {% endfor %}
+          </select>
+        </p>
+      </form>
     </div>
 </footer>
