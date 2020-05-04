@@ -21,7 +21,7 @@ User = get_user_model()
 class ImageModel(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(
-        unique=True, verbose_name=_("Slug"), null=True, blank=True
+        unique=False, verbose_name=_("Slug"), null=True, blank=True
     )
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -45,6 +45,9 @@ class ImageModel(models.Model):
         format='JPEG',
         options={'optimize': True}
     )
+
+    class Meta:
+        unique_together = [['user', 'slug']]
 
     @property
     def get_image_informations(self):

@@ -17,6 +17,10 @@ def register(request):
             )
             return redirect('login')
         else:
+            messages.warning(
+                request,
+                f'Something went wrong: {form.errors}'
+            )
             return redirect('home')
     else:
         form = UserRegisterForm()

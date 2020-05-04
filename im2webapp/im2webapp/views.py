@@ -62,7 +62,7 @@ class ImageListView(LoginRequiredMixin, ListView):
 class ResetImageRedirectView(RedirectView):
     def get(self, request, *args, **kwargs):
         self.image_model = get_object_or_404(
-            ImageModel, slug=kwargs['image_slug']
+            ImageModel, slug=kwargs['image_slug'], user=request.user
         )
         self.image_model.intensityimagemodifier_set.all().delete()
         self.image_model.noiseimagemodifier_set.all().delete()
@@ -74,7 +74,7 @@ class ResetImageRedirectView(RedirectView):
 class EqualizeImageModifierView(RedirectView):
     def get(self, request, *args, **kwargs):
         self.image_model = get_object_or_404(
-            ImageModel, slug=kwargs['image_slug']
+            ImageModel, slug=kwargs['image_slug'], user=request.user
         )
         self.image_model.do_equalize()
         messages.success(request, "Imagem Equalizada!")
@@ -84,7 +84,7 @@ class EqualizeImageModifierView(RedirectView):
 class UndoModifierRedirectView(RedirectView):
     def get(self, request, *args, **kwargs):
         self.image_model = get_object_or_404(
-            ImageModel, slug=kwargs['image_slug']
+            ImageModel, slug=kwargs['image_slug'], user=request.user
         )
         modifier_to_be_undone = self.image_model.get_modifiers_list().first()
         if modifier_to_be_undone['modifier'] == 'intensity':
@@ -171,7 +171,12 @@ class ImageEditorView(LoginRequiredMixin, DetailView):
         context['edited_image'] = edited_image
         return context
 
-
+    def get_queryset(self):
+        self.queryset = ImageModel.objects.filter(
+            user=self.request.user
+        )
+        return super().get_queryset()
+    
 class ImageEditorLiteView(View):
     def get(self, request, *args, **kwargs):
         return render(

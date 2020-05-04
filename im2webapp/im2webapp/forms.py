@@ -1,4 +1,8 @@
 from django import forms
+from django.template.defaultfilters import slugify
+
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 from im2webapp.models import (
     ImageModel,
@@ -17,6 +21,14 @@ class ImageModelForm(forms.ModelForm):
             'comments',
             'user',
         ]
+
+    def clean(self):
+        data = self.cleaned_data
+        slug = slugify(data['name'])
+        same_name_query = ImageModel.objects.filter(slug=slug, user=data['user'])
+        
+        if same_name_query.exists():
+            raise ValidationError(_("Can't have duplicate image names"))
 
 
 class AddIntensityModifierForm(forms.ModelForm):
