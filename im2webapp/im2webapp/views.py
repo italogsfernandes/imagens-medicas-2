@@ -68,7 +68,38 @@ class ResetImageRedirectView(RedirectView):
         self.image_model.noiseimagemodifier_set.all().delete()
         self.image_model.filterimagemodifier_set.all().delete()
         self.image_model.reset_edited_image()
+        if request.is_ajax():
+            return self.get_ajax(request, *args, **kwargs)
         return redirect_to_referrer(request, 'images_list')
+
+    def get_ajax(self, request, *args, **kwargs):
+        image_object = self.image_model
+
+        actions_history = (
+            image_object.get_modifiers_list()
+        )
+        context = {
+            'actions_history': actions_history,
+            'image_object': image_object,
+        }
+        tab_info_content = render_to_string(
+            'im2webapp/blocks/_tab_info_content.html',
+            context=context,
+            request=request,
+        )
+        history_content = render_to_string(
+            'im2webapp/_block_image_history.html',
+            context=context,
+            request=request,
+        )
+        m = render_to_string('im2webapp/_messages.html', request=request)
+        return JsonResponse({
+            'tab_info_content': tab_info_content,
+            'history_content_div': history_content,
+            'messages': m,
+            'edited_image_url': image_object.edited_image.url,
+        })
+
 
 
 class EqualizeImageModifierView(RedirectView):
@@ -105,7 +136,38 @@ class UndoModifierRedirectView(RedirectView):
 
         self.image_model.reset_edited_image()
         self.image_model.apply_all_modifiers()
+        if request.is_ajax():
+            return self.get_ajax(request, *args, **kwargs)
         return redirect_to_referrer(request, 'images_list')
+    
+    def get_ajax(self, request, *args, **kwargs):
+        image_object = self.image_model
+
+        actions_history = (
+            image_object.get_modifiers_list()
+        )
+        context = {
+            'actions_history': actions_history,
+            'image_object': image_object,
+        }
+        tab_info_content = render_to_string(
+            'im2webapp/blocks/_tab_info_content.html',
+            context=context,
+            request=request,
+        )
+        history_content = render_to_string(
+            'im2webapp/_block_image_history.html',
+            context=context,
+            request=request,
+        )
+        m = render_to_string('im2webapp/_messages.html', request=request)
+        return JsonResponse({
+            'tab_info_content': tab_info_content,
+            'history_content_div': history_content,
+            'messages': m,
+            'edited_image_url': image_object.edited_image.url,
+        })
+
 
 
 class ImageEditorView(LoginRequiredMixin, DetailView):
