@@ -105,20 +105,6 @@ class TestUserViews(TestCase):
         assert response.status_code == 302
         assert reverse('login') in response.url
 
-    def test_register_post_invalid(self):
-        path = reverse('register')
-        request = self.factory.post(
-            path, data={
-                'username': 'paulocamargoss',
-                'email': 'paulocamargoss@outlook.com',
-                'password1': 'hackme',
-                'password2': 'donthackme',
-            }
-        )
-        response = register(request)
-        assert response.status_code == 302
-        assert reverse('home') in response.url
-
     def test_profile_get(self):
         path = reverse('profile')
         request = self.factory.get(path)
