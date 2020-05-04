@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 22:30+0000\n"
+"POT-Creation-Date: 2020-05-04 22:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -35,7 +35,7 @@ msgstr "Francês"
 msgid "Info"
 msgstr "Info"
 
-#: im2webapp/forms.py:31
+#: im2webapp/forms.py:33
 msgid "Can't have duplicate image names"
 msgstr "Você não pode ter 2 imagens com o mesmo nome."
 
@@ -82,7 +82,7 @@ msgstr "Potência"
 
 #: im2webapp/models.py:263
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:33
-#: im2webapp/views.py:186
+#: im2webapp/views.py:184
 msgid "shades"
 msgstr "tons"
 
@@ -276,7 +276,7 @@ msgid "Filters"
 msgstr "Filtros"
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:29
-#: im2webapp/views.py:191
+#: im2webapp/views.py:189
 msgid "Brightness: "
 msgstr "Brilho: "
 
@@ -383,7 +383,7 @@ msgstr "Idioma: "
 
 #: im2webapp/templates/im2webapp/_side_bar.html:3
 msgid "Options"
-msgstr ""
+msgstr "Opções"
 
 #: im2webapp/templates/im2webapp/_side_bar.html:10
 #: im2webapp/templates/im2webapp/_top_menu.html:15
@@ -422,15 +422,15 @@ msgstr "Inscrever"
 
 #: im2webapp/templates/im2webapp/about.html:38
 msgid "Author:"
-msgstr ""
+msgstr "Autor:"
 
 #: im2webapp/templates/im2webapp/about.html:43
 msgid "Sponsor:"
-msgstr ""
+msgstr "Apoio:"
 
 #: im2webapp/templates/im2webapp/about.html:48
 msgid "Open-source code:"
-msgstr ""
+msgstr "Código aberto"
 
 #: im2webapp/templates/im2webapp/image-editor-lite.html:5
 msgid "Image Editor"
