@@ -1,11 +1,63 @@
 {% extends "im2webapp/base.html" %}
 
 {% load i18n %}
+{% load static %}
 
-{% block title %}{{title}}{% endblock %}
+{% block title %}{% trans "About" %}{% endblock %}
 
-{% block side_bar %}{% include 'im2webapp/_side_bar.html' %}{% endblock %}
+{% block outside_side_bar %}
+    <div class="row" style="padding-top: 10px; padding-bottom: 100px;">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            {% include 'im2webapp/_messages.html' %}
+            <div class="content-section">
+                <h2 class="text-center">{% trans "About" %}</h2>
+                <div class="border-top pt-3 text-justify">
+                    <p>
+                        O projeto IM2WebApp teve como objetivo o desenvolvimento de uma plataforma
+                        para auxílio ao ensino de processamento de images médicas.
+                    </p>
+                    <p>
+                        Foi iniciado por Rodolfo dos Santos Ribeiro que apresentou uma interface em MATLAB para
+                        processamento de imanges.
+                    </p>
+                    <p>
+                        Em continuidade, Ronaldo Sena reviveu o projeto na disciplina de imagens meédicas 2 do curso de 
+                        <a href="http://www.biomedica.eletrica.ufu.br">Engenharia Biomedia</a> da <a href="http://www.ufu.br/">Universidade Federal de Uberlândia</a>.
+                    </p>
+                        Seguindo com o apoio da nossa orientadora, Ana Claudia Patrocinio, o projeto foi 
+                        implementado como uma aplicação web pelo aluno Italo Gustavo Sampaio Fernandes, como seu TCC. <br>
 
-{% block content %}
-    <h1>{% trans 'About Page' %}</h1>
-{% endblock content %}
+                    </p>
+                    <p class="text-center">
+                        <img src="{% static 'im2webapp/images/example_editor.png' %}" style="border-radius: 1%; max-width: 80%;">
+                    </p>
+                    <ul>
+                        <li>
+                            <b>{% trans "Author:" %}</b>
+                            Italo Gustavo Sampaio Fernandes
+                            (<a href="http://italogsfernandes.com/">italogsfernandes.com</a>)
+                        </li>
+                        <li>
+                            <b>{% trans "Sponsor:" %}</b>
+                            Walbax Tech
+                            (<a href="http://walbax.com.br/">walbax.com.br</a>)
+                        </li>
+                        <li>
+                           <b>{% trans "Open-source code:" %}</b>
+                            <a href="https://github.com/italogsfernandes/imagens-medicas-2">Github Repository</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="border-top" style="margin-top: 1rem;">
+                    <p class="text-center" style="margin-top: 1rem;">
+                        <img src="{% static 'im2webapp/images/ufu_logo_ufu.png' %}" height='64px'>
+                        <img src="{% static 'im2webapp/images/eng_bio.png' %}" height='64px'>
+                        <img src="{% static 'im2webapp/images/logo_2_linhas_white_circle.png' %}" height='64px'>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock outside_side_bar %}

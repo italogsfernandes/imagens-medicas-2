@@ -12,11 +12,7 @@
       <div class="navbar-nav mr-auto">
         <a class="nav-item nav-link" href="{% url 'home' %}">{% trans "Home" %}</a>
         <a class="nav-item nav-link" href="{% url 'about' %}">{% trans "About" %}</a>
-        {% if user.is_authenticated %}
-          <a class="nav-item nav-link" href="{% url 'images_list' %}">{% trans "My images" %}</a>
-        {% else %}
-          <a class="nav-item nav-link" href="{% url 'lite-editor' %}">{% trans "Lite editor" %}</a>
-        {% endif %}
+        <a class="nav-item nav-link" href="{% url 'images_list' %}">{% trans "My images" %}</a>
       </div>
       <!-- Navbar Right Side -->
       <div class="navbar-nav">
