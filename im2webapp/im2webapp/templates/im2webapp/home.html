@@ -1,5 +1,6 @@
 {% extends "im2webapp/base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}{{title}}{% endblock %}
 
@@ -9,13 +10,26 @@
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
-      <a class="mr-2" href="#">Lorem</a>
-      <small class="text-muted">Ipsum</small>
+      <strong>IM2WebApp</strong>
+      /
+      <small class="text-muted">Processamentos de images médicas</small>
     </div>
-    <h2><a class="article-title" href="#">Lorem Ipsum</a></h2>
-    <p class="article-content">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+    <h2 class="text-center" style="padding-top:10px;">Imagens médicas 2</h2>
+    <div style="padding-top:10px;">
+      <p class="text-center">
+        <img src="{% static 'im2webapp/images/example_editor.png' %}" style="border-radius: 1%; max-width: 80%;">
+        <br>
+        <small class="text-muted text-center">Tela de edição de imagem</small>
+      </p>
+      <p>
+        Plataforma para o auxílio no ensino de processamento de imangens médicas.
+        <br>
+        <span><i class="fa fa-info" aria-hidden="true"></i>: </span>
+        Clique 
+        <a href="{% url 'about' %}">aqui</a>
+        para saber mais.
+      </p>
+    </div>
   </div>
 </article>
 {% endblock content %}

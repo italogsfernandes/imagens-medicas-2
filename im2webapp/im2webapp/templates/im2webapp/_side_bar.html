@@ -1,12 +1,14 @@
 {% load i18n %}
 <div class="content-section">
-<h3>{% trans "Our Sidebar" %}</h3>
-<p class='text-muted'>{% trans "You can put any information here you'd like." %}
+<h3>{% trans "Options" %}</h3>
+<p class='text-muted'>
   <ul class="list-group">
-    <li class="list-group-item list-group-item-light">{% trans "Latest" %}</li>
-    <li class="list-group-item list-group-item-light">{% trans "Announcements" %}</li>
-    <li class="list-group-item list-group-item-light">{% trans "Calendars" %}</li>
-    <li class="list-group-item list-group-item-light">{% trans "etc" %}</li>
+    <li class="list-group-item list-group-item-light">
+      <a href="{% url 'about' %}">{% trans "About" %}</a>
+    </li>
+    <li class="list-group-item list-group-item-light">
+      <a href="{% url 'images_list' %}">{% trans "My images" %}</a>
+    </li>
   </ul>
 </p>
 </div>
