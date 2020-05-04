@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-13 16:44+0000\n"
+"POT-Creation-Date: 2020-05-04 22:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -35,162 +35,166 @@ msgstr "Francês"
 msgid "Info"
 msgstr "Info"
 
-#: im2webapp/models.py:25
-msgid "Slug"
-msgstr ""
+#: im2webapp/forms.py:31
+msgid "Can't have duplicate image names"
+msgstr "Você não pode ter 2 imagens com o mesmo nome."
 
-#: im2webapp/models.py:184
+#: im2webapp/models.py:24
+msgid "Slug"
+msgstr "Slug"
+
+#: im2webapp/models.py:250
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:16
 msgid "Brightness"
 msgstr "Brilho"
 
-#: im2webapp/models.py:185
+#: im2webapp/models.py:251
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:26
 msgid "Contrast"
 msgstr "Contraste"
 
-#: im2webapp/models.py:186
+#: im2webapp/models.py:252
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:52
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:54
 msgid "Negative"
 msgstr "Negativo"
 
-#: im2webapp/models.py:187
+#: im2webapp/models.py:253
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:58
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:61
 msgid "Identity"
 msgstr "Identidade"
 
-#: im2webapp/models.py:188
+#: im2webapp/models.py:254
 msgid "Logarithmic"
 msgstr "Logarítmica"
 
-#: im2webapp/models.py:189 im2webapp/models.py:333
+#: im2webapp/models.py:255 im2webapp/models.py:399
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:82
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:46
 msgid "Exponential"
 msgstr "Exponencial"
 
-#: im2webapp/models.py:190
+#: im2webapp/models.py:256
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:92
 msgid "Power"
 msgstr "Potência"
 
-#: im2webapp/models.py:197
+#: im2webapp/models.py:263
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:33
-#: im2webapp/views.py:115
+#: im2webapp/views.py:186
 msgid "shades"
 msgstr "tons"
 
-#: im2webapp/models.py:198 im2webapp/models.py:203
+#: im2webapp/models.py:264 im2webapp/models.py:269
 msgid "factor"
 msgstr "fator"
 
-#: im2webapp/models.py:199
+#: im2webapp/models.py:265
 msgid "percentage"
 msgstr "porcentagem"
 
-#: im2webapp/models.py:200
+#: im2webapp/models.py:266
 msgid "identity"
 msgstr "identidade"
 
-#: im2webapp/models.py:201
+#: im2webapp/models.py:267
 msgid "c"
 msgstr "c"
 
-#: im2webapp/models.py:202
+#: im2webapp/models.py:268
 msgid "gamma"
 msgstr "gamma"
 
-#: im2webapp/models.py:207
+#: im2webapp/models.py:273
 msgid "Type of Modifier *"
 msgstr "Tipo de Modificador *"
 
-#: im2webapp/models.py:228
+#: im2webapp/models.py:294
 msgid "Intensity {} ({}: {})"
 msgstr "Intensidade {} ({}: {})"
 
-#: im2webapp/models.py:330 im2webapp/models.py:581
+#: im2webapp/models.py:396 im2webapp/models.py:647
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:43
 msgid "Uniform"
 msgstr "Uniforme"
 
-#: im2webapp/models.py:331 im2webapp/models.py:580
+#: im2webapp/models.py:397 im2webapp/models.py:646
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:44
 msgid "Gaussian"
 msgstr "Gaussiano"
 
-#: im2webapp/models.py:332
+#: im2webapp/models.py:398
 msgid "Rayleight"
 msgstr "Rayleigh"
 
-#: im2webapp/models.py:334
+#: im2webapp/models.py:400
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:47
 msgid "Gamma"
 msgstr "Gamma"
 
-#: im2webapp/models.py:335
+#: im2webapp/models.py:401
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:48
 msgid "Salt and Pepper"
 msgstr "Sal e Pimenta"
 
-#: im2webapp/models.py:356
+#: im2webapp/models.py:422
 msgid "Noise Type: "
 msgstr "Tipo de Ruído: "
 
-#: im2webapp/models.py:377
+#: im2webapp/models.py:443
 msgid "Amount: "
 msgstr "Quantidade: "
 
-#: im2webapp/models.py:559
+#: im2webapp/models.py:625
 msgid "Noise {} ({}: {}, {}: {}, Amount: {})"
 msgstr "Ruído {} ({}: {}, {}: {}, Quantidade: {})"
 
-#: im2webapp/models.py:582
+#: im2webapp/models.py:648
 msgid "Median"
 msgstr "Mediana"
 
-#: im2webapp/models.py:583
+#: im2webapp/models.py:649
 msgid "Maximum"
 msgstr "Máximo"
 
-#: im2webapp/models.py:584
+#: im2webapp/models.py:650
 msgid "Minimum"
 msgstr "Mínimo"
 
-#: im2webapp/models.py:585
+#: im2webapp/models.py:651
 msgid "Sharpening"
-msgstr ""
+msgstr "Sharpening"
 
-#: im2webapp/models.py:586
+#: im2webapp/models.py:652
 msgid "Percentile"
 msgstr "Porcentagem"
 
-#: im2webapp/models.py:587
+#: im2webapp/models.py:653
 msgid "Wiener"
 msgstr "Wiener"
 
-#: im2webapp/models.py:588
+#: im2webapp/models.py:654
 msgid "Sobel"
 msgstr "Sobel"
 
-#: im2webapp/models.py:604
+#: im2webapp/models.py:670
 msgid "Filter Type: "
 msgstr "Tipo de Ruído: "
 
-#: im2webapp/models.py:619
+#: im2webapp/models.py:685
 msgid "Size: "
 msgstr "Tamanho: "
 
-#: im2webapp/models.py:758
+#: im2webapp/models.py:824
 msgid "Filter {} (Size: {})"
 msgstr "Filtro {} (Tamanho: {})"
 
-#: im2webapp/models.py:763
+#: im2webapp/models.py:829
 msgid "Filter {} ({}: {}, sigma: {})"
 msgstr "Filtro {} ({}: {}, sigma: {})"
 
-#: im2webapp/models.py:770
+#: im2webapp/models.py:836
 msgid "Filter {} ({}: {}, Size: {})"
 msgstr "Filter {} ({}: {}, Tamanho: {})"
 
@@ -223,93 +227,6 @@ msgstr "Desculpe, parece haver um erro. Por favor, tente novamente em breve."
 #: im2webapp/templates/im2webapp/upload_image_view.html:12
 msgid "Upload Image"
 msgstr "Adicionar Imagem"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:10
-msgid "Support: "
-msgstr "Suporte: "
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:14
-#: im2webapp/templates/im2webapp/_footer.html:14
-msgid "Found a bug or want to suggest a feature? "
-msgstr "Encontrou um bug ou deseja fazer uma sugestão? "
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:16
-#: im2webapp/templates/im2webapp/_footer.html:16
-msgid "Report it here"
-msgstr "Reporte aqui"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:25
-#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:14
-#: im2webapp/templates/im2webapp/_footer.html:25
-#: im2webapp/templates/im2webapp/_top_menu.html:14
-msgid "About"
-msgstr "Sobre"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:26
-#: im2webapp/templates/im2webapp/_footer.html:26
-msgid "Terms of Use"
-msgstr "Termos de Uso"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:27
-#: im2webapp/templates/im2webapp/_footer.html:27
-msgid "Privacy Policy"
-msgstr "Política de Privacidade"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_footer.html:29
-#: im2webapp/templates/im2webapp/_footer.html:29
-msgid "Language: "
-msgstr "Idioma: "
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_side_bar.html:13
-msgid "Quaternion"
-msgstr ""
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_side_bar.html:17
-msgid "Right Hand"
-msgstr ""
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_side_bar.html:30
-msgid "Sizes (cm)"
-msgstr ""
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:6
-msgid "Belo Horizonte"
-msgstr ""
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:13
-#: im2webapp/templates/im2webapp/_top_menu.html:13
-msgid "Home"
-msgstr "Início"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:16
-msgid "Image editor"
-msgstr "Editor de Imagem"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:25
-#: im2webapp/templates/im2webapp/_top_menu.html:27
-msgid "My user account"
-msgstr "Minha conta"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:26
-#: im2webapp/templates/im2webapp/_top_menu.html:28
-msgid " - Profile"
-msgstr " - Perfil"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:28
-#: im2webapp/templates/im2webapp/_top_menu.html:30
-msgid " - Logout"
-msgstr " - Sair"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:32
-#: im2webapp/templates/im2webapp/_top_menu.html:34
-#: users/templates/users/login.html:13
-msgid "Login"
-msgstr "Entrar"
-
-#: im2webapp/templates/im2webapp/_belo_horizonte_top_menu.html:33
-#: im2webapp/templates/im2webapp/_top_menu.html:35
-msgid "Register"
-msgstr "Inscrever"
 
 #: im2webapp/templates/im2webapp/_block_image_history.html:7
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:93
@@ -359,7 +276,7 @@ msgid "Filters"
 msgstr "Filtros"
 
 #: im2webapp/templates/im2webapp/_edit_image_side_bar.html:29
-#: im2webapp/views.py:120
+#: im2webapp/views.py:191
 msgid "Brightness: "
 msgstr "Brilho: "
 
@@ -382,22 +299,26 @@ msgstr "Logarítmica"
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:186
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:172
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:76
 msgid "Mini-Viewer"
 msgstr "Mini-Visualizador"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:191
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:177
+msgid "Equalize"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:180
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:81
 msgid "Compare"
 msgstr "Comparar"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:193
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:182
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:83
 msgid "Histogram"
 msgstr "Histograma"
 
-#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:194
+#: im2webapp/templates/im2webapp/_edit_image_side_bar.html:183
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:84
 #: im2webapp/templates/im2webapp/image-editor-lite.html:18
 #: im2webapp/templates/im2webapp/image-editor.html:18
@@ -432,54 +353,84 @@ msgstr "Por favor conecte-se para usar essa funcionalidade."
 msgid "Support IM2 Web App: "
 msgstr "Suporte IM2 Web App: "
 
-#: im2webapp/templates/im2webapp/_side_bar.html:3
-msgid "Our Sidebar"
-msgstr "Nossa barra lateral"
+#: im2webapp/templates/im2webapp/_footer.html:14
+msgid "Found a bug or want to suggest a feature? "
+msgstr "Encontrou um bug ou deseja fazer uma sugestão? "
 
-#: im2webapp/templates/im2webapp/_side_bar.html:4
-msgid "You can put any information here you'd like."
-msgstr "Você pode colocar qualquer informação aqui que você gostaria."
+#: im2webapp/templates/im2webapp/_footer.html:16
+msgid "Report it here"
+msgstr "Reporte aqui"
 
-#: im2webapp/templates/im2webapp/_side_bar.html:6
-msgid "Latest"
-msgstr "Mais recentes"
-
+#: im2webapp/templates/im2webapp/_footer.html:25
 #: im2webapp/templates/im2webapp/_side_bar.html:7
-msgid "Announcements"
-msgstr "Anúncios"
+#: im2webapp/templates/im2webapp/_top_menu.html:14
+#: im2webapp/templates/im2webapp/about.html:6
+#: im2webapp/templates/im2webapp/about.html:15
+msgid "About"
+msgstr "Sobre"
 
-#: im2webapp/templates/im2webapp/_side_bar.html:8
-msgid "Calendars"
-msgstr "Calendários"
+#: im2webapp/templates/im2webapp/_footer.html:26
+msgid "Terms of Use"
+msgstr "Termos de Uso"
 
-#: im2webapp/templates/im2webapp/_side_bar.html:9
-msgid "etc"
-msgstr "etc"
+#: im2webapp/templates/im2webapp/_footer.html:27
+msgid "Privacy Policy"
+msgstr "Política de Privacidade"
+
+#: im2webapp/templates/im2webapp/_footer.html:29
+msgid "Language: "
+msgstr "Idioma: "
+
+#: im2webapp/templates/im2webapp/_side_bar.html:3
+msgid "Options"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/_side_bar.html:10
+#: im2webapp/templates/im2webapp/_top_menu.html:15
+#: im2webapp/templates/im2webapp/images_list.html:12
+msgid "My images"
+msgstr "Minhas Imagens"
 
 #: im2webapp/templates/im2webapp/_top_menu.html:6
 msgid "Medical Images 2"
 msgstr "Imagens Médicas 2"
 
-#: im2webapp/templates/im2webapp/_top_menu.html:16
-#: im2webapp/templates/im2webapp/images_list.html:12
-msgid "My images"
-msgstr "Minhas Imagens"
+#: im2webapp/templates/im2webapp/_top_menu.html:13
+msgid "Home"
+msgstr "Início"
 
-#: im2webapp/templates/im2webapp/_top_menu.html:18
-msgid "Lite editor"
-msgstr "Editor Lite"
+#: im2webapp/templates/im2webapp/_top_menu.html:23
+msgid "My user account"
+msgstr "Minha conta"
 
-#: im2webapp/templates/im2webapp/about.html:10
-msgid "About Page"
-msgstr "Sobre a página"
+#: im2webapp/templates/im2webapp/_top_menu.html:24
+msgid " - Profile"
+msgstr " - Perfil"
 
-#: im2webapp/templates/im2webapp/belo-horizonte.html:17
-msgid "Result"
-msgstr "Resultado"
+#: im2webapp/templates/im2webapp/_top_menu.html:26
+msgid " - Logout"
+msgstr " - Sair"
 
-#: im2webapp/templates/im2webapp/belo-horizonte.html:19
-msgid "Reconstruction"
-msgstr "Reconstrução"
+#: im2webapp/templates/im2webapp/_top_menu.html:30
+#: users/templates/users/login.html:5 users/templates/users/login.html:21
+msgid "Login"
+msgstr "Entrar"
+
+#: im2webapp/templates/im2webapp/_top_menu.html:31
+msgid "Register"
+msgstr "Inscrever"
+
+#: im2webapp/templates/im2webapp/about.html:38
+msgid "Author:"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/about.html:43
+msgid "Sponsor:"
+msgstr ""
+
+#: im2webapp/templates/im2webapp/about.html:48
+msgid "Open-source code:"
+msgstr ""
 
 #: im2webapp/templates/im2webapp/image-editor-lite.html:5
 msgid "Image Editor"
@@ -518,19 +469,19 @@ msgstr "Você não possui imagens, por favor adicione uma."
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: users/templates/users/login.html:9
+#: users/templates/users/login.html:17
 msgid "Log In"
 msgstr "Entrar"
 
-#: users/templates/users/login.html:15
+#: users/templates/users/login.html:23
 msgid "Forgot Password?"
 msgstr "Esqueceu a senha?"
 
-#: users/templates/users/login.html:21
+#: users/templates/users/login.html:29
 msgid "Need An Account?"
 msgstr "Precisa de uma conta?"
 
-#: users/templates/users/login.html:21
+#: users/templates/users/login.html:29
 msgid "Sign Up Now"
 msgstr "Inscreva-se agora"
 
@@ -542,13 +493,14 @@ msgstr "Você foi desconectado"
 msgid "Log In Again"
 msgstr "Faça o login novamente"
 
-#: users/templates/users/password_reset.html:9
+#: users/templates/users/password_reset.html:5
+#: users/templates/users/password_reset.html:17
 #: users/templates/users/password_reset_confirm.html:9
 #: users/templates/users/password_reset_confirm.html:13
 msgid "Reset Password"
 msgstr "Redefinir Senha"
 
-#: users/templates/users/password_reset.html:13
+#: users/templates/users/password_reset.html:21
 msgid "Request Password Reset"
 msgstr "Solicitar redefinição de senha"
 
@@ -587,6 +539,48 @@ msgstr "Já tem uma conta?"
 #: users/templates/users/register.html:18
 msgid "Sign In"
 msgstr "Se inscrever"
+
+#~ msgid "Support: "
+#~ msgstr "Suporte: "
+
+#~ msgid "Quaternion"
+#~ msgstr "Quaternion"
+
+#~ msgid "Right Hand"
+#~ msgstr "Mão Direita"
+
+#~ msgid "Image editor"
+#~ msgstr "Editor de Imagem"
+
+#~ msgid "Result"
+#~ msgstr "Resultado"
+
+#~ msgid "Reconstruction"
+#~ msgstr "Reconstrução"
+
+#~ msgid "Our Sidebar"
+#~ msgstr "Nossa barra lateral"
+
+#~ msgid "You can put any information here you'd like."
+#~ msgstr "Você pode colocar qualquer informação aqui que você gostaria."
+
+#~ msgid "Latest"
+#~ msgstr "Mais recentes"
+
+#~ msgid "Announcements"
+#~ msgstr "Anúncios"
+
+#~ msgid "Calendars"
+#~ msgstr "Calendários"
+
+#~ msgid "etc"
+#~ msgstr "etc"
+
+#~ msgid "Lite editor"
+#~ msgstr "Editor Lite"
+
+#~ msgid "About Page"
+#~ msgstr "Sobre a página"
 
 #~ msgid "Change Brightness and Contrast"
 #~ msgstr "Mudança de Brilho e contraste"

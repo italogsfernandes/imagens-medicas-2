@@ -21,7 +21,3 @@ class TestUrls:
     def images_list_url(self):
         path = reverse('images_list')
         assert resolve(path).view_name == 'images_list'
-
-    def belo_horizonte_url(self):
-        path = reverse('belo-horizonte')
-        assert resolve(path).view_name == 'belo-horizonte'
