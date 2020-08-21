@@ -24,7 +24,17 @@ def register(request):
             return redirect('home')
     else:
         form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': form})
+
+    form['password1'].help_text = (
+        form['password1'].help_text[:-5] +
+        '<li>Secure Password Generator: <a href="https://passwordsgenerator.net/pt/?length=16&symbols=1&numbers=1&lowercase=1&uppercase=1&similar=1&ambiguous=1&client=1&autoselect=1">passwordsgenerator.net <i class="fa fa-external-link" aria-hidden="true"></i></a>.</li>' +  # noqa
+        form['password1'].help_text[-5:]
+    )
+    context = {
+        'title': "Sign Up",
+        'form': form,
+    }
+    return render(request, 'users/register.html', context)
 
 
 @login_required
@@ -45,6 +55,7 @@ def profile(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {
+        'title': "Login",
         'u_form': u_form,
         'p_form': p_form
     }
