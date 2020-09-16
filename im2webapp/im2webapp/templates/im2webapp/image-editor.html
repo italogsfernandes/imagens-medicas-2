@@ -23,7 +23,7 @@
       <div class="col-md-12" id="div_output_image" style="display:block;">
         <h6>
           {% trans "Output Image" %}
-          <a class="btn btn-success" href="{{image_object.original_image.url}}" download style="padding: 4px 8px; font-size: 0.75em;" title="Download"><i class="fa fa-download"></i></a>
+          <a class="btn btn-success" href="{{image_object.edited_image.url}}" download style="padding: 4px 8px; font-size: 0.75em;" title="Download"><i class="fa fa-download"></i></a>
         </h6>
         <img src="{{image_object.edited_image.url}}"
              id="output_image"
