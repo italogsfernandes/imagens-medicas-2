@@ -180,7 +180,7 @@ msgstr "Sobel"
 
 #: im2webapp/models.py:670
 msgid "Filter Type: "
-msgstr "Tipo de Ruído: "
+msgstr "Tipo de Filtro: "
 
 #: im2webapp/models.py:685
 msgid "Size: "
