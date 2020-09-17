@@ -1,4 +1,68 @@
 $(document).ready(function() {
+
+  var original_image_obj = document.getElementById("output_original_image");
+  var output_image_obj = document.getElementById("output_image");
+
+  function show_tiff_image(id_field, filename, elem_id, canvas_arg, context_arg, div_histogram, title_histogram) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', filename);
+    xhr.responseType = 'arraybuffer';
+    xhr.onload = function (e) {
+      var buffer = xhr.response;
+      var tiff = new Tiff({buffer: buffer});
+      var canvas = tiff.toCanvas();
+      var width = tiff.width();
+      var height = tiff.height();
+      var dataurl = tiff.toDataURL();
+      if (dataurl) {
+        $("#" + id_field).attr("src", tiff.toDataURL());
+      }
+      if (canvas) {
+        canvas_arg.width = width;
+        canvas_arg.height = height;
+        context_arg.drawImage(canvas, 0, 0);
+
+        context_canvas = canvas.getContext("2d");
+        var new_image_data_output = context_canvas.getImageData(
+          0, 0, width, height
+        );
+        generate_histogram(
+          div_histogram,
+          title_histogram,
+          new_image_data_output
+        );
+      }
+    };
+    xhr.send();
+  }
+
+  function render_tiff_image(id_field, filename) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', filename);
+    xhr.responseType = 'arraybuffer';
+    xhr.onload = function (e) {
+      var buffer = xhr.response;
+      var tiff = new Tiff({
+        buffer: buffer
+      });
+      var dataurl = tiff.toDataURL();
+      if (dataurl) {
+        $("#" + id_field).attr("src", tiff.toDataURL());
+      }
+    };
+    xhr.send();
+  }
+
+  $(".img-mini-viewer").each(function (index, element) {
+    if ($(element).attr("src").endsWith(".tif")) {
+      render_tiff_image(
+        element.id,
+        $(element).attr("src"),
+      );
+    }
+  });
+
+
   // Setting up canvas variables
   var canvas_original = document.createElement("canvas");
   var canvas_output = document.createElement("canvas");
@@ -7,19 +71,51 @@ $(document).ready(function() {
   canvas_original.width = original_image_obj.width;
   canvas_original.height = original_image_obj.height;
   var ctx_original = canvas_original.getContext("2d");
-  ctx_original.drawImage(original_image_obj, 0, 0);
-  var image_data_original = ctx_original.getImageData(
-    0, 0, original_image_obj.width, original_image_obj.height
-  );
+  if (!$(original_image_obj).attr("src").endsWith(".tif")){
+    ctx_original.drawImage(original_image_obj, 0, 0);
+    var image_data_original = ctx_original.getImageData(
+      0, 0, original_image_obj.width, original_image_obj.height
+    );
+    generate_histogram(
+      "div_original_histogram_result_plot",
+      "Original Histogram",
+      image_data_original
+    )
+  } else {
+    show_tiff_image(
+      "output_original_image",
+      $(original_image_obj).attr("src"),
+      'original_tiff_image',
+      canvas_original,
+      ctx_original,
+      "div_original_histogram_result_plot",
+      "Original Histogram");
+  }
 
   var output_image_obj = document.getElementById("output_image");
   canvas_output.width = output_image_obj.width;
   canvas_output.height = output_image_obj.height;
   var ctx_output = canvas_output.getContext("2d");
-  ctx_output.drawImage(output_image_obj, 0, 0);
-  var image_data_output = ctx_output.getImageData(
-    0, 0, output_image_obj.width, output_image_obj.height
-  );
+  if (!$(output_image_obj).attr("src").endsWith(".tif")) {
+    ctx_output.drawImage(output_image_obj, 0, 0);
+    var image_data_output = ctx_output.getImageData(
+      0, 0, output_image_obj.width, output_image_obj.height
+    );
+    generate_histogram(
+      "div_output_histogram_result_plot",
+      "Output Histogram",
+      image_data_output
+    );
+  } else {
+    show_tiff_image(
+      "output_image",
+      $(output_image_obj).attr("src"),
+      "output_tiff_image",
+      canvas_output,
+      ctx_output,
+      "div_output_histogram_result_plot",
+      "Output Histogram");
+  }
 
   function generate_histogram(div_id, title, image_data) {
     var r_values = [];
@@ -63,16 +159,6 @@ $(document).ready(function() {
     Plotly.newPlot(div_id, data, layout);
   }
 
-  generate_histogram(
-    "div_original_histogram_result_plot",
-    "Original Histogram",
-    image_data_original
-  )
-  generate_histogram(
-    "div_output_histogram_result_plot",
-    "Output Histogram",
-    image_data_output
-  );
   $("#btn_update_image_histogram").click(function() {
     generate_histogram(
       "div_output_histogram_result_plot",
@@ -251,22 +337,36 @@ $(document).ready(function() {
 
     // Update image data
     var timestamp = new Date().getTime();
-    $('#output_image').attr('src', data.edited_image_url + '?timestamp=' + timestamp);
-
+    var new_edited_image_url = data.edited_image_url + '?timestamp=' + timestamp;
+    
     var img = new window.Image();
-    img.addEventListener("load", function () {
-      ctx_output.clearRect(0, 0, canvas_output.width, canvas_output.height);
-      ctx_output.drawImage(img, 0, 0);
-      var new_image_data_output = ctx_output.getImageData(
-        0, 0, img.width, img.height
-      );
-      generate_histogram(
+    $('#output_image').attr('src', new_edited_image_url);
+
+    if (data.edited_image_url.endsWith(".tif")) {
+      show_tiff_image(
+        "output_image",
+        new_edited_image_url,
+        "output_tiff_image",
+        canvas_output,
+        ctx_output,
         "div_output_histogram_result_plot",
-        "Output Histogram",
-        new_image_data_output
-      );
-    });
-    img.setAttribute("src", data.edited_image_url + '?timestamp=' + timestamp);
+        "Output Histogram");
+    } else {
+      img.addEventListener("load", function () {
+        ctx_output.clearRect(0, 0, canvas_output.width, canvas_output.height);
+        ctx_output.drawImage(img, 0, 0);
+        var new_image_data_output = ctx_output.getImageData(
+          0, 0, img.width, img.height
+        );
+        generate_histogram(
+          "div_output_histogram_result_plot",
+          "Output Histogram",
+          new_image_data_output
+        );
+      });
+      img.setAttribute("src", data.edited_image_url + '?timestamp=' + timestamp);
+    }
+
     set_btn_undo_last_action_click();
     set_btn_reset_all_actions_click();
   }

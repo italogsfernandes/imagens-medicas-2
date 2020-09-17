@@ -4,7 +4,7 @@
   <a href="{% url 'image-editor' image_object.slug %}">
     <h5>{{image_object.name}}</h5>
     <p class="text-center">
-      <img src="{{image_object.original_image.url}}" width="150px" height="auto">
+      <img class="img-list-thumb" src="{{image_object.original_image.url}}" width="150px" height="auto" id="img-thumb-{{image_object.id}}">
     </p>
   <a>
     {# <a href="{% url 'winegrower_url' winegrower.slug %}"> #}
