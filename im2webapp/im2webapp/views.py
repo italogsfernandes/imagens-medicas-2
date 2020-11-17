@@ -22,11 +22,13 @@ from django.shortcuts import render
 
 from im2webapp.models import (
     ImageModel,
+    ImageGroupModel,
     IntensityImageModifier,
 )
 
 from im2webapp.forms import (
     ImageModelForm,
+    ImageGroupModelForm,
     AddIntensityModifierForm,
     AddNoiseModifierForm,
     AddFilterModifierForm,
@@ -57,6 +59,26 @@ class ImageListView(LoginRequiredMixin, ListView):
         query = super().get_queryset()
         query = query.filter(user=user)
         return query
+
+    def get_context_data(self, **kwargs):
+        context = super(ImageListView, self).get_context_data(**kwargs)
+        objects_list = context['object_list']
+        context['image_standalone'] = objects_list.filter(image_group__isnull=True)
+        context['image_in_groups'] = objects_list.filter(image_group__isnull=False).order_by('image_group', 'name')
+        return context
+
+
+class ImageGroupListView(LoginRequiredMixin, DetailView):
+    template_name = 'im2webapp/image_group_details.html'
+    model = ImageGroupModel
+    query_pk_and_slug = True
+    slug_url_kwarg = 'group_slug'
+    context_object_name = 'group_object'
+
+    def get_context_data(self, **kwargs):
+        context = super(ImageGroupListView, self).get_context_data(**kwargs)
+        context['object_list'] = self.object.imagemodel_set.all().order_by("name")
+        return context
 
 
 class ResetImageRedirectView(RedirectView):
@@ -108,6 +130,26 @@ class EqualizeImageModifierView(RedirectView):
         )
         self.image_model.do_equalize()
         messages.success(request, "Imagem Equalizada!")
+        return redirect_to_referrer(request, 'images_list')
+
+
+class ProcessarView(RedirectView):
+    def get(self, request, *args, **kwargs):
+        self.image_group = get_object_or_404(
+            ImageGroupModel, slug=kwargs['group_slug'], user=request.user
+        )
+        msg = self.image_group.processar()
+        messages.success(request, msg)
+        return redirect_to_referrer(request, 'images_list')
+
+
+class ClassificarView(RedirectView):
+    def get(self, request, *args, **kwargs):
+        self.image_group = get_object_or_404(
+            ImageGroupModel, slug=kwargs['group_slug'], user=request.user
+        )
+        msg = self.image_group.classificar()
+        messages.success(request, msg)
         return redirect_to_referrer(request, 'images_list')
 
 
@@ -255,6 +297,20 @@ class UploadImageView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(UploadImageView, self).get_context_data(**kwargs)
+        # This sets the initial value for the field:
+        context['form'].fields['user'].initial = self.request.user.pk
+        context['form'].fields['user'].widget = HiddenInput()
+        return context
+
+
+class UploadImageGroupView(CreateView):
+    model = ImageGroupModel
+    form_class = ImageGroupModelForm
+    template_name = 'im2webapp/upload_image_group_view.html'
+    success_url = reverse_lazy('images_list')
+
+    def get_context_data(self, **kwargs):
+        context = super(UploadImageGroupView, self).get_context_data(**kwargs)
         # This sets the initial value for the field:
         context['form'].fields['user'].initial = self.request.user.pk
         context['form'].fields['user'].widget = HiddenInput()

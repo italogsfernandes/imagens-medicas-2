@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from im2webapp.models import (
     ImageModel,
+    ImageGroupModel,
     IntensityImageModifier,
     NoiseImageModifier,
     FilterImageModifier,
@@ -31,6 +32,37 @@ class ImageModelForm(forms.ModelForm):
 
         if same_name_query.exists():
             raise ValidationError(_("Can't have duplicate image names"))
+
+
+class ImageGroupModelForm(forms.ModelForm):
+    class Meta:
+        model = ImageGroupModel
+        fields = [
+            'images_zip_file',
+            'name',
+            'comments',
+            'user',
+        ]
+
+    def __init__(self, *args, **kwargs):
+        response = super(ImageGroupModelForm, self).__init__(*args, **kwargs)
+        self.fields['images_zip_file'].widget.attrs['accept'] = '.zip, .rar'
+        return response
+
+    def clean(self):
+        data = self.cleaned_data
+        slug = slugify(data['name'])
+        same_name_query = ImageModel.objects.filter(
+            slug=slug, user=data['user']
+        )
+
+        if same_name_query.exists():
+            raise ValidationError(_("Can't have duplicate image group names"))
+
+    def save(self, commit=True):
+        instance = super(ImageGroupModelForm, self).save(commit=True)
+        instance._descompactar_zip()
+        return instance
 
 
 class AddIntensityModifierForm(forms.ModelForm):

@@ -8,12 +8,16 @@ from .views import (
     ImageEditorView,
     ImageEditorLiteView,
     UploadImageView,
+    UploadImageGroupView,
     ImageAddIntensityModifierView,
     ImageAddNoiseModifierView,
     ImageAddFilterModifierView,
     ResetImageRedirectView,
     UndoModifierRedirectView,
     EqualizeImageModifierView,
+    ImageGroupListView,
+    ProcessarView,
+    ClassificarView,
 )
 
 
@@ -26,8 +30,25 @@ urlpatterns = [
         ImageEditorView.as_view(),
         name='image-editor'
     ),
+    path(
+        'groups/<group_slug>/',
+        ImageGroupListView.as_view(),
+        name='image-group-details'
+    ),
+    path(
+        'groups/<group_slug>/processar/',
+        ProcessarView.as_view(),
+        name='image-group-processar'
+    ),
+    path(
+        'groups/<group_slug>/classificar/',
+        ClassificarView.as_view(),
+        name='image-group-classificar'
+    ),
     url('images/', ImageListView.as_view(), name='images_list'),
     path('upload-image/', UploadImageView.as_view(), name='view_upload_image'),
+    path('upload-image-group/', UploadImageGroupView.as_view(),
+         name='view_upload_image_group'),
     url(
         'add_intensity_modifier/',
         ImageAddIntensityModifierView.as_view(),

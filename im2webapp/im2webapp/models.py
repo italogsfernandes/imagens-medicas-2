@@ -1,7 +1,12 @@
 from PIL import Image
 import math
 from django.db import models
+import base64
+import zipfile
+import os
+import glob
 
+from django.conf import settings
 from django.template.defaultfilters import slugify
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit
@@ -9,13 +14,83 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth import get_user_model
 from django.db.models import CharField, Value
+from django.core.validators import FileExtensionValidator
 
 import numpy as np  # Image manipulation as nparray
 from scipy import ndimage  # Filters
 from scipy import signal  # Filters
 import imageio
+import patoolib
 
 User = get_user_model()
+
+
+class ImageGroupModel(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(
+        unique=False, verbose_name=_("Slug"), null=True, blank=True
+    )
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    comments = models.TextField(blank=True, default='')
+
+    images_zip_file = models.FileField(
+        _("Images File Zip"),
+        upload_to="images_zip/",
+        max_length=100,
+        validators=[FileExtensionValidator(allowed_extensions=['zip', 'rar'])]
+    )
+
+    class Meta:
+        unique_together = [['user', 'slug']]
+
+    def clean(self):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(ImageGroupModel, self).clean()
+
+    def _descompactar_zip(self):
+        complete_file_name = self.images_zip_file.path
+        file_name = complete_file_name.split('/')[-1]
+        file_path = complete_file_name.split('/')[:-1]
+        folder_name = file_name.replace(".rar", "").replace(".zip", "") + "_files"
+        file_path.append(folder_name)
+        folder_path = '/'.join(file_path)
+        try:
+            os.mkdir(folder_path)
+        except OSError:
+            print("Creation of the directory %s failed" % folder_path)
+        else:
+            print("Successfully created the directory %s " % folder_path)
+            patoolib.extract_archive(complete_file_name, outdir=folder_path)
+            png_filelist = glob.glob(f'{folder_path}/*.png')
+            n = 0
+            for img_file in png_filelist:
+                n += 1
+                image_file_url = img_file.replace(f"{settings.MEDIA_ROOT}/", "")
+                img_model = ImageModel.objects.create(
+                    name=f"{n}_{self.name}",
+                    slug=f"{n}_{self.slug}",
+                    user=self.user,
+                    original_image=image_file_url,
+                    image_group=self,
+                )
+                img_model.reset_edited_image()
+
+    def processar(self):
+        self.imagemodel_set.all().update(processada=True)
+        return "Imagens processadas!"
+
+    def classificar(self):
+        self.imagemodel_set.all().update(is_covid=True)
+        return "Imagens classificadas!"
+
+    # TODO: add delete storage. self.image.storage.delete
+    def __str__(self):
+        return self.name
 
 
 class ImageModel(models.Model):
@@ -45,6 +120,16 @@ class ImageModel(models.Model):
         format='JPEG',
         options={'optimize': True}
     )
+
+    image_group = models.ForeignKey(
+        ImageGroupModel,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
+
+    processada = models.BooleanField(_("Processada"), default=False)
+    is_covid = models.BooleanField(_("COVID"), default=False)
 
     class Meta:
         unique_together = [['user', 'slug']]
@@ -122,7 +207,7 @@ class ImageModel(models.Model):
         original_image = imageio.imread(complete_file_name)
         # Save the result
         imageio.imwrite(edited_image_file_path, original_image)
-        self.edited_image = new_file_name
+        self.edited_image = edited_image_file_path.replace(f"{settings.MEDIA_ROOT}/", "")
         self.save()
 
     def apply_all_modifiers(self):
@@ -839,3 +924,5 @@ class FilterImageModifier(models.Model):
                 self.filter_argument_value,
                 self.size_value,
             )
+
+

@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load static %}
+{% load bootstrap3 %}
+
+<div class="content-section">
+  <h4>{% trans "Menu" %}</h4>
+  <div style="margin-bottom: 50px;">
+    <hr>
+    <h5 class="text-center">Opções:</h5>
+    <p class="text-center" style="margin-top: 20px;">
+      <a href="{% url 'image-group-processar' object.slug %}" class="btn btn-success" style="margin-right: 5px;">{% trans "Processar" %}</a>
+      <a href="{% url 'image-group-classificar' object.slug %}" class="btn btn-info" style="margin-left: 5px;">{% trans "Classificar" %}</a>
+    </p>
+    <p class="text-center" style="margin-top: 20px;">
+      STATUS: -
+    </p>
+  </div>
+</div>
+{% include 'im2webapp/_messages.html' %}

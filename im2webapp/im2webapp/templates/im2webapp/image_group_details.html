@@ -1,0 +1,62 @@
+{% extends "im2webapp/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans 'Grupo:' %} {{object.name}}{% endblock %}
+
+{% block side_bar %}{% include 'im2webapp/_image_group_side_bar.html' %}{% endblock %}
+
+{% block messages %}{% endblock %}
+
+{% block content %}
+
+  <div style="width: 100%;">
+    <a id="top"></a>
+    <h1 class="text-center">{% trans 'Grupo:' %} {{object.name}}</h1>
+  <hr>
+
+  {% if object_list %}
+    <div class="row">
+      {% for image_object in object_list %}
+        <div class="col-md-4 thumb text-center bordered">
+          <a href="{% url 'image-editor' image_object.slug %}">
+            <h5>{{image_object.name}}</h5>
+            <p class="text-center" style="margin-bottom: 0px;">
+              <img class="img-list-thumb" src="{{image_object.edited_image.url}}" width="150px" height="auto" id="img-thumb-{{image_object.id}}">
+            </p>
+          <a>
+          <p class="text-center">
+            PROCESSADA: 
+            {% if image_object.processada %}
+              <i class='fa fa-check-circle text-success' aria-hidden='true' style="font-size: 1.5em;"></i>
+            {% else %}
+              <i class='fa fa-times-circle text-danger' aria-hidden='true' style="font-size: 1.5em;"></i>
+            {% endif %}
+            <br>
+            COVID: 
+            {% if image_object.is_covid %}
+              <i class='fa fa-check-circle text-success' aria-hidden='true' style="font-size: 1.5em;"></i>
+            {% else %}
+              <i class='fa fa-times-circle text-danger' aria-hidden='true' style="font-size: 1.5em;"></i>
+            {% endif %}
+            <br>
+          <p>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="row">
+      <div class="col-md-12">
+        <p class="text-center">{% trans 'This group have no images, please add a valid file.' %}</p>
+      </div>
+    </div>
+  {% endif %}
+  </div>
+
+{% endblock %}
+
+{% block extra_js %}
+  {{ block.super }}
+  <script src="{% static 'im2webapp/js/tiff.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'im2webapp/js/image-list.js' %}" type="text/javascript"></script>
+{% endblock %}

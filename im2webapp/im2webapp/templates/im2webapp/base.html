@@ -54,7 +54,7 @@
           </div>
           {% block outside_content %}
           <div class="col-md-9">
-              {% include 'im2webapp/_messages.html' %}
+              {% block messages %}{% include 'im2webapp/_messages.html' %}{% endblock %}
               {% block content %}{% endblock %}
           </div>
           {% endblock %}

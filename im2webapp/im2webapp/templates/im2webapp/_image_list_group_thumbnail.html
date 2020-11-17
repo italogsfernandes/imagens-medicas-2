@@ -1,0 +1,10 @@
+{% load i18n %}
+
+<div class="col-md-4 thumb text-center bordered">
+  <a href="{% url 'image-editor' image_object.slug %}">
+    <h5>Grupo: {{image_object.image_group.name}}</h5>
+    <p class="text-center">
+      <img class="img-list-thumb" src="{{image_object.original_image.url}}" width="150px" height="auto" id="img-thumb-{{image_object.id}}">
+    </p>
+  <a>
+</div>

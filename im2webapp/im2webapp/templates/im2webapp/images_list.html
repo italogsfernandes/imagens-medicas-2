@@ -16,8 +16,21 @@
   {% if object_list %}
     <div class="row">
       {% include "im2webapp/_add_new_image_thumbnail.html" %}
-      {% for image_object in object_list %}
+      {% include "im2webapp/_add_new_image_group_thumbnail.html" %}
+      {% for image_object in image_standalone %}
         {% include "im2webapp/_image_list_thumbnail.html" %}
+      {% endfor %}
+      {% for image_object in image_in_groups %}
+        {% ifchanged image_object.image_group %}
+          <div class="col-md-4 thumb text-center bordered">
+            <a href="{% url 'image-group-details' image_object.image_group.slug %}">
+              <h5>Grupo: {{image_object.image_group.name}}</h5>
+              <p class="text-center">
+                <img class="img-list-thumb" src="{{image_object.edited_image.url}}" width="150px" height="auto" id="img-thumb-{{image_object.id}}">
+              </p>
+            <a>
+          </div>
+        {% endifchanged %}
       {% endfor %}
     </div>
   {% else %}
@@ -25,9 +38,10 @@
       <div class="col-md-12">
         <p class="text-center">{% trans 'You have no images, please add one.' %}</p>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-2">
       </div>
       {% include "im2webapp/_add_new_image_thumbnail.html" %}
+      {% include "im2webapp/_add_new_image_group_thumbnail.html" %}
     </div>
   {% endif %}
   </div>
