@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'im2webapp',
+        'NAME': 'im2webapp_covid',
     }
 }
 
