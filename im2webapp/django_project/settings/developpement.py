@@ -10,7 +10,7 @@ if (os.environ.get('DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_PASSWORD') and
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'NAME': 'im2webapp',
+            'NAME': 'im2webapp_covid',
             'USER': os.environ.get(
                 'DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_USER'),
             'PASSWORD': os.environ.get(
