@@ -18,7 +18,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'im2webapp/css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'im2webapp/css/main.css' %}?version=1">
 
     {# Global fonts #}
 	  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600">
@@ -31,6 +31,18 @@
     <header class="site-header">
     {% block top_menu %}{% include 'im2webapp/_top_menu.html' %}{% endblock %}
     </header>
+
+      <div class="alert alert-danger" style="display: none;">
+        <p class="text-center">
+          <strong>Versão Backup:</strong>
+          Use somente se  <a href="http://im2.italogsfernandes.com/">im2.italogsfernandes.com</a>
+          estiver fora do ar, nesse caso entre em contato com
+          <a href="https://wa.me/+5534999328668?text=O%20site%20IM2%20está%20fora%20do%20ar" target="_blank">(34) 99932 8668 Whatsapp</a>.
+          <br>
+          Todos os dados de dessa versão são excluídos diariamente, dados de usuário salvos na versão oficial não são copiados para essa versão.
+          Por favor crie um novo usuário para poder usar.
+        </p>
+      </div>
 
     {% block layout %}{% endblock %}
 
@@ -48,6 +60,11 @@
           {% endblock %}
         </div>
       {% endblock %}
+      
+      <div class="alert alert-danger" style="display: none;">
+        {% lorem 1 p random %}
+      </div>
+
       {% block footer %}{% include 'im2webapp/_footer.html' %}{% endblock %}
     </main>
 
