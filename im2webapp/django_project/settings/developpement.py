@@ -26,7 +26,8 @@ if (os.environ.get('DJANGO_IM2WEBAPP_PRODUCTION_POSTGRESQL_PASSWORD') and
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'italogsfernandes.com',
+    'walbax.com.br',
+    'covid-ufu.walbax.com.br',
 ]
 
 for template_engine in TEMPLATES:  # NOQA
