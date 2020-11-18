@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/github/license/italogsfernandes/imagens-medicas-2.svg)](LICENSE)
 
 ## Online Version (Under Development)
-Follow the link: [IM2 WebApp](http://italogsfernandes.com/imagens-medicas-2)
+Follow the link: [Covid-UFU WebApp](http://covid-ufu.walbax.com.br/)
 
 ![](docs/covid_site_screenshot.png)
 
