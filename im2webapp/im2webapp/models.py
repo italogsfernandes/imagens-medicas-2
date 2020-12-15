@@ -115,7 +115,7 @@ class ImageModel(models.Model):
         complete_file_name = self.original_image.path
         file_name = complete_file_name.split('/')[-1]
         file_path = complete_file_name.split('/')[:-1]
-        new_file_name = 'EDITED-' + file_name
+        new_file_name = 'MODIFIED-' + file_name
         file_path.append(new_file_name)
         edited_image_file_path = '/'.join(file_path)
         # Open the image file

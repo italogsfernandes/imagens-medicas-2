@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 22:34+0000\n"
+"POT-Creation-Date: 2020-09-17 11:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator:Italo Gustavo Sampaio Fernandes <italogsfernandes@gmail."
 "com>\n"
@@ -117,7 +117,7 @@ msgstr "Intensidade {} ({}: {})"
 #: im2webapp/models.py:396 im2webapp/models.py:647
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:43
 msgid "Uniform"
-msgstr "Uniforme"
+msgstr "Média"
 
 #: im2webapp/models.py:397 im2webapp/models.py:646
 #: im2webapp/templates/im2webapp/_edit_image_side_bar_lite.html:44
@@ -180,7 +180,7 @@ msgstr "Sobel"
 
 #: im2webapp/models.py:670
 msgid "Filter Type: "
-msgstr "Tipo de Ruído: "
+msgstr "Tipo de Filtro: "
 
 #: im2webapp/models.py:685
 msgid "Size: "
@@ -441,7 +441,7 @@ msgid "Simulated Image"
 msgstr "Imagem simulada"
 
 #: im2webapp/templates/im2webapp/image-editor-lite.html:23
-#: im2webapp/templates/im2webapp/image-editor.html:24
+#: im2webapp/templates/im2webapp/image-editor.html:25
 msgid "Output Image"
 msgstr "Imagem Resultado"
 
@@ -524,19 +524,23 @@ msgstr "Perfil"
 msgid "Update"
 msgstr "Atualizar"
 
-#: users/templates/users/register.html:9
+#: users/templates/users/register.html:4
+msgid "Sing Up"
+msgstr ""
+
+#: users/templates/users/register.html:14
 msgid "Join Today"
 msgstr "Junte-se hoje"
 
-#: users/templates/users/register.html:13
+#: users/templates/users/register.html:18
 msgid "Sign Up"
 msgstr "Inscrever-se"
 
-#: users/templates/users/register.html:18
+#: users/templates/users/register.html:23
 msgid "Already Have An Account?"
 msgstr "Já tem uma conta?"
 
-#: users/templates/users/register.html:18
+#: users/templates/users/register.html:23
 msgid "Sign In"
 msgstr "Se inscrever"
 

@@ -33,3 +33,9 @@
   </div>
 
 {% endblock %}
+
+{% block extra_js %}
+  {{ block.super }}
+  <script src="{% static 'im2webapp/js/tiff.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'im2webapp/js/image-list.js' %}" type="text/javascript"></script>
+{% endblock %}
